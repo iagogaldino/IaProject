@@ -1,20 +1,17 @@
-# Stage 1: Build the Angular app
-FROM node:18 AS build
+# Use Node.js image for development
+FROM node:20.19
 
 WORKDIR /app
 
+# Copy package files and install dependencies
 COPY package*.json ./
 RUN npm install
 
+# Copy the rest of the code
 COPY . .
-RUN npm run build --prod
 
-# Stage 2: Serve with Nginx
-FROM nginx:alpine
+# Expose the Angular dev server port
+EXPOSE 4200
 
-COPY --from=build /app/dist/<your-app-name> /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+# Run Angular in dev mode
+CMD ["npm", "start"]
