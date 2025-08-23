@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons, IonIcon, IonInput, IonChip, IonLabel } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons, IonIcon, IonInput, IonLabel } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   chatbubblesOutline,
@@ -15,6 +15,7 @@ import {
   documentTextOutline
 } from 'ionicons/icons';
 import { ApiService } from '../services/api.service';
+import { delay, tap } from 'rxjs';
 
 @Component({
   selector: 'app-voice-chat',
@@ -22,7 +23,7 @@ import { ApiService } from '../services/api.service';
   styleUrls: ['./voice-chat.page.scss'],
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar,
-    IonButton, IonButtons, IonIcon, IonInput, IonChip, IonLabel, CommonModule, FormsModule,
+    IonButton, IonButtons, IonIcon, IonInput, CommonModule, FormsModule,
     FormsModule, ReactiveFormsModule
 
   ]
@@ -69,16 +70,16 @@ export class VoiceChatPage implements OnInit {
       this.messages.push({ text: message, sender: 'user', hour: currentHour });
       this.form.reset();
 
-      setTimeout(() => {
-        this.isTyping = true;
-      }, 1000);
-
-      // Call the API service
-      this.apiService.askQuestion(message).subscribe({
+      this.apiService.askQuestion(message)
+      .pipe(
+        tap(() => this.isTyping = true),
+        delay(2000)
+      )
+      .subscribe({
         next: (response) => {
           const aiResponse = {
             id: Date.now() + 1,
-            content: response.data, // Assuming the API returns { answer: '...' }
+            content: response.data,
             sender: 'ai',
             timestamp: new Date()
           };
