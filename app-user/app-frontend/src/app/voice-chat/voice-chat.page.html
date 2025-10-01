@@ -1,0 +1,170 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Conectlina
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="goToSavedMessages()" fill="clear">
+        <ion-icon name="library-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Header da conversa com avatar da Lina - só aparece quando chat está vazio -->
+  @if (isChatEmpty) {
+  <div class="conversation-header">
+    <div class="lina-avatar">
+      <div class="avatar-ring"></div>
+      <img src="assets/nina.jpg" alt="Lina" class="avatar-image" />
+    </div>
+    <h2 class="lina-name">Lina</h2>
+  </div>
+  }
+  
+  <div>
+    <!-- Welcome Message -->
+    <!-- <div class="welcome-section">
+      <div class="ai-avatar">
+        <div class="avatar-ring"></div>
+        <ion-icon name="sparkles" class="avatar-icon"></ion-icon>
+      </div>
+      <h2 class="welcome-title">Hello! I'm your AI Assistant</h2>
+      <p class="welcome-subtitle">How can I help you today?</p>
+    </div> -->
+
+    <!-- Chat Messages -->
+    <div class="messages-container">
+
+
+      @for (item of messages; track item) {
+
+      @if (item.sender === 'assistant') {
+      <div class="message ai-message">
+        <div class="message-content">
+          <div class="message-bubble ai-bubble">
+            <div class="message-header">
+              <div class="sender-info">
+                <div class="message-avatar lina-avatar-small">
+                  <img src="assets/nina.jpg" alt="Lina" class="avatar-image-small" />
+                </div>
+                <span class="sender-name">Lina</span>
+              </div>
+            </div>
+            <p [innerHTML]="item.text"></p>
+            <div class="message-actions">
+              <span class="message-time">{{ item.hour }}</span>
+              <ion-button 
+                fill="clear" 
+                size="small"
+                (click)="saveMessage(item)"
+                class="save-button">
+                <ion-icon name="bookmark-outline"></ion-icon>
+                Salvar
+              </ion-button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      } @else if (item.sender === 'user') {
+
+      <div class="message user-message">
+        <div class="message-content">
+          <div class="message-bubble user-bubble">
+            <div class="message-header">
+              <div class="sender-info">
+                <div class="message-avatar simao-avatar">
+                  <ion-icon name="person"></ion-icon>
+                </div>
+                <span class="sender-name">Você</span>
+              </div>
+            </div>
+            @if (item.image) {
+              <div class="message-image">
+                <img [src]="item.image" alt="Imagem enviada" />
+              </div>
+            }
+            @if (item.text) {
+              <p>{{ item.text }}</p>
+            }
+            <span class="message-time">{{ item.hour }}</span>
+          </div>
+        </div>
+      </div>
+      } @else if (item.sender === 'error') {
+
+
+      <div class="message error-message">
+        <div class="message-bubble error-bubble">
+          <p>{{ item.text }}</p>
+          <span class="message-time">{{ item.hour }}</span>
+        </div>
+      </div>
+
+      }
+
+
+
+      } @empty {
+      <!-- Chat vazio - sem mensagens -->
+      }
+
+      @if (isTyping) {
+      <div class="message ai-message typing">
+        <div class="message-avatar">
+          <ion-icon name="construct-outline"></ion-icon>
+        </div>
+        <div class="message-content">
+          <div class="message-bubble ai-bubble">
+            <div class="typing-indicator">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+
+    </div>
+  </div>
+
+  <!-- Input Section -->
+  <div class="input-section" [formGroup]="form">
+    <!-- Preview da imagem selecionada -->
+    @if (selectedImage) {
+      <div class="image-preview">
+        <img [src]="selectedImage" alt="Imagem selecionada" />
+        <ion-button fill="clear" size="small" (click)="removeImage()" class="remove-image-btn">
+          <ion-icon name="close"></ion-icon>
+        </ion-button>
+      </div>
+    }
+    
+    <div class="input-container">
+      <div class="input-wrapper">
+        <ion-input placeholder="Digite uma mensagem" class="message-input" [clearInput]="true"
+          formControlName="message">
+        </ion-input>
+        
+        <!-- Botão de upload de imagem -->
+        <input type="file" id="image-upload" accept="image/*" (change)="selectImage($event)" style="display: none;">
+        <ion-button fill="clear" shape="round" (click)="openImageSelector()" class="image-button">
+          <ion-icon name="image-outline"></ion-icon>
+        </ion-button>
+        
+        <ion-button fill="clear" shape="round" (click)="startListening()" class="mic-button">
+          <ion-icon name="mic-outline"></ion-icon>
+        </ion-button>
+        
+        <ion-button fill="clear" shape="round" (click)="sendMessage()" class="send-button">
+          <ion-icon name="send"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<!-- <app-voice-listener></app-voice-listener> -->

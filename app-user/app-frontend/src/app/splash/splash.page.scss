@@ -1,0 +1,511 @@
+.splash-content {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1);
+  transform: rotate(0deg) !important;
+}
+
+// Background colorido
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  
+  .color-section {
+    position: absolute;
+    width: 60%;
+    height: 100%;
+    filter: blur(20px);
+    opacity: 0.8;
+    
+    &.yellow {
+      background: linear-gradient(45deg, #ffd93d, #ff6b6b);
+      top: 0;
+      right: 0;
+      border-radius: 0 0 0 50%;
+    }
+    
+    &.green {
+      background: linear-gradient(45deg, #4ecdc4, #44a08d);
+      top: 0;
+      left: 0;
+      border-radius: 0 0 50% 0;
+    }
+  }
+  
+  .red-line {
+    position: absolute;
+    height: 4px;
+    background: #ff4757;
+    filter: blur(2px);
+    opacity: 0.7;
+    
+    &.line-1 {
+      width: 80%;
+      top: 30%;
+      left: 10%;
+      transform: rotate(15deg);
+    }
+    
+    &.line-2 {
+      width: 70%;
+      top: 60%;
+      right: 10%;
+      transform: rotate(-10deg);
+    }
+  }
+}
+
+// Container da Lina
+.lina-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  animation: linaFloat 3s ease-in-out infinite;
+}
+
+// Personagem Lina
+.lina-character {
+  position: relative;
+  width: 200px;
+  height: 300px;
+  animation: linaEntrance 1.5s ease-out;
+}
+
+// Cabeça da Lina
+.lina-head {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  background: #d4a574;
+  border-radius: 50%;
+  margin: 0 auto 10px;
+  z-index: 2;
+  
+  .lina-hair {
+    position: absolute;
+    top: -10px;
+    left: -5px;
+    width: 90px;
+    height: 60px;
+    background: #8b4513;
+    border-radius: 50% 50% 0 0;
+    z-index: -1;
+  }
+  
+  .lina-glasses {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 20px;
+    
+    .glasses-frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 2px solid #2c3e50;
+      border-radius: 50%;
+    }
+    
+    .glasses-lens {
+      position: absolute;
+      top: 2px;
+      width: 20px;
+      height: 16px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      
+      &.left {
+        left: 2px;
+      }
+      
+      &.right {
+        right: 2px;
+      }
+    }
+  }
+  
+  .lina-eyes {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 15px;
+    
+    .eye {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #2c3e50;
+      border-radius: 50%;
+      
+      &.left {
+        left: 8px;
+      }
+      
+      &.right {
+        right: 8px;
+      }
+    }
+  }
+  
+  .lina-smile {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 15px;
+    border: 2px solid #2c3e50;
+    border-top: none;
+    border-radius: 0 0 30px 30px;
+  }
+}
+
+// Corpo da Lina
+.lina-body {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+  
+  .lina-shirt {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 80px;
+    background: #1e3a8a;
+    border-radius: 10px 10px 0 0;
+    
+    .shirt-collar {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 20px;
+      background: white;
+      border-radius: 0 0 15px 15px;
+    }
+    
+    .shirt-buttons {
+      position: absolute;
+      top: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      
+      .button {
+        width: 4px;
+        height: 4px;
+        background: white;
+        border-radius: 50%;
+        margin: 8px auto;
+      }
+    }
+  }
+  
+  .lina-arms {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    
+    .arm {
+      position: absolute;
+      width: 20px;
+      height: 50px;
+      background: #d4a574;
+      border-radius: 10px;
+      
+      &.left {
+        left: -15px;
+        transform: rotate(-20deg);
+        animation: wave 2s ease-in-out infinite;
+        
+        .hand {
+          position: absolute;
+          bottom: -5px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 12px;
+          height: 12px;
+          background: #d4a574;
+          border-radius: 50%;
+        }
+      }
+      
+      &.right {
+        right: -15px;
+        transform: rotate(20deg);
+      }
+    }
+  }
+  
+  .lina-necklace {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 2px;
+    background: #ffd700;
+    border-radius: 1px;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 4px;
+      background: #ffd700;
+      border-radius: 50%;
+    }
+  }
+}
+
+// Calças da Lina
+.lina-pants {
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 60px;
+  background: #2c3e50;
+  border-radius: 0 0 10px 10px;
+}
+
+// Balão de mensagem
+.message-bubble {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  width: 80%;
+  max-width: 300px;
+  background: white;
+  border: 2px solid #1e3a8a;
+  border-radius: 20px;
+  padding: 20px;
+  z-index: 4;
+  animation: bubbleEntrance 1s ease-out 0.5s both;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transform: rotate(0deg) !important;
+  transform-origin: center center;
+  writing-mode: horizontal-tb;
+  text-orientation: mixed;
+  
+  .bubble-content {
+    transform: rotate(0deg) !important;
+    
+    .sender-name {
+      font-weight: bold;
+      color: #1e3a8a;
+      font-size: 16px;
+      margin-bottom: 8px;
+      transform: rotate(0deg) !important;
+    }
+    
+    .message-text {
+      color: #2c3e50;
+      font-size: 14px;
+      line-height: 1.4;
+      transform: rotate(0deg) !important;
+    }
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 30px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid white;
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 28px;
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 12px solid #1e3a8a;
+  }
+}
+
+// Botão de início
+.start-button-container {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  animation: buttonEntrance 1s ease-out 1.5s both;
+  
+  .start-button {
+    --border-color: #1e3a8a;
+    --color: #1e3a8a;
+    --border-radius: 25px;
+    --padding-start: 30px;
+    --padding-end: 30px;
+    --padding-top: 15px;
+    --padding-bottom: 15px;
+    font-weight: bold;
+    font-size: 16px;
+    box-shadow: 0 4px 16px rgba(30, 58, 138, 0.3);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(30, 58, 138, 0.4);
+    }
+  }
+}
+
+// Loading indicator
+.loading-indicator {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  
+  .loading-dots {
+    display: flex;
+    gap: 8px;
+    
+    .dot {
+      width: 8px;
+      height: 8px;
+      background: #1e3a8a;
+      border-radius: 50%;
+      animation: loadingDots 1.5s ease-in-out infinite;
+      
+      &:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      
+      &:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+    }
+  }
+}
+
+// Animações
+@keyframes linaFloat {
+  0%, 100% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-10px);
+  }
+}
+
+@keyframes linaEntrance {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: rotate(-20deg);
+  }
+  50% {
+    transform: rotate(-10deg);
+  }
+}
+
+@keyframes bubbleEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8) rotate(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes buttonEntrance {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes loadingDots {
+  0%, 80%, 100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .lina-character {
+    width: 150px;
+    height: 250px;
+  }
+  
+  .message-bubble {
+    left: 5%;
+    width: 90%;
+    padding: 15px;
+    
+    .bubble-content {
+      .sender-name {
+        font-size: 14px;
+      }
+      
+      .message-text {
+        font-size: 12px;
+      }
+    }
+  }
+  
+  .start-button-container {
+    bottom: 40px;
+    
+    .start-button {
+      --padding-start: 20px;
+      --padding-end: 20px;
+      font-size: 14px;
+    }
+  }
+}

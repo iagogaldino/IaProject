@@ -1,0 +1,172 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ message?.title || 'Detalhes da Mensagem' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleFavorite()">
+        <ion-icon 
+          [name]="message?.isFavorite ? 'star' : 'star-outline'"
+          [color]="message?.isFavorite ? 'warning' : 'medium'">
+        </ion-icon>
+      </ion-button>
+      <ion-button (click)="shareMessage()">
+        <ion-icon name="share"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" *ngIf="message">
+  <!-- Message Info Card -->
+  <ion-card class="message-info-card">
+    <ion-card-header>
+      <div class="message-header">
+        <div class="message-title-section">
+          <ion-card-title *ngIf="!isEditing">{{ message.title }}</ion-card-title>
+          <ion-textarea 
+            *ngIf="isEditing"
+            [(ngModel)]="editTitle"
+            placeholder="Título da mensagem"
+            rows="1"
+            auto-grow="true">
+          </ion-textarea>
+        </div>
+        <div class="message-actions">
+          <ion-button 
+            *ngIf="!isEditing"
+            fill="clear" 
+            size="small"
+            (click)="startEditing()">
+            <ion-icon name="create"></ion-icon>
+          </ion-button>
+          <ion-button 
+            *ngIf="isEditing"
+            fill="clear" 
+            size="small"
+            color="success"
+            (click)="saveEdit()">
+            <ion-icon name="checkmark"></ion-icon>
+          </ion-button>
+          <ion-button 
+            *ngIf="isEditing"
+            fill="clear" 
+            size="small"
+            color="medium"
+            (click)="cancelEdit()">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </ion-card-header>
+
+    <ion-card-content>
+      <!-- Message Meta -->
+      <div class="message-meta">
+        <div class="meta-item">
+          <ion-icon name="time" color="medium"></ion-icon>
+          <span>{{ getFormattedDate(message.timestamp) }}</span>
+        </div>
+        
+        <ion-chip 
+          [color]="getCategoryColor(message.category || 'Geral')"
+          size="small">
+          <ion-icon name="folder"></ion-icon>
+          <ion-label>{{ message.category || 'Geral' }}</ion-label>
+        </ion-chip>
+
+        <div class="tags" *ngIf="message.tags.length > 0">
+          <ion-chip 
+            *ngFor="let tag of message.tags" 
+            color="medium" 
+            size="small">
+            <ion-icon name="tag"></ion-icon>
+            <ion-label>{{ tag }}</ion-label>
+          </ion-chip>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- User Question Card -->
+  <ion-card class="question-card">
+    <ion-card-header>
+      <ion-card-title>Sua Pergunta</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="question-text" [innerHTML]="message.userQuestion"></div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- AI Response Card -->
+  <ion-card class="response-card">
+    <ion-card-header>
+      <ion-card-title>Resposta da IA</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngIf="!isEditing" class="response-content" [innerHTML]="message.content"></div>
+      <ion-textarea 
+        *ngIf="isEditing"
+        [(ngModel)]="editContent"
+        placeholder="Conteúdo da resposta"
+        rows="10"
+        auto-grow="true">
+      </ion-textarea>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Summary Card -->
+  <ion-card class="summary-card">
+    <ion-card-header>
+      <ion-card-title>Resumo</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="summary-text" [innerHTML]="message.summary"></div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<!-- FAB Actions -->
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button>
+    <ion-icon name="more"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="top">
+    <ion-fab-button (click)="copyToClipboard()">
+      <ion-icon name="copy"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button (click)="exportMessage()">
+      <ion-icon name="download"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button (click)="deleteMessage()" color="danger">
+      <ion-icon name="trash"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>
+
+<!-- Share Options Popover -->
+<ion-popover [isOpen]="showShareOptions" (didDismiss)="showShareOptions = false">
+  <ng-template>
+    <ion-content class="popover-content">
+      <ion-list>
+        <ion-item button (click)="copyToClipboard(); showShareOptions = false">
+          <ion-icon name="copy" slot="start"></ion-icon>
+          <ion-label>Copiar texto</ion-label>
+        </ion-item>
+        <ion-item button (click)="exportMessage(); showShareOptions = false">
+          <ion-icon name="download" slot="start"></ion-icon>
+          <ion-label>Exportar</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-popover>
+
+<!-- Copy Success Toast -->
+<div *ngIf="copySuccess" class="copy-success">
+  <ion-icon name="checkmark-circle" color="success"></ion-icon>
+  <span>Copiado para a área de transferência!</span>
+</div>
