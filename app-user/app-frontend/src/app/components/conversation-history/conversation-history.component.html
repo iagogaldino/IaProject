@@ -1,0 +1,103 @@
+﻿<ion-content>
+  <div class="conversation-history-container">
+    <!-- Header -->
+    <div class="header">
+      <h2>Hist├│rico da Conversa</h2>
+      <div class="actions">
+        <ion-button fill="outline" size="small" (click)="getConversationSummary()">
+          <ion-icon name="document-text-outline"></ion-icon>
+          Resumo
+        </ion-button>
+        <ion-button fill="outline" size="small" (click)="getConversationStats()">
+          <ion-icon name="stats-chart-outline"></ion-icon>
+          Estat├¡sticas
+        </ion-button>
+        <ion-button fill="outline" size="small" (click)="clearHistory()">
+          <ion-icon name="trash-outline"></ion-icon>
+          Limpar
+        </ion-button>
+        <ion-button fill="outline" size="small" (click)="startNewConversation()">
+          <ion-icon name="add-outline"></ion-icon>
+          Nova Conversa
+        </ion-button>
+      </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+      <ion-searchbar 
+        placeholder="Buscar mensagens..." 
+        (ionInput)="searchMessages($event.detail.value)"
+        show-clear-button="focus">
+      </ion-searchbar>
+    </div>
+
+    <!-- Conversation Messages -->
+    <div class="messages-container" *ngIf="conversationHistory.length > 0">
+      <div 
+        *ngFor="let message of conversationHistory; let i = index" 
+        class="message-item"
+        [class.user-message]="isUserMessage(message)"
+        [class.assistant-message]="isAssistantMessage(message)">
+        
+        <!-- Message Header -->
+        <div class="message-header">
+          <div class="sender-info">
+            <ion-icon 
+              [name]="isUserMessage(message) ? 'person-outline' : 'chatbubble-outline'"
+              [class.user-icon]="isUserMessage(message)"
+              [class.assistant-icon]="isAssistantMessage(message)">
+            </ion-icon>
+            <span class="sender-name">
+              {{ isUserMessage(message) ? 'Voc├¬' : 'IA' }}
+            </span>
+          </div>
+          <span class="timestamp">{{ formatTimestamp(message.timestamp) }}</span>
+        </div>
+
+        <!-- Message Content -->
+        <div class="message-content">
+          <div class="message-text" [innerHTML]="message.text"></div>
+          
+          <!-- Message Metadata -->
+          <div class="message-metadata" *ngIf="message.metadata && Object.keys(message.metadata).length > 0">
+            <ion-button 
+              fill="clear" 
+              size="small" 
+              (click)="toggleMetadata(i)">
+              <ion-icon name="information-circle-outline"></ion-icon>
+              Detalhes
+            </ion-button>
+          </div>
+        </div>
+
+        <!-- Expanded Metadata -->
+        <div class="metadata-details" *ngIf="message.metadata && Object.keys(message.metadata).length > 0">
+          <ion-card>
+            <ion-card-content>
+              <h4>Metadados da Mensagem</h4>
+              <pre>{{ message.metadata | json }}</pre>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="conversationHistory.length === 0">
+      <ion-icon name="chatbubbles-outline" size="large"></ion-icon>
+      <h3>Nenhuma conversa ainda</h3>
+      <p>Comece uma conversa com a IA para ver o hist├│rico aqui.</p>
+      <ion-button fill="outline" (click)="startNewConversation()">
+        <ion-icon name="add-outline"></ion-icon>
+        Iniciar Conversa
+      </ion-button>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading-state" *ngIf="conversationHistory.length === 0">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Carregando hist├│rico...</p>
+    </div>
+  </div>
+</ion-content>

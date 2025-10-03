@@ -1,0 +1,265 @@
+﻿.message-info-card {
+  margin: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.message-title-section {
+  flex: 1;
+}
+
+.message-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.message-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ion-color-medium);
+  font-size: 14px;
+}
+
+.meta-item ion-icon {
+  font-size: 16px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.question-card, .response-card, .summary-card {
+  margin: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.question-card {
+  border-left: 4px solid var(--ion-color-primary);
+}
+
+.response-card {
+  border-left: 4px solid var(--ion-color-success);
+}
+
+.summary-card {
+  border-left: 4px solid var(--ion-color-warning);
+}
+
+.question-text, .response-content, .summary-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ion-color-dark);
+  margin: 0;
+}
+
+.response-content {
+  // Estilos para conte├║do HTML formatado
+  h2 {
+    color: var(--ion-color-primary);
+    font-size: 18px;
+    font-weight: 600;
+    margin: 16px 0 8px 0;
+    border-bottom: 2px solid var(--ion-color-primary);
+    padding-bottom: 4px;
+  }
+  
+  h3 {
+    color: var(--ion-color-dark);
+    font-size: 16px;
+    font-weight: 500;
+    margin: 12px 0 6px 0;
+  }
+  
+  p {
+    color: var(--ion-color-dark);
+    line-height: 1.5;
+    margin: 8px 0;
+  }
+  
+  // Estilos para HTML renderizado
+  .question-text, .summary-text {
+    h1, h2, h3, h4, h5, h6 {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 8px 0 4px 0;
+      color: var(--ion-color-dark);
+    }
+    
+    p {
+      margin: 4px 0;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    
+    strong {
+      font-weight: 600;
+      color: var(--ion-color-primary);
+    }
+    
+    em {
+      font-style: italic;
+      color: var(--ion-color-medium);
+    }
+    
+    ul, ol {
+      margin: 8px 0;
+      padding-left: 20px;
+    }
+    
+    li {
+      margin: 4px 0;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0;
+    }
+    
+    td, th {
+      padding: 8px;
+      border: 1px solid var(--ion-color-light-shade);
+      font-size: 14px;
+    }
+    
+    th {
+      background: var(--ion-color-light);
+      font-weight: 600;
+    }
+  }
+  
+  ul {
+    margin: 8px 0;
+    padding-left: 20px;
+  }
+  
+  li {
+    color: var(--ion-color-dark);
+    margin: 4px 0;
+    line-height: 1.4;
+  }
+  
+  strong {
+    color: var(--ion-color-primary);
+    font-weight: 600;
+  }
+  
+  em {
+    color: var(--ion-color-medium);
+    font-style: italic;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    background: var(--ion-color-light);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  tr {
+    border-bottom: 1px solid var(--ion-color-light-shade);
+  }
+  
+  tr:nth-child(even) {
+    background: var(--ion-color-light-tint);
+  }
+  
+  td {
+    padding: 12px 16px;
+    color: var(--ion-color-dark);
+  }
+  
+  td:first-child {
+    font-weight: 600;
+    color: var(--ion-color-primary);
+    background: var(--ion-color-primary-tint);
+  }
+}
+
+.popover-content {
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
+.copy-success {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--ion-color-success);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 1000;
+  animation: fadeInOut 2s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+  20%, 80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .message-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .message-actions {
+    align-self: flex-end;
+    margin-top: 8px;
+  }
+  
+  .message-meta {
+    gap: 8px;
+  }
+  
+  .tags {
+    gap: 4px;
+  }
+}
+
+// Animation for cards
+ion-card {
+  animation: slideInUp 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
