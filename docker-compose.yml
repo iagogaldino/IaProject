@@ -1,0 +1,96 @@
+version: '3.8'
+
+services:
+  # Database
+  postgres:
+    image: postgres:16
+    container_name: iaproject-postgres
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: devpass
+      POSTGRES_DB: app_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./app-user/database/init:/docker-entrypoint-initdb.d
+    networks:
+      - iaproject-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dev -d app_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # App Backend
+  app-backend:
+    build:
+      context: ./app-user/app-backend
+      dockerfile: Dockerfile
+    container_name: iaproject-app-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://dev:devpass@postgres:5432/app_db
+    volumes:
+      - ./app-user/app-backend:/app
+      - /app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - iaproject-network
+    restart: unless-stopped
+
+  # App Frontend (Ionic)
+  app-frontend:
+    build:
+      context: ./app-user/app-frontend
+      dockerfile: Dockerfile
+    container_name: iaproject-app-frontend
+    ports:
+      - "4200:4200"
+    networks:
+      - iaproject-network
+    restart: unless-stopped
+
+  # IA Backend
+  ia-backend:
+    build:
+      context: ./ia-service/ia-backend
+      dockerfile: Dockerfile
+    container_name: iaproject-ia-backend
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://dev:devpass@postgres:5432/app_db
+      - API_KEY=ai-backend-2024-abc123xyz789
+      - OPENAI_API_KEY=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
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - iaproject-network
+    restart: unless-stopped
+
+  # IA Frontend (Admin)
+  ia-frontend:
+    build:
+      context: ./ia-service/ia-frontend
+      dockerfile: Dockerfile
+    container_name: iaproject-ia-frontend
+    ports:
+      - "4201:4201"
+    networks:
+      - iaproject-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  iaproject-network:
+    driver: bridge

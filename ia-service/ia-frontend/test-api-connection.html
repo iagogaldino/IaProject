@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste de Conexão API</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .result { background: #f5f5f5; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .error { background: #ffebee; color: #c62828; }
+        .success { background: #e8f5e8; color: #2e7d32; }
+        pre { background: #f5f5f5; padding: 10px; border-radius: 5px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>Teste de Conexão com API</h1>
+    <button onclick="testConnection()">Testar Conexão</button>
+    <div id="result"></div>
+    
+    <script>
+        async function testConnection() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<div class="result">Testando conexão...</div>';
+            
+            try {
+                console.log('Fazendo requisição para:', 'http://localhost:3001/api/agents');
+                console.log('Headers:', {
+                    'X-API-Key': 'ai-backend-2024-abc123xyz789',
+                    'Content-Type': 'application/json'
+                });
+                
+                const response = await fetch('http://localhost:3001/api/agents', {
+                    method: 'GET',
+                    headers: {
+                        'X-API-Key': 'ai-backend-2024-abc123xyz789',
+                        'Content-Type': 'application/json'
+                    },
+                    mode: 'cors'
+                });
+                
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                console.log('Response data:', data);
+                
+                const agentsWithFileAccess = data.data.filter(agent => 
+                    agent.fileAccess && agent.fileAccess.enabled
+                );
+                
+                resultDiv.innerHTML = `
+                    <div class="success">
+                        <h3>✅ Conexão bem-sucedida!</h3>
+                        <p><strong>Status:</strong> ${response.status}</p>
+                        <p><strong>Total de agentes:</strong> ${data.data.length}</p>
+                        <p><strong>Agentes com fileAccess:</strong> ${agentsWithFileAccess.length}</p>
+                    </div>
+                    <div class="result">
+                        <h4>Dados completos:</h4>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </div>
+                    <div class="result">
+                        <h4>Agentes com fileAccess:</h4>
+                        <pre>${JSON.stringify(agentsWithFileAccess, null, 2)}</pre>
+                    </div>
+                `;
+                
+            } catch (error) {
+                console.error('Erro na requisição:', error);
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h3>❌ Erro na conexão</h3>
+                        <p><strong>Erro:</strong> ${error.message}</p>
+                        <p><strong>Detalhes:</strong> ${error.stack}</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

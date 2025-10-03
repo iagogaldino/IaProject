@@ -1,0 +1,96 @@
+<div class="file-list-container">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Carregando arquivos...</p>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && files.length === 0" class="empty-state">
+    <mat-icon>folder_open</mat-icon>
+    <h3>Nenhum arquivo encontrado</h3>
+    <p>Faça upload de arquivos para começar a gerenciá-los.</p>
+  </div>
+
+  <!-- Files Grid -->
+  <div *ngIf="!loading && files.length > 0" class="files-grid">
+    <mat-card *ngFor="let file of files" class="file-card">
+      <!-- File Header -->
+      <mat-card-header>
+        <div mat-card-avatar class="file-icon" [style.background-color]="fileService.getFileColor(file.mimeType)">
+          <mat-icon [style.color]="'white'">{{ fileService.getFileIcon(file.mimeType) }}</mat-icon>
+        </div>
+        <mat-card-title class="file-title">{{ file.originalName }}</mat-card-title>
+        <mat-card-subtitle class="file-subtitle">
+          {{ fileService.formatFileSize(file.fileSize) }} • {{ formatDate(file.uploadedAt) }}
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <!-- File Content -->
+      <mat-card-content>
+        <div class="file-info">
+          <mat-chip-set>
+            <mat-chip [style.background-color]="getStatusColor(file)" [style.color]="'white'">
+              {{ getFileStatus(file) }}
+            </mat-chip>
+            <mat-chip>{{ file.mimeType.split('/')[1].toUpperCase() }}</mat-chip>
+          </mat-chip-set>
+        </div>
+      </mat-card-content>
+
+      <!-- File Actions -->
+      <mat-card-actions align="end">
+        <button mat-icon-button 
+                [matMenuTriggerFor]="fileMenu" 
+                [disabled]="isProcessing(file.id)">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        
+        <mat-menu #fileMenu="matMenu">
+          <button mat-menu-item (click)="getFileDetails(file)">
+            <mat-icon>info</mat-icon>
+            <span>Detalhes</span>
+          </button>
+          
+          <button mat-menu-item 
+                  (click)="processFile(file, 'read')"
+                  [disabled]="isProcessing(file.id)">
+            <mat-icon>visibility</mat-icon>
+            <span>Ler</span>
+            <mat-spinner *ngIf="isProcessing(file.id)" diameter="16"></mat-spinner>
+          </button>
+          
+          <button mat-menu-item 
+                  (click)="processFile(file, 'analyze')"
+                  [disabled]="isProcessing(file.id)">
+            <mat-icon>analytics</mat-icon>
+            <span>Analisar</span>
+          </button>
+          
+          <button mat-menu-item 
+                  (click)="processFile(file, 'summarize')"
+                  [disabled]="isProcessing(file.id)">
+            <mat-icon>summarize</mat-icon>
+            <span>Resumir</span>
+          </button>
+          
+          <button mat-menu-item 
+                  (click)="processFile(file, 'extract')"
+                  [disabled]="isProcessing(file.id)">
+            <mat-icon>content_cut</mat-icon>
+            <span>Extrair</span>
+          </button>
+          
+          <mat-divider></mat-divider>
+          
+          <button mat-menu-item 
+                  (click)="deleteFile(file)"
+                  class="delete-action">
+            <mat-icon>delete</mat-icon>
+            <span>Excluir</span>
+          </button>
+        </mat-menu>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

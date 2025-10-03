@@ -1,0 +1,101 @@
+<div class="chat-container">
+  <!-- Chat Header -->
+  <mat-card class="chat-header">
+    <div class="header-content">
+      <div class="chat-controls">
+        <mat-form-field appearance="outline" class="mode-selector">
+          <mat-label>Modo de Chat</mat-label>
+          <mat-select [(value)]="chatMode" (selectionChange)="onChatModeChange($event.value)">
+            <mat-option value="agent">Chat com Agente</mat-option>
+            <mat-option value="ai">Chat com IA</mat-option>
+          </mat-select>
+        </mat-form-field>
+        
+        <mat-form-field 
+          *ngIf="chatMode === 'agent'" 
+          appearance="outline" 
+          class="agent-selector">
+          <mat-label>Selecionar Agente</mat-label>
+          <mat-select 
+            [value]="selectedAgent?.id" 
+            (selectionChange)="onAgentChange($event.value)">
+            <mat-option 
+              *ngFor="let agent of getActiveAgents()" 
+              [value]="agent.id">
+              {{ agent.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      
+      <div class="header-actions">
+        <button 
+          mat-icon-button 
+          (click)="onClearChat()" 
+          matTooltip="Limpar conversa"
+          [disabled]="messages.length === 0">
+          <mat-icon>clear_all</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card>
+  
+  <!-- Chat Messages -->
+  <mat-card class="chat-messages">
+    <div class="messages-container">
+      <div *ngIf="messages.length === 0" class="empty-chat">
+        <mat-icon>chat</mat-icon>
+        <h3>Inicie uma conversa</h3>
+        <p *ngIf="chatMode === 'agent' && selectedAgent">
+          Converse com {{ selectedAgent.name }} sobre {{ selectedAgent.description }}
+        </p>
+        <p *ngIf="chatMode === 'ai'">
+          Converse com nossa IA geral sobre qualquer assunto
+        </p>
+      </div>
+      
+      <div *ngFor="let message of messages; let i = index" class="message-item">
+        <div class="message" [class.user-message]="message.role === 'user'" [class.agent-message]="message.role === 'agent'">
+          <div class="message-avatar">
+            <mat-icon *ngIf="message.role === 'user'">person</mat-icon>
+            <mat-icon *ngIf="message.role === 'agent'">smart_toy</mat-icon>
+          </div>
+          <div class="message-content">
+            <div class="message-text">{{ message.content }}</div>
+            <div class="message-time">{{ i + 1 }}</div>
+          </div>
+        </div>
+      </div>
+      
+      <div *ngIf="loading" class="loading-message">
+        <mat-spinner diameter="20"></mat-spinner>
+        <span>Processando...</span>
+      </div>
+    </div>
+  </mat-card>
+  
+  <!-- Chat Input -->
+  <mat-card class="chat-input">
+    <form [formGroup]="chatForm" (ngSubmit)="onSendMessage()" class="input-form">
+      <mat-form-field appearance="outline" class="message-input">
+        <mat-label>Digite sua mensagem</mat-label>
+        <textarea 
+          matInput 
+          formControlName="message" 
+          placeholder="Digite sua mensagem aqui..."
+          (keypress)="onKeyPress($event)"
+          rows="2">
+        </textarea>
+      </mat-form-field>
+      
+      <button 
+        mat-fab 
+        color="primary" 
+        type="submit" 
+        [disabled]="!canSendMessage()"
+        matTooltip="Enviar mensagem">
+        <mat-icon>send</mat-icon>
+      </button>
+    </form>
+  </mat-card>
+</div>

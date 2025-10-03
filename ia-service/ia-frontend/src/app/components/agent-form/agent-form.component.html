@@ -1,0 +1,133 @@
+<div class="agent-form-modal" *ngIf="isVisible">
+  <div class="modal-content">
+    <div class="form-header">
+    <h2 mat-dialog-title>
+      <mat-icon>{{ isEditMode ? 'edit' : 'add' }}</mat-icon>
+      {{ getFormTitle() }}
+    </h2>
+    <button mat-icon-button (click)="onCancel()" matTooltip="Fechar">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  
+  <form [formGroup]="agentForm" (ngSubmit)="onSave()" class="agent-form">
+    <!-- Informações Básicas -->
+    <div class="form-section">
+      <h3>Informações Básicas</h3>
+      
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nome do Agente</mat-label>
+        <input matInput formControlName="name" placeholder="Ex: Assistente de Vendas">
+        <mat-error *ngIf="getFieldError('name')">{{ getFieldError('name') }}</mat-error>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Descrição</mat-label>
+        <textarea 
+          matInput 
+          formControlName="description" 
+          placeholder="Descreva as capacidades e especialização do agente"
+          rows="3">
+        </textarea>
+        <mat-error *ngIf="getFieldError('description')">{{ getFieldError('description') }}</mat-error>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option *ngFor="let option of statusOptions" [value]="option.value">
+            {{ option.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    
+    <mat-divider></mat-divider>
+    
+    <!-- Configuração de Comunicação -->
+    <div class="form-section">
+      <h3>Comunicação Entre Agentes</h3>
+      
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Agentes para Comunicação</mat-label>
+        <mat-select formControlName="canCommunicateWith" multiple>
+          <mat-option 
+            *ngFor="let agent of getAvailableAgentsForCommunication()" 
+            [value]="agent.id">
+            {{ agent.name }}
+          </mat-option>
+        </mat-select>
+        <mat-hint>Selecione os agentes que podem se comunicar com este agente</mat-hint>
+      </mat-form-field>
+    </div>
+    
+    <mat-divider></mat-divider>
+    
+    <!-- Configuração de Banco de Dados -->
+    <div class="form-section" formGroupName="databaseAccess">
+      <h3>Acesso ao Banco de Dados</h3>
+      
+      <div class="checkbox-container">
+        <mat-checkbox formControlName="enabled" (change)="onDatabaseAccessToggle()">
+          Habilitar acesso ao banco de dados
+        </mat-checkbox>
+      </div>
+      
+      <div *ngIf="agentForm.get('databaseAccess.enabled')?.value" class="database-config">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Coleções Permitidas</mat-label>
+          <mat-select formControlName="allowedCollections" multiple>
+            <mat-option value="users">Usuários</mat-option>
+            <mat-option value="products">Produtos</mat-option>
+            <mat-option value="orders">Pedidos</mat-option>
+            <mat-option value="metadados">Metadados</mat-option>
+            <mat-option value="logs">Logs</mat-option>
+          </mat-select>
+          <mat-hint>Selecione as coleções que o agente pode acessar</mat-hint>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Operações Permitidas</mat-label>
+          <mat-select formControlName="allowedOperations" multiple>
+            <mat-option *ngFor="let option of operationOptions" [value]="option.value">
+              {{ option.label }}
+            </mat-option>
+          </mat-select>
+          <mat-hint>Selecione as operações que o agente pode executar</mat-hint>
+        </mat-form-field>
+        
+        <div class="query-limits" formGroupName="queryLimits">
+          <h4>Limites de Consulta</h4>
+          
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Máximo de Resultados</mat-label>
+            <input matInput type="number" formControlName="maxResults" min="1" max="1000">
+            <mat-error *ngIf="getNestedFieldError('queryLimits', 'maxResults')">
+              {{ getNestedFieldError('queryLimits', 'maxResults') }}
+            </mat-error>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Timeout (ms)</mat-label>
+            <input matInput type="number" formControlName="timeout" min="1000" max="300000">
+            <mat-error *ngIf="getNestedFieldError('queryLimits', 'timeout')">
+              {{ getNestedFieldError('queryLimits', 'timeout') }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+  
+  <div class="form-actions">
+    <button mat-button type="button" (click)="onCancel()">
+      <mat-icon>cancel</mat-icon>
+      Cancelar
+    </button>
+    <button mat-raised-button color="primary" type="button" (click)="onSave()" [disabled]="agentForm.invalid">
+      <mat-icon>{{ isEditMode ? 'save' : 'add' }}</mat-icon>
+      {{ getSaveButtonText() }}
+    </button>
+  </div>
+  </div>
+</div>

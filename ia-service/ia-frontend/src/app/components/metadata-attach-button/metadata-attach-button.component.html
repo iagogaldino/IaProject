@@ -1,0 +1,36 @@
+<button 
+  mat-raised-button
+  [color]="getButtonColor()"
+  [disabled]="isButtonDisabled()"
+  [matTooltip]="getButtonTooltip()"
+  (click)="toggleMetadataAttachment()"
+  class="metadata-attach-button"
+  [class.attached]="isAttached"
+  [class.loading]="isLoading"
+  [class.checking]="isChecking">
+  
+  <!-- Ícone de loading -->
+  <mat-spinner 
+    *ngIf="isLoading" 
+    diameter="16" 
+    class="button-spinner">
+  </mat-spinner>
+  
+  <!-- Ícone normal -->
+  <mat-icon 
+    *ngIf="!isLoading" 
+    class="button-icon"
+    [class.attached-icon]="isAttached">
+    {{ getButtonIcon() }}
+  </mat-icon>
+  
+  <!-- Texto do botão -->
+  <span class="button-text">{{ getButtonText() }}</span>
+  
+  <!-- Indicador de status -->
+  <div 
+    *ngIf="isAttached && !isLoading" 
+    class="status-indicator attached">
+    <mat-icon>check_circle</mat-icon>
+  </div>
+</button>

@@ -1,7 +1,0 @@
-{
-  "name": "mayor-app",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular-standalone"
-}

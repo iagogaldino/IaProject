@@ -1,0 +1,162 @@
+<div class="communication-container">
+  <!-- Stats Overview -->
+  <div class="stats-section" *ngIf="stats">
+    <mat-card class="stats-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>analytics</mat-icon>
+          Estatísticas de Comunicação
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-number">{{ stats.totalMessages }}</div>
+            <div class="stat-label">Total de Mensagens</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">{{ stats.activeConversations }}</div>
+            <div class="stat-label">Conversas Ativas</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">{{ stats.agentsWithMessages }}</div>
+            <div class="stat-label">Agentes com Mensagens</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">{{ stats.averageResponseTime }}s</div>
+            <div class="stat-label">Tempo Médio de Resposta</div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+  <!-- Main Communication Interface -->
+  <mat-tab-group [(selectedIndex)]="selectedTab" (selectedIndexChange)="onTabChange($event)">
+    <!-- Send Message Tab -->
+    <mat-tab label="Enviar Mensagem">
+      <div class="tab-content">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>
+              <mat-icon>send</mat-icon>
+              Enviar Mensagem Entre Agentes
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <form [formGroup]="messageForm" (ngSubmit)="onSendMessage()" class="message-form">
+              <div class="form-row">
+                <mat-form-field appearance="outline" class="agent-selector">
+                  <mat-label>Agente Remetente</mat-label>
+                  <mat-select formControlName="toAgentId">
+                    <mat-option 
+                      *ngFor="let agent of getActiveAgents()" 
+                      [value]="agent.id"
+                      [disabled]="agent.id === selectedAgent?.id">
+                      {{ agent.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              
+              <mat-form-field appearance="outline" class="message-input">
+                <mat-label>Mensagem</mat-label>
+                <textarea 
+                  matInput 
+                  formControlName="content" 
+                  placeholder="Digite a mensagem que será enviada entre os agentes..."
+                  rows="4">
+                </textarea>
+              </mat-form-field>
+              
+              <div class="form-actions">
+                <button 
+                  mat-raised-button 
+                  color="primary" 
+                  type="submit"
+                  [disabled]="messageForm.invalid || !selectedAgent">
+                  <mat-icon>send</mat-icon>
+                  Enviar Mensagem
+                </button>
+              </div>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-tab>
+    
+    <!-- Messages Tab -->
+    <mat-tab label="Mensagens">
+      <div class="tab-content">
+        <div class="messages-interface">
+          <!-- Agent Selector -->
+          <mat-card class="agent-selector-card">
+            <mat-card-content>
+              <div class="agent-list">
+                <div 
+                  *ngFor="let agent of getActiveAgents()" 
+                  class="agent-item"
+                  [class.selected]="agent.id === selectedAgent?.id"
+                  (click)="onAgentSelect(agent)">
+                  <div class="agent-info">
+                    <mat-icon>smart_toy</mat-icon>
+                    <div>
+                      <div class="agent-name">{{ agent.name }}</div>
+                      <div class="agent-description">{{ agent.description }}</div>
+                    </div>
+                  </div>
+                  <div class="agent-stats">
+                    <mat-chip *ngIf="getMessageCount(agent) > 0">
+                      {{ getMessageCount(agent) }} mensagens
+                    </mat-chip>
+                    <mat-chip *ngIf="getUnreadCount(agent) > 0" color="warn">
+                      {{ getUnreadCount(agent) }} não lidas
+                    </mat-chip>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+          
+          <!-- Messages List -->
+          <mat-card class="messages-card">
+            <mat-card-header>
+              <mat-card-title>
+                <mat-icon>chat</mat-icon>
+                Mensagens
+                <span *ngIf="selectedAgent">- {{ selectedAgent.name }}</span>
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div *ngIf="loading" class="loading-state">
+                <mat-spinner diameter="30"></mat-spinner>
+                <p>Carregando mensagens...</p>
+              </div>
+              
+              <div *ngIf="!loading && messages.length === 0" class="empty-state">
+                <mat-icon>chat</mat-icon>
+                <h3>Nenhuma mensagem encontrada</h3>
+                <p>Selecione um agente para ver suas mensagens</p>
+              </div>
+              
+              <div *ngIf="!loading && messages.length > 0" class="messages-list">
+                <div *ngFor="let message of messages" class="message-item">
+                  <div class="message" [class.sent]="getMessageDirection(message) === 'sent'" [class.received]="getMessageDirection(message) === 'received'">
+                    <div class="message-header">
+                      <mat-icon>{{ getMessageDirection(message) === 'sent' ? 'send' : 'reply' }}</mat-icon>
+                      <span class="message-agent">
+                        {{ getMessageDirection(message) === 'sent' ? 'Enviado' : 'Recebido' }}
+                      </span>
+                      <span class="message-time">{{ formatMessageTime(message.createdAt) }}</span>
+                    </div>
+                    <div class="message-content">{{ message.content }}</div>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
