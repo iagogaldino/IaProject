@@ -94,12 +94,13 @@ export interface ChatMessage {
 
 export interface ChatRequest {
   messages: ChatMessage[];
+  responseFormat?: 'clean' | 'detailed'; // 'clean' = resposta limpa para usuário final, 'detailed' = resposta técnica para debug
 }
 
 export interface ChatResponse {
   agentId: string;
   response: {
-    role: 'agent';
+    role: 'assistant';
     content: string;
   };
 }
@@ -143,6 +144,7 @@ export interface ApiResponse<T = any> {
     total?: number;
     page?: number;
     limit?: number;
+    [key: string]: any; // Permite propriedades adicionais
   };
 }
 
@@ -313,6 +315,12 @@ export interface Metadata {
     agentId: string;
     version: string;
   };
+  embedding?: {
+    vector: number[];
+    model: string;
+    generatedAt: Date;
+    version: string;
+  };
   createdAt: Date;
   updatedAt: Date;
 }
@@ -330,6 +338,28 @@ export interface CreateMetadataRequest {
     confidence: number;
     language: string;
   };
+}
+
+// Embedding Types
+export interface EmbeddingResult {
+  embedding: number[];
+  model: string;
+  usage: {
+    prompt_tokens: number;
+    total_tokens: number;
+  };
+}
+
+export interface SimilaritySearchResult {
+  metadata: Metadata;
+  similarity: number;
+  distance: number;
+}
+
+export interface EmbeddingGenerationStats {
+  processed: number;
+  errors: number;
+  updated: number;
 }
 
 // Validation Types

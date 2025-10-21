@@ -1,7 +1,7 @@
 import express from 'express';
-import askIaRouter from './routes/askiaRouter';
 import testRouter from './routes/testRouter';
 import databaseRouter from './routes/databaseRouter';
+import aiRouter from './routes/aiRouter';
 import cors from 'cors';
 import { Config } from './config/config';
 import { logger } from './services/logger';
@@ -14,7 +14,7 @@ app.use(cors());
 
 app.use(express.json());
 app.use('/', testRouter);
-app.use('/', askIaRouter);
+app.use('/', aiRouter);
 app.use('/api', databaseRouter);
 
 app.listen(port, () => {

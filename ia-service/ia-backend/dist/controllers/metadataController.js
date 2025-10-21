@@ -172,6 +172,141 @@ class MetadataController {
             next(error);
         }
     }
+    async searchSimilarMetadata(req, res, next) {
+        try {
+            const { query, limit, threshold, agentId, includeEmbedding } = req.query;
+            if (!query) {
+                res.status(400).json({
+                    success: false,
+                    error: {
+                        message: 'Parâmetro "query" é obrigatório',
+                        code: 'MISSING_QUERY_PARAMETER'
+                    }
+                });
+                return;
+            }
+            const options = {
+                limit: limit ? parseInt(limit) : 10,
+                threshold: threshold ? parseFloat(threshold) : 0.7,
+                agentId: agentId,
+                includeEmbedding: includeEmbedding === 'true'
+            };
+            const results = await metadataService_1.metadataService.searchSimilarMetadata(query, options);
+            const response = {
+                success: true,
+                data: results,
+                meta: {
+                    total: results.length,
+                    query: query,
+                    threshold: options.threshold,
+                    agentId: options.agentId
+                }
+            };
+            res.json(response);
+        }
+        catch (error) {
+            logger_1.logger.error('Error searching similar metadata:', error);
+            next(error);
+        }
+    }
+    async searchBySemanticTheme(req, res, next) {
+        try {
+            const { theme, limit, threshold, agentId } = req.query;
+            if (!theme) {
+                res.status(400).json({
+                    success: false,
+                    error: {
+                        message: 'Parâmetro "theme" é obrigatório',
+                        code: 'MISSING_THEME_PARAMETER'
+                    }
+                });
+                return;
+            }
+            const options = {
+                limit: limit ? parseInt(limit) : 10,
+                threshold: threshold ? parseFloat(threshold) : 0.8,
+                agentId: agentId
+            };
+            const results = await metadataService_1.metadataService.searchBySemanticTheme(theme, options);
+            const response = {
+                success: true,
+                data: results,
+                meta: {
+                    total: results.length,
+                    theme: theme,
+                    threshold: options.threshold,
+                    agentId: options.agentId
+                }
+            };
+            res.json(response);
+        }
+        catch (error) {
+            logger_1.logger.error('Error searching by semantic theme:', error);
+            next(error);
+        }
+    }
+    async generateMissingEmbeddings(req, res, next) {
+        try {
+            const { batchSize } = req.query;
+            const size = batchSize ? parseInt(batchSize) : 50;
+            const results = await metadataService_1.metadataService.generateMissingEmbeddings(size);
+            const response = {
+                success: true,
+                data: results,
+                meta: {
+                    message: 'Processamento de embeddings concluído'
+                }
+            };
+            res.json(response);
+        }
+        catch (error) {
+            logger_1.logger.error('Error generating missing embeddings:', error);
+            next(error);
+        }
+    }
+    async updateMetadataEmbedding(req, res, next) {
+        try {
+            const { metadataId } = req.params;
+            const updated = await metadataService_1.metadataService.updateMetadataEmbedding(metadataId);
+            if (!updated) {
+                res.status(404).json({
+                    success: false,
+                    error: {
+                        message: 'Metadado não encontrado',
+                        code: 'METADATA_NOT_FOUND'
+                    }
+                });
+                return;
+            }
+            const response = {
+                success: true,
+                data: {
+                    message: 'Embedding do metadado atualizado com sucesso',
+                    metadataId
+                }
+            };
+            res.json(response);
+        }
+        catch (error) {
+            logger_1.logger.error('Error updating metadata embedding:', error);
+            next(error);
+        }
+    }
+    async createMetadata(req, res, next) {
+        try {
+            const metadataData = req.body;
+            const metadata = await metadataService_1.metadataService.createMetadata(metadataData);
+            const response = {
+                success: true,
+                data: metadata
+            };
+            res.json(response);
+        }
+        catch (error) {
+            logger_1.logger.error('Error creating metadata:', error);
+            next(error);
+        }
+    }
 }
 exports.MetadataController = MetadataController;
 exports.metadataController = new MetadataController();

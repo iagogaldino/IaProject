@@ -2,10 +2,17 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.metadataService = exports.MetadataService = void 0;
 const Metadata_1 = require("../models/Metadata");
+const Agent_1 = require("../models/Agent");
 const logger_1 = require("./logger");
+const embeddingService_1 = require("./embeddingService");
 class MetadataService {
     async createMetadata(metadataData) {
         try {
+            const embeddingResult = await embeddingService_1.embeddingService.generateMetadataEmbedding({
+                theme: metadataData.theme,
+                tags: metadataData.tags,
+                analysis: metadataData.analysis
+            });
             const metadata = new Metadata_1.Metadata({
                 fileId: metadataData.fileId,
                 agentId: metadataData.agentId,
@@ -16,6 +23,12 @@ class MetadataService {
                 aiAnalysis: {
                     processedAt: new Date(),
                     agentId: metadataData.agentId,
+                    version: '1.0'
+                },
+                embedding: {
+                    vector: embeddingResult.embedding,
+                    model: embeddingResult.model,
+                    generatedAt: new Date(),
                     version: '1.0'
                 }
             });
@@ -36,6 +49,7 @@ class MetadataService {
                 tags: savedMetadata.tags,
                 analysis: savedMetadata.analysis,
                 aiAnalysis: savedMetadata.aiAnalysis,
+                embedding: savedMetadata.embedding,
                 createdAt: savedMetadata.createdAt,
                 updatedAt: savedMetadata.updatedAt
             };
@@ -60,6 +74,7 @@ class MetadataService {
                 tags: metadata.tags,
                 analysis: metadata.analysis,
                 aiAnalysis: metadata.aiAnalysis,
+                embedding: metadata.embedding,
                 createdAt: metadata.createdAt,
                 updatedAt: metadata.updatedAt
             };
@@ -81,6 +96,7 @@ class MetadataService {
                 tags: metadata.tags,
                 analysis: metadata.analysis,
                 aiAnalysis: metadata.aiAnalysis,
+                embedding: metadata.embedding,
                 createdAt: metadata.createdAt,
                 updatedAt: metadata.updatedAt
             }));
@@ -230,6 +246,209 @@ class MetadataService {
                 byAgent: {},
                 recentActivity: 0
             };
+        }
+    }
+    async searchSimilarMetadata(queryText, options = {}) {
+        try {
+            const { limit = 10, threshold = 0.25, agentId, includeEmbedding = false, numCandidates = 5000 } = options;
+            const filter = {
+                'embedding.vector': { $exists: true, $ne: [] },
+                'embedding.model': 'text-embedding-3-small'
+            };
+            if (agentId) {
+                const agent = await Agent_1.Agent.findById(agentId).exec();
+                if (agent && agent.name === 'Agente Database') {
+                    logger_1.logger.info('Database agent detected - accessing all documents with enhanced search');
+                }
+                else if (agent && agent.canCommunicateWith && agent.canCommunicateWith.length > 0) {
+                    filter.agentId = { $in: [agentId, ...agent.canCommunicateWith] };
+                }
+                else {
+                    filter.agentId = agentId;
+                }
+            }
+            const selectFields = includeEmbedding ? '' : '-embedding.vector';
+            const metadataList = await Metadata_1.Metadata.find(filter)
+                .select(selectFields)
+                .sort({ createdAt: -1 })
+                .limit(numCandidates);
+            if (metadataList.length === 0) {
+                logger_1.logger.warn('No metadata with embeddings found for similarity search', {
+                    filter,
+                    numCandidates
+                });
+                return [];
+            }
+            const metadataWithEmbeddings = metadataList.map(metadata => ({
+                metadata: {
+                    id: metadata._id.toString(),
+                    fileId: metadata.fileId,
+                    agentId: metadata.agentId,
+                    theme: metadata.theme,
+                    improvedContent: metadata.improvedContent,
+                    tags: metadata.tags,
+                    analysis: metadata.analysis,
+                    aiAnalysis: metadata.aiAnalysis,
+                    createdAt: metadata.createdAt,
+                    updatedAt: metadata.updatedAt
+                },
+                embedding: metadata.embedding?.vector || []
+            }));
+            const results = await embeddingService_1.embeddingService.findSimilarMetadata(queryText, metadataWithEmbeddings, limit, threshold);
+            logger_1.logger.info('Enhanced similar metadata search completed', {
+                queryText: queryText.substring(0, 100) + (queryText.length > 100 ? '...' : ''),
+                totalMetadata: metadataList.length,
+                candidatesProcessed: numCandidates,
+                resultsFound: results.length,
+                threshold,
+                agentId,
+                topSimilarity: results[0]?.similarity || 0,
+                avgSimilarity: results.length > 0 ?
+                    results.reduce((sum, r) => sum + r.similarity, 0) / results.length : 0
+            });
+            return results;
+        }
+        catch (error) {
+            logger_1.logger.error('Error searching similar metadata:', error);
+            return [];
+        }
+    }
+    async generateMissingEmbeddings(batchSize = 50) {
+        try {
+            const stats = { processed: 0, errors: 0, updated: 0 };
+            const metadataWithoutEmbedding = await Metadata_1.Metadata.find({
+                $or: [
+                    { 'embedding.vector': { $exists: false } },
+                    { 'embedding.vector': { $size: 0 } }
+                ]
+            }).limit(batchSize);
+            logger_1.logger.info('Starting embedding generation for existing metadata', {
+                totalToProcess: metadataWithoutEmbedding.length
+            });
+            for (const metadata of metadataWithoutEmbedding) {
+                try {
+                    stats.processed++;
+                    const embeddingResult = await embeddingService_1.embeddingService.generateMetadataEmbedding({
+                        theme: metadata.theme,
+                        tags: metadata.tags,
+                        analysis: metadata.analysis
+                    });
+                    await Metadata_1.Metadata.findByIdAndUpdate(metadata._id, {
+                        embedding: {
+                            vector: embeddingResult.embedding,
+                            model: embeddingResult.model,
+                            generatedAt: new Date(),
+                            version: '1.0'
+                        }
+                    });
+                    stats.updated++;
+                    logger_1.logger.info('Embedding generated for metadata', {
+                        metadataId: metadata._id.toString(),
+                        theme: metadata.theme
+                    });
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                }
+                catch (error) {
+                    stats.errors++;
+                    logger_1.logger.error('Error generating embedding for metadata', {
+                        metadataId: metadata._id.toString(),
+                        error: error.message
+                    });
+                }
+            }
+            logger_1.logger.info('Embedding generation batch completed', stats);
+            return stats;
+        }
+        catch (error) {
+            logger_1.logger.error('Error in generateMissingEmbeddings:', error);
+            throw error;
+        }
+    }
+    async updateMetadataEmbedding(metadataId) {
+        try {
+            const metadata = await Metadata_1.Metadata.findById(metadataId);
+            if (!metadata) {
+                logger_1.logger.warn('Metadata not found for embedding update', { metadataId });
+                return false;
+            }
+            const embeddingResult = await embeddingService_1.embeddingService.generateMetadataEmbedding({
+                theme: metadata.theme,
+                tags: metadata.tags,
+                analysis: metadata.analysis
+            });
+            await Metadata_1.Metadata.findByIdAndUpdate(metadataId, {
+                embedding: {
+                    vector: embeddingResult.embedding,
+                    model: embeddingResult.model,
+                    generatedAt: new Date(),
+                    version: '1.0'
+                }
+            });
+            logger_1.logger.info('Embedding updated for metadata', {
+                metadataId,
+                theme: metadata.theme
+            });
+            return true;
+        }
+        catch (error) {
+            logger_1.logger.error('Error updating metadata embedding:', error);
+            return false;
+        }
+    }
+    async searchBySemanticTheme(themeQuery, options = {}) {
+        try {
+            const { limit = 10, threshold = 0.3, agentId, numCandidates = 3000 } = options;
+            const filter = {
+                'embedding.vector': { $exists: true, $ne: [] },
+                'embedding.model': 'text-embedding-3-small'
+            };
+            if (agentId) {
+                const agent = await Agent_1.Agent.findById(agentId).exec();
+                if (agent && agent.name === 'Agente Database') {
+                    logger_1.logger.info('Database agent - accessing all documents for theme search');
+                }
+                else if (agent && agent.canCommunicateWith && agent.canCommunicateWith.length > 0) {
+                    filter.agentId = { $in: [agentId, ...agent.canCommunicateWith] };
+                }
+                else {
+                    filter.agentId = agentId;
+                }
+            }
+            const metadataList = await Metadata_1.Metadata.find(filter)
+                .sort({ createdAt: -1 })
+                .limit(numCandidates);
+            if (metadataList.length === 0) {
+                logger_1.logger.warn('No metadata found for theme search', { themeQuery, filter });
+                return [];
+            }
+            const metadataWithEmbeddings = metadataList.map(metadata => ({
+                metadata: {
+                    id: metadata._id.toString(),
+                    fileId: metadata.fileId,
+                    agentId: metadata.agentId,
+                    theme: metadata.theme,
+                    improvedContent: metadata.improvedContent,
+                    tags: metadata.tags,
+                    analysis: metadata.analysis,
+                    createdAt: metadata.createdAt,
+                    updatedAt: metadata.updatedAt
+                },
+                embedding: metadata.embedding?.vector || []
+            }));
+            const results = await embeddingService_1.embeddingService.findSimilarMetadata(themeQuery, metadataWithEmbeddings, limit, threshold);
+            logger_1.logger.info('Enhanced semantic theme search completed', {
+                themeQuery,
+                totalMetadata: metadataList.length,
+                candidatesProcessed: numCandidates,
+                resultsFound: results.length,
+                threshold,
+                topSimilarity: results[0]?.similarity || 0
+            });
+            return results;
+        }
+        catch (error) {
+            logger_1.logger.error('Error in semantic theme search:', error);
+            return [];
         }
     }
 }

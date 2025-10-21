@@ -1,0 +1,123 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Backend (Node.js)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/ia-backend/src/index.ts",
+      "cwd": "${workspaceFolder}/ia-backend",
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register",
+        "--inspect"
+      ],
+      "env": {
+        "NODE_ENV": "development",
+        "TS_NODE_PROJECT": "${workspaceFolder}/ia-backend/tsconfig.debug.json",
+        "TS_NODE_SOURCE_MAPS": "true",
+        "TS_NODE_TRANSPILE_ONLY": "false"
+      },
+      "console": "integratedTerminal",
+      "restart": false,
+      "protocol": "inspector",
+      "skipFiles": [
+        "<node_internals>/**",
+        "node_modules/**"
+      ],
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/ia-backend/src/**",
+        "!**/node_modules/**"
+      ],
+      "sourceMaps": true,
+      "outFiles": [
+        "${workspaceFolder}/ia-backend/dist/**/*.js"
+      ]
+    },
+    {
+      "name": "Debug Backend (Compiled)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/ia-backend/dist/index.js",
+      "cwd": "${workspaceFolder}/ia-backend",
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "console": "integratedTerminal",
+      "restart": true,
+      "preLaunchTask": "build-backend",
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    },
+    {
+      "name": "Debug Backend with Nodemon",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/ia-backend/node_modules/nodemon/bin/nodemon.js",
+      "args": [
+        "--legacy-watch",
+        "--exec",
+        "node -r ts-node/register --inspect",
+        "src/index.ts"
+      ],
+      "cwd": "${workspaceFolder}/ia-backend",
+      "env": {
+        "NODE_ENV": "development",
+        "TS_NODE_PROJECT": "${workspaceFolder}/ia-backend/tsconfig.debug.json",
+        "TS_NODE_SOURCE_MAPS": "true",
+        "TS_NODE_TRANSPILE_ONLY": "false"
+      },
+      "console": "integratedTerminal",
+      "restart": false,
+      "protocol": "inspector",
+      "skipFiles": [
+        "<node_internals>/**",
+        "node_modules/**"
+      ],
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/ia-backend/src/**",
+        "!**/node_modules/**"
+      ],
+      "sourceMaps": true,
+      "outFiles": [
+        "${workspaceFolder}/ia-backend/dist/**/*.js"
+      ]
+    },
+    {
+      "name": "Debug Frontend (Chrome)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}/ia-frontend/src",
+      "sourceMaps": true,
+      "userDataDir": "${workspaceFolder}/.vscode/chrome-debug-profile",
+      "preLaunchTask": "serve-frontend"
+    },
+    {
+      "name": "Debug Frontend (Edge)",
+      "type": "msedge",
+      "request": "launch",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}/ia-frontend/src",
+      "sourceMaps": true,
+      "userDataDir": "${workspaceFolder}/.vscode/edge-debug-profile",
+      "preLaunchTask": "serve-frontend"
+    },
+    {
+      "name": "Debug Test Scripts",
+      "type": "node",
+      "request": "launch",
+      "program": "${file}",
+      "cwd": "${workspaceFolder}/ia-backend",
+      "env": {
+        "NODE_ENV": "development",
+        "TS_NODE_PROJECT": "${workspaceFolder}/ia-backend/tsconfig.debug.json"
+      },
+      "console": "integratedTerminal",
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    }
+  ]
+}

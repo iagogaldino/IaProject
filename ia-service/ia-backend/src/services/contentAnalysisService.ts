@@ -8,7 +8,7 @@ export class ContentAnalysisService {
   async analyzeContent(request: ContentAnalysisRequest): Promise<ContentAnalysisResponse> {
     try {
       const { fileId, agentId, content, options = {} } = request;
-      const { language = 'pt', analysisDepth = 'detailed', includeImprovements = true } = options;
+      const { language = 'pt', analysisDepth = 'detailed', includeImprovements = false } = options;
 
       logger.info('Starting content analysis', {
         fileId,
@@ -25,7 +25,7 @@ export class ContentAnalysisService {
         success: true,
         data: {
           theme: analysisResult.theme,
-          improvedContent: analysisResult.improvedContent,
+          improvedContent: content, // Usar o conteúdo original em vez do melhorado
           tags: analysisResult.tags,
           analysis: {
             summary: analysisResult.analysis.summary,
@@ -57,6 +57,7 @@ export class ContentAnalysisService {
         success: false,
         data: {
           theme: '',
+          improvedContent: request.content, // Usar o conteúdo original em caso de erro
           tags: [],
           analysis: {
             summary: '',
@@ -210,7 +211,7 @@ Respond ONLY with valid JSON, no additional text.`;
       // Return fallback analysis
       return {
         theme: 'Conteúdo não categorizado',
-        improvedContent: includeImprovements ? content : undefined,
+        improvedContent: content, // Sempre usar o conteúdo original
         tags: ['conteúdo', 'análise'],
         analysis: {
           summary: 'Análise não disponível devido a erro no processamento',

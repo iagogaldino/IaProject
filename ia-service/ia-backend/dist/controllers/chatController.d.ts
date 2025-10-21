@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
 export declare class ChatController {
     chatWithAgent(req: Request, res: Response, next: NextFunction): Promise<void>;
     processAIRequest(req: Request, res: Response, next: NextFunction): Promise<void>;

@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { agentService } from '../services/agentService';
+import { databaseService } from '../services/databaseService';
 import { logger } from '../services/logger';
 import { ApiResponse, CreateAgentRequest, UpdateAgentRequest } from '../types';
 
@@ -188,6 +189,27 @@ export class AgentController {
       res.json(response);
     } catch (error: any) {
       logger.error('Error fetching active agents:', error);
+      next(error);
+    }
+  }
+
+  async getAvailableCollections(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      logger.info('Fetching available collections');
+      
+      const collections = await databaseService.listAvailableCollections();
+      
+      const response: ApiResponse = {
+        success: true,
+        data: collections,
+        meta: {
+          total: collections.length
+        }
+      };
+
+      res.json(response);
+    } catch (error: any) {
+      logger.error('Error fetching available collections:', error);
       next(error);
     }
   }

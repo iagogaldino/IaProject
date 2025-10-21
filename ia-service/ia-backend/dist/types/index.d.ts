@@ -89,7 +89,7 @@ export interface ChatRequest {
 export interface ChatResponse {
     agentId: string;
     response: {
-        role: 'agent';
+        role: 'assistant';
         content: string;
     };
 }
@@ -128,6 +128,7 @@ export interface ApiResponse<T = any> {
         total?: number;
         page?: number;
         limit?: number;
+        [key: string]: any;
     };
 }
 export interface HealthStatus {
@@ -281,6 +282,12 @@ export interface Metadata {
         agentId: string;
         version: string;
     };
+    embedding?: {
+        vector: number[];
+        model: string;
+        generatedAt: Date;
+        version: string;
+    };
     createdAt: Date;
     updatedAt: Date;
 }
@@ -297,6 +304,24 @@ export interface CreateMetadataRequest {
         confidence: number;
         language: string;
     };
+}
+export interface EmbeddingResult {
+    embedding: number[];
+    model: string;
+    usage: {
+        prompt_tokens: number;
+        total_tokens: number;
+    };
+}
+export interface SimilaritySearchResult {
+    metadata: Metadata;
+    similarity: number;
+    distance: number;
+}
+export interface EmbeddingGenerationStats {
+    processed: number;
+    errors: number;
+    updated: number;
 }
 export interface ValidationError {
     field: string;

@@ -1,0 +1,20 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "sourceMap": true,
+        "inlineSourceMap": false,
+        "inlineSources": false,
+        "declaration": false,
+        "declarationMap": false,
+        "removeComments": false
+    },
+    "ts-node": {
+        "transpileOnly": false,
+        "files": true,
+        "compilerOptions": {
+            "sourceMap": true,
+            "inlineSourceMap": false,
+            "inlineSources": false
+        }
+    }
+}

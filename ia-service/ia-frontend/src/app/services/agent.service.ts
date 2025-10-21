@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 
@@ -145,7 +145,7 @@ export class AgentService {
   private apiBaseUrl = environment.apiBaseUrl;
   private apiKey = environment.apiKey;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
@@ -193,6 +193,12 @@ export class AgentService {
 
   deleteAgent(id: string): Observable<{ success: boolean; data: { message: string } }> {
     return this.http.delete<{ success: boolean; data: { message: string } }>(`${this.apiBaseUrl}/agents/${id}`, {
+      headers: this.getHeaders()
+    });
+  }
+
+  getAvailableCollections(): Observable<{ success: boolean; data: string[]; meta: { total: number } }> {
+    return this.http.get<{ success: boolean; data: string[]; meta: { total: number } }>(`${this.apiBaseUrl}/agents/collections/available`, {
       headers: this.getHeaders()
     });
   }

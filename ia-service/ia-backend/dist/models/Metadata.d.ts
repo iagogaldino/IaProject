@@ -18,6 +18,12 @@ export interface IMetadata extends Document {
         agentId: string;
         version: string;
     };
+    embedding?: {
+        vector: number[];
+        model: string;
+        generatedAt: Date;
+        version: string;
+    };
     createdAt: Date;
     updatedAt: Date;
 }

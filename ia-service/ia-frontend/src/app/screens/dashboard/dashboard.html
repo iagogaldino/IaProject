@@ -28,10 +28,12 @@
   <div class="dashboard-content">
     <!-- Stats Overview -->
     <div class="stats-grid">
-      <mat-card class="stat-card">
+      <mat-card class="stat-card stat-card-primary" [@cardAnimation]>
         <mat-card-content>
           <div class="stat-content">
-            <mat-icon class="stat-icon">psychology</mat-icon>
+            <div class="stat-icon-wrapper">
+              <mat-icon class="stat-icon">psychology</mat-icon>
+            </div>
             <div class="stat-info">
               <div class="stat-number">{{ totalAgents }}</div>
               <div class="stat-label">Total de Agentes</div>
@@ -40,10 +42,12 @@
         </mat-card-content>
       </mat-card>
 
-      <mat-card class="stat-card">
+      <mat-card class="stat-card stat-card-success" [@cardAnimation]>
         <mat-card-content>
           <div class="stat-content">
-            <mat-icon class="stat-icon status-active">check_circle</mat-icon>
+            <div class="stat-icon-wrapper">
+              <mat-icon class="stat-icon status-active">check_circle</mat-icon>
+            </div>
             <div class="stat-info">
               <div class="stat-number">{{ activeAgents }}</div>
               <div class="stat-label">Agentes Ativos</div>
@@ -52,22 +56,26 @@
         </mat-card-content>
       </mat-card>
 
-      <mat-card class="stat-card">
+      <mat-card class="stat-card stat-card-warning" [@cardAnimation]>
         <mat-card-content>
           <div class="stat-content">
-            <mat-icon class="stat-icon">chat</mat-icon>
+            <div class="stat-icon-wrapper">
+              <mat-icon class="stat-icon">chat</mat-icon>
+            </div>
             <div class="stat-info">
               <div class="stat-number">{{ totalMessages }}</div>
-              <div class="stat-label">Mensagens</div>
+              <div class="stat-label">Mensagens Trocadas</div>
             </div>
           </div>
         </mat-card-content>
       </mat-card>
 
-      <mat-card class="stat-card">
+      <mat-card class="stat-card stat-card-info" [@cardAnimation]>
         <mat-card-content>
           <div class="stat-content">
-            <mat-icon class="stat-icon" [style.color]="getHealthColor()">{{ getHealthIcon() }}</mat-icon>
+            <div class="stat-icon-wrapper">
+              <mat-icon class="stat-icon" [style.color]="getHealthColor()">{{ getHealthIcon() }}</mat-icon>
+            </div>
             <div class="stat-info">
               <div class="stat-number">{{ systemHealth | titlecase }}</div>
               <div class="stat-label">Status do Sistema</div>
@@ -92,21 +100,16 @@
                 </div>
               </div>
             </mat-card-header>
-            
+
             <mat-card-content>
               <div *ngIf="loading" class="loading-container">
                 <mat-spinner diameter="40"></mat-spinner>
                 <p class="loading-text">Carregando agentes...</p>
               </div>
-              
-              <app-agent-list 
-                *ngIf="!loading"
-                [agents]="agents"
-                [editingAgentId]="editingAgentId"
-                (editAgent)="onEditAgent($event)"
-                (deleteAgent)="onDeleteAgent($event)"
-                (toggleStatus)="onToggleAgentStatus($event)"
-                (chatWithAgent)="onChatWithAgent($event)">
+
+              <app-agent-list *ngIf="!loading" [agents]="agents" [editingAgentId]="editingAgentId"
+                (editAgent)="onEditAgent($event)" (deleteAgent)="onDeleteAgent($event)"
+                (toggleStatus)="onToggleAgentStatus($event)" (chatWithAgent)="onChatWithAgent($event)">
               </app-agent-list>
             </mat-card-content>
           </mat-card>
@@ -116,9 +119,7 @@
       <!-- Chat Tab -->
       <mat-tab label="Chat">
         <div class="tab-content">
-          <app-chat 
-            [agents]="agents"
-            [currentAgent]="currentAgent">
+          <app-chat [agents]="agents" [currentAgent]="currentAgent">
           </app-chat>
         </div>
       </mat-tab>
@@ -126,9 +127,7 @@
       <!-- Communication Tab -->
       <mat-tab label="Comunicação">
         <div class="tab-content">
-          <app-communication 
-            [agents]="agents"
-            [stats]="communicationStats">
+          <app-communication [agents]="agents" [stats]="communicationStats">
           </app-communication>
         </div>
       </mat-tab>
@@ -136,8 +135,7 @@
       <!-- Health Tab -->
       <mat-tab label="Sistema">
         <div class="tab-content">
-          <app-health 
-            [health]="health">
+          <app-health [health]="health">
           </app-health>
         </div>
       </mat-tab>
@@ -146,11 +144,6 @@
 </div>
 
 <!-- Agent Form Modal -->
-<app-agent-form 
-  *ngIf="showAgentForm"
-  [agent]="currentAgent"
-  [isVisible]="showAgentForm"
-  [availableAgents]="agents"
-  (close)="onCloseAgentForm()"
-  (save)="onSaveAgent($event)">
+<app-agent-form *ngIf="showAgentForm" [agent]="currentAgent" [isVisible]="showAgentForm" [availableAgents]="agents"
+  (close)="onCloseAgentForm()" (save)="onSaveAgent($event)">
 </app-agent-form>

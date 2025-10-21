@@ -12,7 +12,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { Agent } from '../../services/agent.service';
+import { Agent, AgentService } from '../../services/agent.service';
 
 @Component({
   selector: 'app-agent-form',
@@ -43,6 +43,7 @@ export class AgentFormComponent implements OnInit {
   
   agentForm: FormGroup;
   isEditMode = false;
+  availableCollections: string[] = [];
   
   // Opções para selects
   statusOptions = [
@@ -58,7 +59,8 @@ export class AgentFormComponent implements OnInit {
   ];
   
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private agentService: AgentService
   ) {
     this.agentForm = this.createForm();
   }
@@ -68,6 +70,7 @@ export class AgentFormComponent implements OnInit {
       this.isEditMode = true;
       this.populateForm();
     }
+    this.loadAvailableCollections();
   }
   
   createForm(): FormGroup {
@@ -194,5 +197,35 @@ export class AgentFormComponent implements OnInit {
   
   getSaveButtonText(): string {
     return this.isEditMode ? 'Salvar Alterações' : 'Criar Agente';
+  }
+
+  loadAvailableCollections(): void {
+    this.agentService.getAvailableCollections().subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.availableCollections = response.data;
+        }
+      },
+      error: (error) => {
+        console.error('Erro ao carregar collections disponíveis:', error);
+        // Fallback para collections padrão em caso de erro
+        this.availableCollections = ['users', 'products', 'orders', 'metadados', 'logs'];
+      }
+    });
+  }
+
+  getCollectionDisplayName(collection: string): string {
+    const displayNames: { [key: string]: string } = {
+      'users': 'Usuários',
+      'products': 'Produtos',
+      'orders': 'Pedidos',
+      'metadados': 'Metadados',
+      'logs': 'Logs',
+      'agents': 'Agentes',
+      'fileuploads': 'Uploads de Arquivos',
+      'communications': 'Comunicações'
+    };
+    
+    return displayNames[collection] || collection.charAt(0).toUpperCase() + collection.slice(1);
   }
 }

@@ -5,10 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.chatController = exports.ChatController = void 0;
 const axios_1 = __importDefault(require("axios"));
-const chatService_1 = require("../services/chatService");
-const agentService_1 = require("../services/agentService");
-const logger_1 = require("../services/logger");
 const config_1 = require("../config/config");
+const agentService_1 = require("../services/agentService");
+const chatService_1 = require("../services/chatService");
+const logger_1 = require("../services/logger");
 class ChatController {
     async chatWithAgent(req, res, next) {
         try {

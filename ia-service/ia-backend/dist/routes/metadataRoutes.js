@@ -10,9 +10,14 @@ router.get('/files/:fileId/metadata', metadataController_1.metadataController.ge
 router.get('/agents/:agentId/metadata', metadataController_1.metadataController.getMetadataByAgent.bind(metadataController_1.metadataController));
 router.get('/metadata/search', metadataController_1.metadataController.searchMetadata.bind(metadataController_1.metadataController));
 router.get('/metadata/stats', metadataController_1.metadataController.getMetadataStats.bind(metadataController_1.metadataController));
+router.post('/metadata', metadataController_1.metadataController.createMetadata.bind(metadataController_1.metadataController));
 router.put('/metadata/:metadataId', metadataController_1.metadataController.updateMetadata.bind(metadataController_1.metadataController));
 router.delete('/metadata/:metadataId', metadataController_1.metadataController.deleteMetadata.bind(metadataController_1.metadataController));
 router.delete('/files/:fileId/metadata', metadataController_1.metadataController.deleteMetadataByFile.bind(metadataController_1.metadataController));
+router.get('/metadata/search/similar', metadataController_1.metadataController.searchSimilarMetadata.bind(metadataController_1.metadataController));
+router.get('/metadata/search/theme', metadataController_1.metadataController.searchBySemanticTheme.bind(metadataController_1.metadataController));
+router.post('/metadata/embeddings/generate', metadataController_1.metadataController.generateMissingEmbeddings.bind(metadataController_1.metadataController));
+router.put('/metadata/:metadataId/embedding', metadataController_1.metadataController.updateMetadataEmbedding.bind(metadataController_1.metadataController));
 router.use(errorHandler_1.errorHandler);
 exports.default = router;
 //# sourceMappingURL=metadataRoutes.js.map

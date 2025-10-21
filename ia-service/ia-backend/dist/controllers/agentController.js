@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.agentController = exports.AgentController = void 0;
 const agentService_1 = require("../services/agentService");
+const databaseService_1 = require("../services/databaseService");
 const logger_1 = require("../services/logger");
 class AgentController {
     async createAgent(req, res, next) {
@@ -159,6 +160,24 @@ class AgentController {
         }
         catch (error) {
             logger_1.logger.error('Error fetching active agents:', error);
+            next(error);
+        }
+    }
+    async getAvailableCollections(req, res, next) {
+        try {
+            logger_1.logger.info('Fetching available collections');
+            const collections = await databaseService_1.databaseService.listAvailableCollections();
+            const response = {
+                success: true,
+                data: collections,
+                meta: {
+                    total: collections.length
+                }
+            };
+            res.json(response);
+        }
+        catch (error) {
+            logger_1.logger.error('Error fetching available collections:', error);
             next(error);
         }
     }

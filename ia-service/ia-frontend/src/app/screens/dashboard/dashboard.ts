@@ -14,6 +14,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatBadgeModule } from '@angular/material/badge';
+import { trigger, state, style, transition, animate, stagger, query } from '@angular/animations';
 
 import { AgentService, Agent, HealthResponse, CommunicationStats } from '../../services/agent.service';
 import { AiService } from '../../services/ai.service';
@@ -48,7 +49,16 @@ import { HealthComponent } from '../../components/health/health.component';
     HealthComponent
   ],
   templateUrl: './dashboard.html',
-  styleUrl: './dashboard.scss'
+  styleUrl: './dashboard.scss',
+  animations: [
+    trigger('cardAnimation', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(30px) scale(0.95)' }),
+        animate('0.5s cubic-bezier(0.4, 0, 0.2, 1)', 
+          style({ opacity: 1, transform: 'translateY(0) scale(1)' }))
+      ])
+    ])
+  ]
 })
 export class Dashboard implements OnInit {
   protected readonly title = signal('IA Service Platform');

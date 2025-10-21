@@ -1,4 +1,5 @@
 import { Metadata, CreateMetadataRequest } from '../types';
+import { SimilaritySearchResult } from './embeddingService';
 export declare class MetadataService {
     createMetadata(metadataData: CreateMetadataRequest): Promise<Metadata>;
     getMetadataByFileId(fileId: string): Promise<Metadata | null>;
@@ -21,6 +22,25 @@ export declare class MetadataService {
         byAgent: Record<string, number>;
         recentActivity: number;
     }>;
+    searchSimilarMetadata(queryText: string, options?: {
+        limit?: number;
+        threshold?: number;
+        agentId?: string;
+        includeEmbedding?: boolean;
+        numCandidates?: number;
+    }): Promise<SimilaritySearchResult[]>;
+    generateMissingEmbeddings(batchSize?: number): Promise<{
+        processed: number;
+        errors: number;
+        updated: number;
+    }>;
+    updateMetadataEmbedding(metadataId: string): Promise<boolean>;
+    searchBySemanticTheme(themeQuery: string, options?: {
+        limit?: number;
+        threshold?: number;
+        agentId?: string;
+        numCandidates?: number;
+    }): Promise<SimilaritySearchResult[]>;
 }
 export declare const metadataService: MetadataService;
 //# sourceMappingURL=metadataService.d.ts.map

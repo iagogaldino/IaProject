@@ -11,7 +11,7 @@ const BaseContentExtractor_1 = require("./extractors/BaseContentExtractor");
 class ExternalExtractorService extends BaseContentExtractor_1.BaseContentExtractor {
     constructor() {
         super();
-        this.apiUrl = process.env.EXTERNAL_EXTRACTOR_API_URL || 'http://localhost:3000/api/extract';
+        this.apiUrl = process.env.EXTERNAL_EXTRACTOR_API_URL || (() => { throw new Error('EXTERNAL_EXTRACTOR_API_URL is not set'); })();
         this.timeout = parseInt(process.env.EXTERNAL_EXTRACTOR_TIMEOUT || '30000');
     }
     async extractContent(fileBuffer, fileName) {

@@ -7,6 +7,7 @@ export declare class AgentController {
     updateAgentStatus(req: Request, res: Response, next: NextFunction): Promise<void>;
     deleteAgent(req: Request, res: Response, next: NextFunction): Promise<void>;
     getActiveAgents(req: Request, res: Response, next: NextFunction): Promise<void>;
+    getAvailableCollections(req: Request, res: Response, next: NextFunction): Promise<void>;
 }
 export declare const agentController: AgentController;
 //# sourceMappingURL=agentController.d.ts.map

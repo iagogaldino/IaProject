@@ -29,6 +29,10 @@ router.get('/active',
   agentController.getActiveAgents
 );
 
+router.get('/collections/available', 
+  agentController.getAvailableCollections
+);
+
 router.get('/:id', 
   validateParams(agentIdSchema),
   agentController.getAgentById

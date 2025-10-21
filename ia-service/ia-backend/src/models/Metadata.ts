@@ -19,6 +19,12 @@ export interface IMetadata extends Document {
     agentId: string;
     version: string;
   };
+  embedding?: {
+    vector: number[];
+    model: string;
+    generatedAt: Date;
+    version: string;
+  };
   createdAt: Date;
   updatedAt: Date;
 }
@@ -84,6 +90,23 @@ const MetadataSchema = new Schema<IMetadata>({
       type: String,
       default: '1.0'
     }
+  },
+  embedding: {
+    vector: [{
+      type: Number
+    }],
+    model: {
+      type: String,
+      default: 'text-embedding-3-small'
+    },
+    generatedAt: {
+      type: Date,
+      default: Date.now
+    },
+    version: {
+      type: String,
+      default: '1.0'
+    }
   }
 }, {
   timestamps: true,
@@ -96,6 +119,7 @@ MetadataSchema.index({ theme: 1 });
 MetadataSchema.index({ tags: 1 });
 MetadataSchema.index({ 'analysis.sentiment': 1 });
 MetadataSchema.index({ createdAt: -1 });
+MetadataSchema.index({ 'embedding.vector': '2dsphere' }); // Para busca vetorial
 
 // Middleware para validação antes de salvar
 MetadataSchema.pre<IMetadata>('save', function(next: any) {

@@ -16,7 +16,7 @@ class OpenAIService {
     this.client = new OpenAI({
       apiKey: config.openai.apiKey,
     });
-    
+
     this.model = config.openai.model;
     this.maxTokens = config.openai.maxTokens;
     this.temperature = config.openai.temperature;
@@ -25,7 +25,7 @@ class OpenAIService {
   async processMessage(messages: Array<{ role: string; content: string }>, agentContext?: string): Promise<string> {
     try {
       const systemPrompt = agentContext || 'You are a helpful AI assistant. Provide clear and concise responses.';
-      
+
       const chatMessages = [
         { role: 'system' as const, content: systemPrompt },
         ...messages.map(msg => ({
@@ -33,6 +33,7 @@ class OpenAIService {
           content: msg.content
         }))
       ];
+
 
       const response = await this.client.chat.completions.create({
         model: this.model,
@@ -43,7 +44,7 @@ class OpenAIService {
       });
 
       const content = response.choices[0]?.message?.content;
-      
+
       if (!content) {
         throw new Error('No response content received from OpenAI');
       }
@@ -87,8 +88,8 @@ class OpenAIService {
   async uploadFileDirectly(fileBuffer: Buffer, fileName: string, purpose: 'assistants' | 'batch' | 'fine-tune' | 'vision' = 'assistants'): Promise<string> {
     try {
       // Create a File object from buffer
-      const file = new File([fileBuffer], fileName, { 
-        type: this.getMimeType(fileName) 
+      const file = new File([fileBuffer], fileName, {
+        type: this.getMimeType(fileName)
       });
 
       // Upload file directly to OpenAI
@@ -124,7 +125,7 @@ class OpenAIService {
     try {
       // For now, let's use a simpler approach that works with the current API
       // We'll read the file content and send it to the chat completion
-      const systemPrompt = language === 'pt' 
+      const systemPrompt = language === 'pt'
         ? 'Você é um analista de documentos especializado. Analise o conteúdo fornecido e forneça insights detalhados.'
         : 'You are a specialized document analyst. Analyze the provided content and provide detailed insights.';
 
@@ -136,8 +137,8 @@ class OpenAIService {
         model: this.model,
         messages: [
           { role: 'system', content: systemPrompt },
-          { 
-            role: 'user', 
+          {
+            role: 'user',
             content: `${prompt}\n\nConteúdo do arquivo:\n${fileText}`
           }
         ],
@@ -146,7 +147,7 @@ class OpenAIService {
       });
 
       const content = response.choices[0]?.message?.content;
-      
+
       if (!content) {
         throw new Error('No response content received from OpenAI');
       }

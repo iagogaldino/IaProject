@@ -96,6 +96,23 @@ const MetadataSchema = new mongoose_1.Schema({
             type: String,
             default: '1.0'
         }
+    },
+    embedding: {
+        vector: [{
+                type: Number
+            }],
+        model: {
+            type: String,
+            default: 'text-embedding-3-small'
+        },
+        generatedAt: {
+            type: Date,
+            default: Date.now
+        },
+        version: {
+            type: String,
+            default: '1.0'
+        }
     }
 }, {
     timestamps: true,
@@ -106,6 +123,7 @@ MetadataSchema.index({ theme: 1 });
 MetadataSchema.index({ tags: 1 });
 MetadataSchema.index({ 'analysis.sentiment': 1 });
 MetadataSchema.index({ createdAt: -1 });
+MetadataSchema.index({ 'embedding.vector': '2dsphere' });
 MetadataSchema.pre('save', function (next) {
     if (!this.id) {
         this.id = this._id.toString();

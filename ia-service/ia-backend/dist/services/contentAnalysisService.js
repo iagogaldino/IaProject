@@ -10,7 +10,7 @@ class ContentAnalysisService {
     async analyzeContent(request) {
         try {
             const { fileId, agentId, content, options = {} } = request;
-            const { language = 'pt', analysisDepth = 'detailed', includeImprovements = true } = options;
+            const { language = 'pt', analysisDepth = 'detailed', includeImprovements = false } = options;
             logger_1.logger.info('Starting content analysis', {
                 fileId,
                 agentId,
@@ -23,7 +23,7 @@ class ContentAnalysisService {
                 success: true,
                 data: {
                     theme: analysisResult.theme,
-                    improvedContent: analysisResult.improvedContent,
+                    improvedContent: content,
                     tags: analysisResult.tags,
                     analysis: {
                         summary: analysisResult.analysis.summary,
@@ -54,6 +54,7 @@ class ContentAnalysisService {
                 success: false,
                 data: {
                     theme: '',
+                    improvedContent: request.content,
                     tags: [],
                     analysis: {
                         summary: '',
@@ -177,7 +178,7 @@ Respond ONLY with valid JSON, no additional text.`;
             logger_1.logger.error('Error parsing AI analysis response:', error);
             return {
                 theme: 'Conteúdo não categorizado',
-                improvedContent: includeImprovements ? content : undefined,
+                improvedContent: content,
                 tags: ['conteúdo', 'análise'],
                 analysis: {
                     summary: 'Análise não disponível devido a erro no processamento',
