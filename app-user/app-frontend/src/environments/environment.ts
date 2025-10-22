@@ -4,11 +4,7 @@
 
 // Configuração dinâmica baseada no ambiente
 const getApiUrl = () => {
-  // Se estiver rodando no Docker (porta 4200), usar nome do serviço
-  if (window.location.port === '4200') {
-    return 'http://app-backend:3000';
-  }
-  // Se estiver rodando localmente (porta diferente), usar localhost
+  // Sempre usar localhost pois o frontend é acessado pelo navegador do host
   return 'http://localhost:3000';
 };
 
