@@ -675,3 +675,9 @@
 {"level":"info","message":"🔍 ═══════════════════════════════════════════════════════════","service":"ai-backend","timestamp":"2025-10-22 23:52:21"}
 {"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Agent chat processed successfully","responseLength":321,"service":"ai-backend","timestamp":"2025-10-22 23:52:21"}
 {"level":"info","message":"::ffff:172.23.0.5 - - [22/Oct/2025:23:52:21 +0000] \"POST /api/agents/68dd37501d9bfcc29e34574b/chat HTTP/1.1\" 200 444 \"-\" \"axios/1.12.2\"","service":"ai-backend","timestamp":"2025-10-22 23:52:21"}
+{"level":"info","message":"MongoDB database initialized successfully","service":"ai-backend","timestamp":"2025-10-22 23:53:19"}
+{"level":"info","message":"Database connected successfully","service":"ai-backend","timestamp":"2025-10-22 23:53:19"}
+{"level":"info","message":"🚀 Server running on port 3001","service":"ai-backend","timestamp":"2025-10-22 23:53:19"}
+{"level":"info","message":"MongoDB database initialized successfully","service":"ai-backend","timestamp":"2025-10-22 23:55:41"}
+{"level":"info","message":"Database connected successfully","service":"ai-backend","timestamp":"2025-10-22 23:55:41"}
+{"level":"info","message":"🚀 Server running on port 3001","service":"ai-backend","timestamp":"2025-10-22 23:55:41"}
