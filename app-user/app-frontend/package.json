@@ -6,7 +6,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:local": "ng serve --configuration local --port 4202",
+    "start:docker": "ng serve --configuration docker --port 4200",
     "build": "ng build",
+    "build:local": "ng build --configuration local",
+    "build:docker": "ng build --configuration docker",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"

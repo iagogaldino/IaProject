@@ -67,6 +67,30 @@
               "sourceMap": true,
               "namedChunks": true
             },
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ],
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "docker": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.docker.ts"
+                }
+              ],
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
             "ci": {
               "progress": false
             }
@@ -81,6 +105,12 @@
             },
             "development": {
               "buildTarget": "app:build:development"
+            },
+            "local": {
+              "buildTarget": "app:build:local"
+            },
+            "docker": {
+              "buildTarget": "app:build:docker"
             },
             "ci": {
               "progress": false

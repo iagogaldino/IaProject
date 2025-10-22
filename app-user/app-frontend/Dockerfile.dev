@@ -1,0 +1,19 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Instalar dependências
+COPY package*.json ./
+RUN npm install
+
+# Instalar Angular CLI globalmente
+RUN npm install -g @angular/cli
+
+# Copiar código fonte
+COPY . .
+
+# Expor porta
+EXPOSE 4200
+
+# Comando para desenvolvimento com hot reload usando configuração docker
+CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200", "--configuration", "docker", "--poll", "2000", "--live-reload", "true", "--watch", "true"]
