@@ -43,9 +43,9 @@ chmod +x scripts/*.sh
 
 ### Setup Manual
 ```bash
-# 1. Configure as variáveis de ambiente
-cp ia-backend.env .env
-# Edite o arquivo e configure sua chave da OpenAI
+# 1. Configure as variáveis de ambiente (se necessário)
+# As configurações padrão já estão no docker-compose.yml
+# Para personalizar, edite as variáveis diretamente no docker-compose.yml
 
 # 2. Inicie os serviços
 docker-compose up -d
@@ -130,7 +130,7 @@ IaProject/
 ### Problemas Comuns
 1. **Porta em uso**: Verifique se as portas 3000, 3001, 4200, 4201, 5432, 27018 estão livres
 2. **Docker não inicia**: Verifique se o Docker Desktop está rodando
-3. **Chave OpenAI inválida**: Configure uma chave válida no arquivo `ia-backend.env`
+3. **Chave OpenAI inválida**: Configure uma chave válida no `docker-compose.yml` na seção `ia-backend`
 4. **MongoDB não conecta**: Execute `docker-compose restart mongodb`
 
 ### Logs e Debug
