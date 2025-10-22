@@ -382,3 +382,296 @@
 {"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Agent chat processed successfully","responseLength":70,"service":"ai-backend","timestamp":"2025-10-22 23:33:24"}
 {"level":"info","message":"::ffff:172.23.0.5 - - [22/Oct/2025:23:33:24 +0000] \"POST /api/agents/68dd37501d9bfcc29e34574b/chat HTTP/1.1\" 200 182 \"-\" \"axios/1.12.2\"","service":"ai-backend","timestamp":"2025-10-22 23:33:24"}
 {"level":"info","message":"::ffff:172.23.0.1 - - [22/Oct/2025:23:40:37 +0000] \"GET /health HTTP/1.1\" 200 295 \"http://localhost:4201/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\"","service":"ai-backend","timestamp":"2025-10-22 23:40:37"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Chat request received","service":"ai-backend","timestamp":"2025-10-22 23:41:42"}
+{"initiatorAgent":"68dd37501d9bfcc29e34574b","level":"info","message":"🔍 COOPERATION TRACE STARTED","query":"oii","service":"ai-backend","sessionId":"trace_1761176502920_ag7aq72im","timestamp":"2025-10-22 23:41:42"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Processing agent chat","messageCount":2,"responseFormat":"clean","service":"ai-backend","timestamp":"2025-10-22 23:41:42"}
+{"allowedAgents":[{"id":"68dd625e8be0682166a76f97","name":"Agente Database"}],"allowedCount":1,"currentAgent":"Nina Petrolina","level":"info","message":"Found agents allowed for communication","service":"ai-backend","timestamp":"2025-10-22 23:41:42"}
+{"level":"info","message":"OpenAI request processed successfully","messagesCount":1,"model":"gpt-3.5-turbo","service":"ai-backend","timestamp":"2025-10-22 23:41:45","tokensUsed":688}
+{"aiResponse":"0","currentAgent":"Nina Petrolina","level":"info","message":"AI decided current agent should handle query","service":"ai-backend","timestamp":"2025-10-22 23:41:45"}
+{"agentId":"68dd37501d9bfcc29e34574b","agentName":"Nina Petrolina","level":"info","message":"AI decided not to consult any specialist","query":"oii","service":"ai-backend","timestamp":"2025-10-22 23:41:45"}
+{"agentId":"68dd37501d9bfcc29e34574b","agentName":"Nina Petrolina","level":"info","message":"Agent responding with own knowledge","service":"ai-backend","timestamp":"2025-10-22 23:41:45"}
+{"level":"info","message":"OpenAI request processed successfully","messagesCount":2,"model":"gpt-3.5-turbo","service":"ai-backend","timestamp":"2025-10-22 23:41:46","tokensUsed":480}
+{"level":"info","message":"🔍 ═══════════════════════════════════════════════════════════","service":"ai-backend","timestamp":"2025-10-22 23:41:46"}
+{"level":"info","message":"🔍 COOPERATION TRACE COMPLETE","service":"ai-backend","sessionId":"trace_1761176502920_ag7aq72im","timestamp":"2025-10-22 23:41:46","totalDuration":"3123ms","totalSteps":4}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:41:46"}
+{"level":"info","message":"🔍 Query: \"oii\"","service":"ai-backend","timestamp":"2025-10-22 23:41:46"}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:41:46"}
+{"level":"info","message":"🔍 COOPERATION CHAIN:","service":"ai-backend","timestamp":"2025-10-22 23:41:46"}
+{"level":"info","message":"🔍 👤 User → Nina Petrolina → 👤 User","service":"ai-backend","timestamp":"2025-10-22 23:41:46"}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:41:46"}
+{"action":"received","agentId":"68dd37501d9bfcc29e34574b","details":"Agent received query","level":"info","message":"🔍 [1] 23:41:42.928 📥 Nina Petrolina - received","service":"ai-backend","timestamp":"2025-10-22 23:41:46"}
+{"action":"processing","agentId":"68dd37501d9bfcc29e34574b","details":"Evaluating need for specialist cooperation","level":"info","message":"🔍 [2] 23:41:42.928 ⚙️ Nina Petrolina - processing","service":"ai-backend","timestamp":"2025-10-22 23:41:46"}
+{"action":"processing","agentId":"68dd37501d9bfcc29e34574b","details":"Responding with own knowledge","level":"info","message":"🔍 [3] 23:41:45.361 ⚙️ Nina Petrolina - processing","service":"ai-backend","timestamp":"2025-10-22 23:41:46"}
+{"action":"responded","agentId":"68dd37501d9bfcc29e34574b","details":"Direct response provided","level":"info","message":"🔍 [4] 23:41:46.043 📤 Nina Petrolina - responded","service":"ai-backend","timestamp":"2025-10-22 23:41:46"}
+{"level":"info","message":"🔍 ═══════════════════════════════════════════════════════════","service":"ai-backend","timestamp":"2025-10-22 23:41:46"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Agent chat processed successfully","responseLength":31,"service":"ai-backend","timestamp":"2025-10-22 23:41:46"}
+{"level":"info","message":"::ffff:172.23.0.5 - - [22/Oct/2025:23:41:46 +0000] \"POST /api/agents/68dd37501d9bfcc29e34574b/chat HTTP/1.1\" 200 139 \"-\" \"axios/1.12.2\"","service":"ai-backend","timestamp":"2025-10-22 23:41:46"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Chat request received","service":"ai-backend","timestamp":"2025-10-22 23:42:05"}
+{"initiatorAgent":"68dd37501d9bfcc29e34574b","level":"info","message":"🔍 COOPERATION TRACE STARTED","query":"QUais foram os gastos nas pavimentações?","service":"ai-backend","sessionId":"trace_1761176525555_i1x8ao974","timestamp":"2025-10-22 23:42:05"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Processing agent chat","messageCount":3,"responseFormat":"clean","service":"ai-backend","timestamp":"2025-10-22 23:42:05"}
+{"level":"info","message":"OpenAI request processed successfully","messagesCount":1,"model":"gpt-3.5-turbo","service":"ai-backend","timestamp":"2025-10-22 23:42:08","tokensUsed":696}
+{"confidence":"high","currentAgent":"Nina Petrolina","level":"info","message":"AI selected specialist agent","selectedAgent":"Agente Database","service":"ai-backend","timestamp":"2025-10-22 23:42:08"}
+{"fromAgent":"Nina Petrolina","level":"info","message":"🤝 Agent cooperation initiated","query":"QUais foram os gastos nas pavimentações?","service":"ai-backend","timestamp":"2025-10-22 23:42:08","toAgent":"Agente Database"}
+{"agentId":"68dd625e8be0682166a76f97","level":"info","message":"Processing agent chat","messageCount":1,"responseFormat":"clean","service":"ai-backend","timestamp":"2025-10-22 23:42:08"}
+{"allowedAgents":[{"id":"68e520094fd6b86d39ed8622","name":"Agente de resposta"}],"allowedCount":1,"currentAgent":"Agente Database","level":"info","message":"Found agents allowed for communication","service":"ai-backend","timestamp":"2025-10-22 23:42:08"}
+{"level":"info","message":"OpenAI request processed successfully","messagesCount":1,"model":"gpt-3.5-turbo","service":"ai-backend","timestamp":"2025-10-22 23:42:08","tokensUsed":515}
+{"confidence":"high","currentAgent":"Agente Database","level":"info","message":"AI selected specialist agent","selectedAgent":"Agente de resposta","service":"ai-backend","timestamp":"2025-10-22 23:42:08"}
+{"fromAgent":"Agente Database","level":"info","message":"🤝 Agent cooperation initiated","query":"QUais foram os gastos nas pavimentações?","service":"ai-backend","timestamp":"2025-10-22 23:42:08","toAgent":"Agente de resposta"}
+{"agentId":"68e520094fd6b86d39ed8622","level":"info","message":"Processing agent chat","messageCount":1,"responseFormat":"clean","service":"ai-backend","timestamp":"2025-10-22 23:42:08"}
+{"allowedAgents":[{"id":"68de6965a35f3420d9871fe6","name":"Agente Especialista em Análise de Conteúdo"},{"id":"68de5d2bf6934dbd41a89f9f","name":"Agente Arquivos"},{"id":"68dd625e8be0682166a76f97","name":"Agente Database"},{"id":"68dd37501d9bfcc29e34574b","name":"Nina Petrolina"}],"allowedCount":4,"currentAgent":"Agente de resposta","level":"info","message":"Found agents allowed for communication","service":"ai-backend","timestamp":"2025-10-22 23:42:08"}
+{"level":"info","message":"OpenAI request processed successfully","messagesCount":1,"model":"gpt-3.5-turbo","service":"ai-backend","timestamp":"2025-10-22 23:42:09","tokensUsed":1263}
+{"confidence":"high","currentAgent":"Agente de resposta","level":"info","message":"AI selected specialist agent","selectedAgent":"Agente Arquivos","service":"ai-backend","timestamp":"2025-10-22 23:42:09"}
+{"fromAgent":"Agente de resposta","level":"info","message":"🤝 Agent cooperation initiated","query":"QUais foram os gastos nas pavimentações?","service":"ai-backend","timestamp":"2025-10-22 23:42:09","toAgent":"Agente Arquivos"}
+{"agentId":"68de5d2bf6934dbd41a89f9f","level":"info","message":"Processing agent chat","messageCount":1,"responseFormat":"clean","service":"ai-backend","timestamp":"2025-10-22 23:42:09"}
+{"allowedAgents":[{"id":"68de6965a35f3420d9871fe6","name":"Agente Especialista em Análise de Conteúdo"},{"id":"68dd625e8be0682166a76f97","name":"Agente Database"},{"id":"68dd37501d9bfcc29e34574b","name":"Nina Petrolina"}],"allowedCount":3,"currentAgent":"Agente Arquivos","level":"info","message":"Found agents allowed for communication","service":"ai-backend","timestamp":"2025-10-22 23:42:09"}
+{"level":"info","message":"OpenAI request processed successfully","messagesCount":1,"model":"gpt-3.5-turbo","service":"ai-backend","timestamp":"2025-10-22 23:42:11","tokensUsed":1201}
+{"confidence":"high","currentAgent":"Agente Arquivos","level":"info","message":"AI selected specialist agent","selectedAgent":"Agente Database","service":"ai-backend","timestamp":"2025-10-22 23:42:11"}
+{"fromAgent":"Agente Arquivos","level":"info","message":"🤝 Agent cooperation initiated","query":"QUais foram os gastos nas pavimentações?","service":"ai-backend","timestamp":"2025-10-22 23:42:11","toAgent":"Agente Database"}
+{"agentId":"68dd625e8be0682166a76f97","level":"info","message":"Processing agent chat","messageCount":1,"responseFormat":"clean","service":"ai-backend","timestamp":"2025-10-22 23:42:11"}
+{"agentId":"68dd625e8be0682166a76f97","callStack":["68dd37501d9bfcc29e34574b","68dd625e8be0682166a76f97","68e520094fd6b86d39ed8622","68de5d2bf6934dbd41a89f9f"],"level":"warn","message":"Detected potential infinite loop in agent cooperation","service":"ai-backend","timestamp":"2025-10-22 23:42:11"}
+{"agentId":"68dd625e8be0682166a76f97","agentName":"Agente Database","level":"info","message":"Agent responding with own knowledge","service":"ai-backend","timestamp":"2025-10-22 23:42:11"}
+{"level":"info","message":"OpenAI request processed successfully","messagesCount":1,"model":"gpt-3.5-turbo","service":"ai-backend","timestamp":"2025-10-22 23:42:12","tokensUsed":537}
+{"agentId":"68dd625e8be0682166a76f97","level":"info","message":"Agent chat processed successfully","responseLength":142,"service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"fromAgent":"Agente Arquivos","level":"info","message":"Agent cooperation completed successfully","responseFormat":"clean","responseLength":142,"service":"ai-backend","timestamp":"2025-10-22 23:42:12","toAgent":"Agente Database"}
+{"agentId":"68de5d2bf6934dbd41a89f9f","level":"info","message":"Agent chat processed successfully","responseLength":142,"service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"fromAgent":"Agente de resposta","level":"info","message":"Agent cooperation completed successfully","responseFormat":"clean","responseLength":142,"service":"ai-backend","timestamp":"2025-10-22 23:42:12","toAgent":"Agente Arquivos"}
+{"agentId":"68e520094fd6b86d39ed8622","level":"info","message":"Agent chat processed successfully","responseLength":142,"service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"fromAgent":"Agente Database","level":"info","message":"Agent cooperation completed successfully","responseFormat":"clean","responseLength":142,"service":"ai-backend","timestamp":"2025-10-22 23:42:12","toAgent":"Agente de resposta"}
+{"agentId":"68dd625e8be0682166a76f97","level":"info","message":"Agent chat processed successfully","responseLength":142,"service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"fromAgent":"Nina Petrolina","level":"info","message":"Agent cooperation completed successfully","responseFormat":"clean","responseLength":142,"service":"ai-backend","timestamp":"2025-10-22 23:42:12","toAgent":"Agente Database"}
+{"level":"info","message":"🔍 ═══════════════════════════════════════════════════════════","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"level":"info","message":"🔍 COOPERATION TRACE COMPLETE","service":"ai-backend","sessionId":"trace_1761176525555_i1x8ao974","timestamp":"2025-10-22 23:42:12","totalDuration":"6564ms","totalSteps":20}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"level":"info","message":"🔍 Query: \"QUais foram os gastos nas pavimentações?\"","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"level":"info","message":"🔍 COOPERATION CHAIN:","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"level":"info","message":"🔍 👤 User → Nina Petrolina → Agente Database → Agente de resposta → Agente Arquivos → 👤 User","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"action":"received","agentId":"68dd37501d9bfcc29e34574b","details":"Agent received query","level":"info","message":"🔍 [1] 23:42:05.562 📥 Nina Petrolina - received","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"action":"processing","agentId":"68dd37501d9bfcc29e34574b","details":"Evaluating need for specialist cooperation","level":"info","message":"🔍 [2] 23:42:05.562 ⚙️ Nina Petrolina - processing","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"action":"delegated","agentId":"68dd37501d9bfcc29e34574b","details":"Delegating to Agente Database","level":"info","message":"🔍 [3] 23:42:08.016 🔀 Nina Petrolina - delegated","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"action":"received","agentId":"68dd625e8be0682166a76f97","details":"Agent received query","level":"info","message":"🔍 [4] 23:42:08.019 📥 Agente Database - received","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"action":"processing","agentId":"68dd625e8be0682166a76f97","details":"Evaluating need for specialist cooperation","level":"info","message":"🔍 [5] 23:42:08.019 ⚙️ Agente Database - processing","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"action":"delegated","agentId":"68dd625e8be0682166a76f97","details":"Delegating to Agente de resposta","level":"info","message":"🔍 [6] 23:42:08.591 🔀 Agente Database - delegated","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"action":"received","agentId":"68e520094fd6b86d39ed8622","details":"Agent received query","level":"info","message":"🔍 [7] 23:42:08.593 📥 Agente de resposta - received","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"action":"processing","agentId":"68e520094fd6b86d39ed8622","details":"Evaluating need for specialist cooperation","level":"info","message":"🔍 [8] 23:42:08.593 ⚙️ Agente de resposta - processing","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"action":"delegated","agentId":"68e520094fd6b86d39ed8622","details":"Delegating to Agente Arquivos","level":"info","message":"🔍 [9] 23:42:09.050 🔀 Agente de resposta - delegated","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"action":"received","agentId":"68de5d2bf6934dbd41a89f9f","details":"Agent received query","level":"info","message":"🔍 [10] 23:42:09.053 📥 Agente Arquivos - received","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"action":"processing","agentId":"68de5d2bf6934dbd41a89f9f","details":"Evaluating need for specialist cooperation","level":"info","message":"🔍 [11] 23:42:09.053 ⚙️ Agente Arquivos - processing","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"action":"delegated","agentId":"68de5d2bf6934dbd41a89f9f","details":"Delegating to Agente Database","level":"info","message":"🔍 [12] 23:42:11.334 🔀 Agente Arquivos - delegated","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"action":"received","agentId":"68dd625e8be0682166a76f97","details":"Agent received query","level":"info","message":"🔍 [13] 23:42:11.337 📥 Agente Database - received","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"action":"processing","agentId":"68dd625e8be0682166a76f97","details":"Evaluating need for specialist cooperation","level":"info","message":"🔍 [14] 23:42:11.337 ⚙️ Agente Database - processing","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"action":"processing","agentId":"68dd625e8be0682166a76f97","details":"Responding with own knowledge","level":"info","message":"🔍 [15] 23:42:11.338 ⚙️ Agente Database - processing","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"action":"responded","agentId":"68dd625e8be0682166a76f97","details":"Direct response provided","level":"info","message":"🔍 [16] 23:42:12.118 📤 Agente Database - responded","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"action":"responded","agentId":"68de5d2bf6934dbd41a89f9f","details":"Response from cooperation","level":"info","message":"🔍 [17] 23:42:12.119 📤 Agente Arquivos - responded","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"action":"responded","agentId":"68e520094fd6b86d39ed8622","details":"Response from cooperation","level":"info","message":"🔍 [18] 23:42:12.119 📤 Agente de resposta - responded","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"action":"responded","agentId":"68dd625e8be0682166a76f97","details":"Response from cooperation","level":"info","message":"🔍 [19] 23:42:12.119 📤 Agente Database - responded","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"action":"responded","agentId":"68dd37501d9bfcc29e34574b","details":"Response from cooperation","level":"info","message":"🔍 [20] 23:42:12.119 📤 Nina Petrolina - responded","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"level":"info","message":"🔍 ═══════════════════════════════════════════════════════════","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Agent chat processed successfully","responseLength":142,"service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"level":"info","message":"::ffff:172.23.0.5 - - [22/Oct/2025:23:42:12 +0000] \"POST /api/agents/68dd37501d9bfcc29e34574b/chat HTTP/1.1\" 200 252 \"-\" \"axios/1.12.2\"","service":"ai-backend","timestamp":"2025-10-22 23:42:12"}
+{"level":"info","message":"MongoDB database initialized successfully","service":"ai-backend","timestamp":"2025-10-22 23:45:12"}
+{"level":"info","message":"Database connected successfully","service":"ai-backend","timestamp":"2025-10-22 23:45:12"}
+{"level":"info","message":"🚀 Server running on port 3001","service":"ai-backend","timestamp":"2025-10-22 23:45:12"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Chat request received","service":"ai-backend","timestamp":"2025-10-22 23:45:13"}
+{"initiatorAgent":"68dd37501d9bfcc29e34574b","level":"info","message":"🔍 COOPERATION TRACE STARTED","query":"Quais foram os gastos nas pavimentações?","service":"ai-backend","sessionId":"trace_1761176713509_8304kly85","timestamp":"2025-10-22 23:45:13"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Processing agent chat","messageCount":2,"responseFormat":"clean","service":"ai-backend","timestamp":"2025-10-22 23:45:13"}
+{"allowedAgents":[{"id":"68dd625e8be0682166a76f97","name":"Agente Database"}],"allowedCount":1,"currentAgent":"Nina Petrolina","level":"info","message":"Found agents allowed for communication","service":"ai-backend","timestamp":"2025-10-22 23:45:13"}
+{"level":"info","message":"OpenAI request processed successfully","messagesCount":1,"model":"gpt-3.5-turbo","service":"ai-backend","timestamp":"2025-10-22 23:45:14","tokensUsed":696}
+{"confidence":"high","currentAgent":"Nina Petrolina","level":"info","message":"AI selected specialist agent","selectedAgent":"Agente Database","service":"ai-backend","timestamp":"2025-10-22 23:45:14"}
+{"fromAgent":"Nina Petrolina","level":"info","message":"🤝 Agent cooperation initiated","query":"Quais foram os gastos nas pavimentações?","service":"ai-backend","timestamp":"2025-10-22 23:45:14","toAgent":"Agente Database"}
+{"agentId":"68dd625e8be0682166a76f97","level":"info","message":"Processing agent chat","messageCount":1,"responseFormat":"clean","service":"ai-backend","timestamp":"2025-10-22 23:45:14"}
+{"allowedAgents":[{"id":"68e520094fd6b86d39ed8622","name":"Agente de resposta"}],"allowedCount":1,"currentAgent":"Agente Database","level":"info","message":"Found agents allowed for communication","service":"ai-backend","timestamp":"2025-10-22 23:45:14"}
+{"level":"info","message":"OpenAI request processed successfully","messagesCount":1,"model":"gpt-3.5-turbo","service":"ai-backend","timestamp":"2025-10-22 23:45:15","tokensUsed":515}
+{"confidence":"high","currentAgent":"Agente Database","level":"info","message":"AI selected specialist agent","selectedAgent":"Agente de resposta","service":"ai-backend","timestamp":"2025-10-22 23:45:15"}
+{"fromAgent":"Agente Database","level":"info","message":"🤝 Agent cooperation initiated","query":"Quais foram os gastos nas pavimentações?","service":"ai-backend","timestamp":"2025-10-22 23:45:15","toAgent":"Agente de resposta"}
+{"agentId":"68e520094fd6b86d39ed8622","level":"info","message":"Processing agent chat","messageCount":1,"responseFormat":"clean","service":"ai-backend","timestamp":"2025-10-22 23:45:15"}
+{"allowedAgents":[{"id":"68de6965a35f3420d9871fe6","name":"Agente Especialista em Análise de Conteúdo"},{"id":"68de5d2bf6934dbd41a89f9f","name":"Agente Arquivos"},{"id":"68dd625e8be0682166a76f97","name":"Agente Database"},{"id":"68dd37501d9bfcc29e34574b","name":"Nina Petrolina"}],"allowedCount":4,"currentAgent":"Agente de resposta","level":"info","message":"Found agents allowed for communication","service":"ai-backend","timestamp":"2025-10-22 23:45:15"}
+{"level":"info","message":"OpenAI request processed successfully","messagesCount":1,"model":"gpt-3.5-turbo","service":"ai-backend","timestamp":"2025-10-22 23:45:15","tokensUsed":1263}
+{"confidence":"high","currentAgent":"Agente de resposta","level":"info","message":"AI selected specialist agent","selectedAgent":"Agente Database","service":"ai-backend","timestamp":"2025-10-22 23:45:15"}
+{"fromAgent":"Agente de resposta","level":"info","message":"🤝 Agent cooperation initiated","query":"Quais foram os gastos nas pavimentações?","service":"ai-backend","timestamp":"2025-10-22 23:45:15","toAgent":"Agente Database"}
+{"agentId":"68dd625e8be0682166a76f97","level":"info","message":"Processing agent chat","messageCount":1,"responseFormat":"clean","service":"ai-backend","timestamp":"2025-10-22 23:45:15"}
+{"agentId":"68dd625e8be0682166a76f97","callStack":["68dd37501d9bfcc29e34574b","68dd625e8be0682166a76f97","68e520094fd6b86d39ed8622"],"level":"warn","message":"Detected potential infinite loop in agent cooperation","service":"ai-backend","timestamp":"2025-10-22 23:45:15"}
+{"agentId":"68dd625e8be0682166a76f97","agentName":"Agente Database","level":"info","message":"Agent responding with own knowledge","service":"ai-backend","timestamp":"2025-10-22 23:45:15"}
+{"level":"info","message":"OpenAI request processed successfully","messagesCount":1,"model":"gpt-3.5-turbo","service":"ai-backend","timestamp":"2025-10-22 23:45:16","tokensUsed":535}
+{"agentId":"68dd625e8be0682166a76f97","level":"info","message":"Agent chat processed successfully","responseLength":137,"service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"fromAgent":"Agente de resposta","level":"info","message":"Agent cooperation completed successfully","responseFormat":"clean","responseLength":137,"service":"ai-backend","timestamp":"2025-10-22 23:45:16","toAgent":"Agente Database"}
+{"agentId":"68e520094fd6b86d39ed8622","level":"info","message":"Agent chat processed successfully","responseLength":137,"service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"fromAgent":"Agente Database","level":"info","message":"Agent cooperation completed successfully","responseFormat":"clean","responseLength":137,"service":"ai-backend","timestamp":"2025-10-22 23:45:16","toAgent":"Agente de resposta"}
+{"agentId":"68dd625e8be0682166a76f97","level":"info","message":"Agent chat processed successfully","responseLength":137,"service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"fromAgent":"Nina Petrolina","level":"info","message":"Agent cooperation completed successfully","responseFormat":"clean","responseLength":137,"service":"ai-backend","timestamp":"2025-10-22 23:45:16","toAgent":"Agente Database"}
+{"level":"info","message":"🔍 ═══════════════════════════════════════════════════════════","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"level":"info","message":"🔍 COOPERATION TRACE COMPLETE","service":"ai-backend","sessionId":"trace_1761176713509_8304kly85","timestamp":"2025-10-22 23:45:16","totalDuration":"3057ms","totalSteps":16}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"level":"info","message":"🔍 Query: \"Quais foram os gastos nas pavimentações?\"","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"level":"info","message":"🔍 COOPERATION CHAIN:","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"level":"info","message":"🔍 👤 User → Nina Petrolina → Agente Database → Agente de resposta → 👤 User","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"action":"received","agentId":"68dd37501d9bfcc29e34574b","details":"Agent received query","level":"info","message":"🔍 [1] 23:45:13.521 📥 Nina Petrolina - received","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"action":"processing","agentId":"68dd37501d9bfcc29e34574b","details":"Evaluating need for specialist cooperation","level":"info","message":"🔍 [2] 23:45:13.522 ⚙️ Nina Petrolina - processing","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"action":"delegated","agentId":"68dd37501d9bfcc29e34574b","details":"Delegating to Agente Database","level":"info","message":"🔍 [3] 23:45:14.593 🔀 Nina Petrolina - delegated","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"action":"received","agentId":"68dd625e8be0682166a76f97","details":"Agent received query","level":"info","message":"🔍 [4] 23:45:14.596 📥 Agente Database - received","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"action":"processing","agentId":"68dd625e8be0682166a76f97","details":"Evaluating need for specialist cooperation","level":"info","message":"🔍 [5] 23:45:14.596 ⚙️ Agente Database - processing","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"action":"delegated","agentId":"68dd625e8be0682166a76f97","details":"Delegating to Agente de resposta","level":"info","message":"🔍 [6] 23:45:15.182 🔀 Agente Database - delegated","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"action":"received","agentId":"68e520094fd6b86d39ed8622","details":"Agent received query","level":"info","message":"🔍 [7] 23:45:15.184 📥 Agente de resposta - received","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"action":"processing","agentId":"68e520094fd6b86d39ed8622","details":"Evaluating need for specialist cooperation","level":"info","message":"🔍 [8] 23:45:15.184 ⚙️ Agente de resposta - processing","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"action":"delegated","agentId":"68e520094fd6b86d39ed8622","details":"Delegating to Agente Database","level":"info","message":"🔍 [9] 23:45:15.861 🔀 Agente de resposta - delegated","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"action":"received","agentId":"68dd625e8be0682166a76f97","details":"Agent received query","level":"info","message":"🔍 [10] 23:45:15.863 📥 Agente Database - received","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"action":"processing","agentId":"68dd625e8be0682166a76f97","details":"Evaluating need for specialist cooperation","level":"info","message":"🔍 [11] 23:45:15.863 ⚙️ Agente Database - processing","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"action":"processing","agentId":"68dd625e8be0682166a76f97","details":"Responding with own knowledge","level":"info","message":"🔍 [12] 23:45:15.863 ⚙️ Agente Database - processing","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"action":"responded","agentId":"68dd625e8be0682166a76f97","details":"Direct response provided","level":"info","message":"🔍 [13] 23:45:16.565 📤 Agente Database - responded","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"action":"responded","agentId":"68e520094fd6b86d39ed8622","details":"Response from cooperation","level":"info","message":"🔍 [14] 23:45:16.565 📤 Agente de resposta - responded","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"action":"responded","agentId":"68dd625e8be0682166a76f97","details":"Response from cooperation","level":"info","message":"🔍 [15] 23:45:16.566 📤 Agente Database - responded","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"action":"responded","agentId":"68dd37501d9bfcc29e34574b","details":"Response from cooperation","level":"info","message":"🔍 [16] 23:45:16.566 📤 Nina Petrolina - responded","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"level":"info","message":"🔍 ═══════════════════════════════════════════════════════════","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Agent chat processed successfully","responseLength":137,"service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"level":"info","message":"::ffff:172.23.0.5 - - [22/Oct/2025:23:45:16 +0000] \"POST /api/agents/68dd37501d9bfcc29e34574b/chat HTTP/1.1\" 200 246 \"-\" \"axios/1.12.2\"","service":"ai-backend","timestamp":"2025-10-22 23:45:16"}
+{"level":"info","message":"MongoDB database initialized successfully","service":"ai-backend","timestamp":"2025-10-22 23:45:45"}
+{"level":"info","message":"Database connected successfully","service":"ai-backend","timestamp":"2025-10-22 23:45:45"}
+{"level":"info","message":"🚀 Server running on port 3001","service":"ai-backend","timestamp":"2025-10-22 23:45:45"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Chat request received","service":"ai-backend","timestamp":"2025-10-22 23:45:47"}
+{"initiatorAgent":"68dd37501d9bfcc29e34574b","level":"info","message":"🔍 COOPERATION TRACE STARTED","query":"Quais foram os gastos nas pavimentações?","service":"ai-backend","sessionId":"trace_1761176747619_xu5o7bajf","timestamp":"2025-10-22 23:45:47"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Processing agent chat","messageCount":2,"responseFormat":"clean","service":"ai-backend","timestamp":"2025-10-22 23:45:47"}
+{"agentId":"68dd37501d9bfcc29e34574b","agentName":"Nina Petrolina","level":"info","message":"Agent responding with own knowledge","service":"ai-backend","timestamp":"2025-10-22 23:45:47"}
+{"level":"info","message":"OpenAI request processed successfully","messagesCount":2,"model":"gpt-3.5-turbo","service":"ai-backend","timestamp":"2025-10-22 23:45:48","tokensUsed":573}
+{"level":"info","message":"🔍 ═══════════════════════════════════════════════════════════","service":"ai-backend","timestamp":"2025-10-22 23:45:48"}
+{"level":"info","message":"🔍 COOPERATION TRACE COMPLETE","service":"ai-backend","sessionId":"trace_1761176747619_xu5o7bajf","timestamp":"2025-10-22 23:45:48","totalDuration":"1326ms","totalSteps":3}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:45:48"}
+{"level":"info","message":"🔍 Query: \"Quais foram os gastos nas pavimentações?\"","service":"ai-backend","timestamp":"2025-10-22 23:45:48"}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:45:48"}
+{"level":"info","message":"🔍 COOPERATION CHAIN:","service":"ai-backend","timestamp":"2025-10-22 23:45:48"}
+{"level":"info","message":"🔍 👤 User → Nina Petrolina → 👤 User","service":"ai-backend","timestamp":"2025-10-22 23:45:48"}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:45:48"}
+{"action":"received","agentId":"68dd37501d9bfcc29e34574b","details":"Agent received query","level":"info","message":"🔍 [1] 23:45:47.656 📥 Nina Petrolina - received","service":"ai-backend","timestamp":"2025-10-22 23:45:48"}
+{"action":"processing","agentId":"68dd37501d9bfcc29e34574b","details":"Responding with own knowledge","level":"info","message":"🔍 [2] 23:45:47.657 ⚙️ Nina Petrolina - processing","service":"ai-backend","timestamp":"2025-10-22 23:45:48"}
+{"action":"responded","agentId":"68dd37501d9bfcc29e34574b","details":"Direct response provided","level":"info","message":"🔍 [3] 23:45:48.945 📤 Nina Petrolina - responded","service":"ai-backend","timestamp":"2025-10-22 23:45:48"}
+{"level":"info","message":"🔍 ═══════════════════════════════════════════════════════════","service":"ai-backend","timestamp":"2025-10-22 23:45:48"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Agent chat processed successfully","responseLength":333,"service":"ai-backend","timestamp":"2025-10-22 23:45:48"}
+{"level":"info","message":"::ffff:172.23.0.5 - - [22/Oct/2025:23:45:48 +0000] \"POST /api/agents/68dd37501d9bfcc29e34574b/chat HTTP/1.1\" 200 450 \"-\" \"axios/1.12.2\"","service":"ai-backend","timestamp":"2025-10-22 23:45:48"}
+{"level":"info","message":"MongoDB database initialized successfully","service":"ai-backend","timestamp":"2025-10-22 23:46:04"}
+{"level":"info","message":"Database connected successfully","service":"ai-backend","timestamp":"2025-10-22 23:46:04"}
+{"level":"info","message":"🚀 Server running on port 3001","service":"ai-backend","timestamp":"2025-10-22 23:46:04"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Chat request received","service":"ai-backend","timestamp":"2025-10-22 23:46:31"}
+{"initiatorAgent":"68dd37501d9bfcc29e34574b","level":"info","message":"🔍 COOPERATION TRACE STARTED","query":"Olá","service":"ai-backend","sessionId":"trace_1761176791927_dast5lnk0","timestamp":"2025-10-22 23:46:31"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Processing agent chat","messageCount":2,"responseFormat":"clean","service":"ai-backend","timestamp":"2025-10-22 23:46:31"}
+{"agentId":"68dd37501d9bfcc29e34574b","agentName":"Nina Petrolina","level":"info","message":"Agent responding with own knowledge","service":"ai-backend","timestamp":"2025-10-22 23:46:31"}
+{"level":"info","message":"OpenAI request processed successfully","messagesCount":2,"model":"gpt-3.5-turbo","service":"ai-backend","timestamp":"2025-10-22 23:46:32","tokensUsed":492}
+{"level":"info","message":"🔍 ═══════════════════════════════════════════════════════════","service":"ai-backend","timestamp":"2025-10-22 23:46:32"}
+{"level":"info","message":"🔍 COOPERATION TRACE COMPLETE","service":"ai-backend","sessionId":"trace_1761176791927_dast5lnk0","timestamp":"2025-10-22 23:46:32","totalDuration":"1026ms","totalSteps":3}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:46:32"}
+{"level":"info","message":"🔍 Query: \"Olá\"","service":"ai-backend","timestamp":"2025-10-22 23:46:32"}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:46:32"}
+{"level":"info","message":"🔍 COOPERATION CHAIN:","service":"ai-backend","timestamp":"2025-10-22 23:46:32"}
+{"level":"info","message":"🔍 👤 User → Nina Petrolina → 👤 User","service":"ai-backend","timestamp":"2025-10-22 23:46:32"}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:46:32"}
+{"action":"received","agentId":"68dd37501d9bfcc29e34574b","details":"Agent received query","level":"info","message":"🔍 [1] 23:46:31.949 📥 Nina Petrolina - received","service":"ai-backend","timestamp":"2025-10-22 23:46:32"}
+{"action":"processing","agentId":"68dd37501d9bfcc29e34574b","details":"Responding with own knowledge","level":"info","message":"🔍 [2] 23:46:31.949 ⚙️ Nina Petrolina - processing","service":"ai-backend","timestamp":"2025-10-22 23:46:32"}
+{"action":"responded","agentId":"68dd37501d9bfcc29e34574b","details":"Direct response provided","level":"info","message":"🔍 [3] 23:46:32.953 📤 Nina Petrolina - responded","service":"ai-backend","timestamp":"2025-10-22 23:46:32"}
+{"level":"info","message":"🔍 ═══════════════════════════════════════════════════════════","service":"ai-backend","timestamp":"2025-10-22 23:46:32"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Agent chat processed successfully","responseLength":73,"service":"ai-backend","timestamp":"2025-10-22 23:46:32"}
+{"level":"info","message":"::ffff:172.23.0.5 - - [22/Oct/2025:23:46:32 +0000] \"POST /api/agents/68dd37501d9bfcc29e34574b/chat HTTP/1.1\" 200 185 \"-\" \"axios/1.12.2\"","service":"ai-backend","timestamp":"2025-10-22 23:46:32"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Chat request received","service":"ai-backend","timestamp":"2025-10-22 23:46:53"}
+{"initiatorAgent":"68dd37501d9bfcc29e34574b","level":"info","message":"🔍 COOPERATION TRACE STARTED","query":"Quais foram os gastos nas pavimentações da petrolina?","service":"ai-backend","sessionId":"trace_1761176813842_1j8zbgm2f","timestamp":"2025-10-22 23:46:53"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Processing agent chat","messageCount":3,"responseFormat":"clean","service":"ai-backend","timestamp":"2025-10-22 23:46:53"}
+{"agentId":"68dd37501d9bfcc29e34574b","agentName":"Nina Petrolina","level":"info","message":"Agent responding with own knowledge","service":"ai-backend","timestamp":"2025-10-22 23:46:53"}
+{"level":"info","message":"OpenAI request processed successfully","messagesCount":3,"model":"gpt-3.5-turbo","service":"ai-backend","timestamp":"2025-10-22 23:46:54","tokensUsed":537}
+{"level":"info","message":"🔍 ═══════════════════════════════════════════════════════════","service":"ai-backend","timestamp":"2025-10-22 23:46:54"}
+{"level":"info","message":"🔍 COOPERATION TRACE COMPLETE","service":"ai-backend","sessionId":"trace_1761176813842_1j8zbgm2f","timestamp":"2025-10-22 23:46:54","totalDuration":"1038ms","totalSteps":3}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:46:54"}
+{"level":"info","message":"🔍 Query: \"Quais foram os gastos nas pavimentações da petrolina?\"","service":"ai-backend","timestamp":"2025-10-22 23:46:54"}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:46:54"}
+{"level":"info","message":"🔍 COOPERATION CHAIN:","service":"ai-backend","timestamp":"2025-10-22 23:46:54"}
+{"level":"info","message":"🔍 👤 User → Nina Petrolina → 👤 User","service":"ai-backend","timestamp":"2025-10-22 23:46:54"}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:46:54"}
+{"action":"received","agentId":"68dd37501d9bfcc29e34574b","details":"Agent received query","level":"info","message":"🔍 [1] 23:46:53.846 📥 Nina Petrolina - received","service":"ai-backend","timestamp":"2025-10-22 23:46:54"}
+{"action":"processing","agentId":"68dd37501d9bfcc29e34574b","details":"Responding with own knowledge","level":"info","message":"🔍 [2] 23:46:53.846 ⚙️ Nina Petrolina - processing","service":"ai-backend","timestamp":"2025-10-22 23:46:54"}
+{"action":"responded","agentId":"68dd37501d9bfcc29e34574b","details":"Direct response provided","level":"info","message":"🔍 [3] 23:46:54.880 📤 Nina Petrolina - responded","service":"ai-backend","timestamp":"2025-10-22 23:46:54"}
+{"level":"info","message":"🔍 ═══════════════════════════════════════════════════════════","service":"ai-backend","timestamp":"2025-10-22 23:46:54"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Agent chat processed successfully","responseLength":145,"service":"ai-backend","timestamp":"2025-10-22 23:46:54"}
+{"level":"info","message":"::ffff:172.23.0.5 - - [22/Oct/2025:23:46:54 +0000] \"POST /api/agents/68dd37501d9bfcc29e34574b/chat HTTP/1.1\" 200 255 \"-\" \"axios/1.12.2\"","service":"ai-backend","timestamp":"2025-10-22 23:46:54"}
+{"level":"info","message":"MongoDB database initialized successfully","service":"ai-backend","timestamp":"2025-10-22 23:48:05"}
+{"level":"info","message":"Database connected successfully","service":"ai-backend","timestamp":"2025-10-22 23:48:05"}
+{"level":"info","message":"🚀 Server running on port 3001","service":"ai-backend","timestamp":"2025-10-22 23:48:05"}
+{"level":"info","message":"MongoDB database initialized successfully","service":"ai-backend","timestamp":"2025-10-22 23:48:23"}
+{"level":"info","message":"Database connected successfully","service":"ai-backend","timestamp":"2025-10-22 23:48:23"}
+{"level":"info","message":"🚀 Server running on port 3001","service":"ai-backend","timestamp":"2025-10-22 23:48:23"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Chat request received","service":"ai-backend","timestamp":"2025-10-22 23:48:24"}
+{"initiatorAgent":"68dd37501d9bfcc29e34574b","level":"info","message":"🔍 COOPERATION TRACE STARTED","query":"Quais foram os gastos nas pavimentações?","service":"ai-backend","sessionId":"trace_1761176904711_h9y06zm1w","timestamp":"2025-10-22 23:48:24"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Processing agent chat","messageCount":2,"responseFormat":"clean","service":"ai-backend","timestamp":"2025-10-22 23:48:24"}
+{"agentId":"68dd37501d9bfcc29e34574b","agentName":"Nina Petrolina","level":"info","message":"Agent responding with own knowledge","service":"ai-backend","timestamp":"2025-10-22 23:48:24"}
+{"level":"info","message":"OpenAI request processed successfully","messagesCount":2,"model":"gpt-3.5-turbo","service":"ai-backend","timestamp":"2025-10-22 23:48:27","tokensUsed":632}
+{"level":"info","message":"🔍 ═══════════════════════════════════════════════════════════","service":"ai-backend","timestamp":"2025-10-22 23:48:27"}
+{"level":"info","message":"🔍 COOPERATION TRACE COMPLETE","service":"ai-backend","sessionId":"trace_1761176904711_h9y06zm1w","timestamp":"2025-10-22 23:48:27","totalDuration":"2381ms","totalSteps":3}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:48:27"}
+{"level":"info","message":"🔍 Query: \"Quais foram os gastos nas pavimentações?\"","service":"ai-backend","timestamp":"2025-10-22 23:48:27"}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:48:27"}
+{"level":"info","message":"🔍 COOPERATION CHAIN:","service":"ai-backend","timestamp":"2025-10-22 23:48:27"}
+{"level":"info","message":"🔍 👤 User → Nina Petrolina → 👤 User","service":"ai-backend","timestamp":"2025-10-22 23:48:27"}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:48:27"}
+{"action":"received","agentId":"68dd37501d9bfcc29e34574b","details":"Agent received query","level":"info","message":"🔍 [1] 23:48:24.741 📥 Nina Petrolina - received","service":"ai-backend","timestamp":"2025-10-22 23:48:27"}
+{"action":"processing","agentId":"68dd37501d9bfcc29e34574b","details":"Responding with own knowledge","level":"info","message":"🔍 [2] 23:48:24.746 ⚙️ Nina Petrolina - processing","service":"ai-backend","timestamp":"2025-10-22 23:48:27"}
+{"action":"responded","agentId":"68dd37501d9bfcc29e34574b","details":"Direct response provided","level":"info","message":"🔍 [3] 23:48:27.092 📤 Nina Petrolina - responded","service":"ai-backend","timestamp":"2025-10-22 23:48:27"}
+{"level":"info","message":"🔍 ═══════════════════════════════════════════════════════════","service":"ai-backend","timestamp":"2025-10-22 23:48:27"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Agent chat processed successfully","responseLength":316,"service":"ai-backend","timestamp":"2025-10-22 23:48:27"}
+{"level":"info","message":"::ffff:172.23.0.5 - - [22/Oct/2025:23:48:27 +0000] \"POST /api/agents/68dd37501d9bfcc29e34574b/chat HTTP/1.1\" 200 434 \"-\" \"axios/1.12.2\"","service":"ai-backend","timestamp":"2025-10-22 23:48:27"}
+{"level":"info","message":"MongoDB database initialized successfully","service":"ai-backend","timestamp":"2025-10-22 23:50:51"}
+{"level":"info","message":"Database connected successfully","service":"ai-backend","timestamp":"2025-10-22 23:50:51"}
+{"level":"info","message":"🚀 Server running on port 3001","service":"ai-backend","timestamp":"2025-10-22 23:50:51"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Chat request received","service":"ai-backend","timestamp":"2025-10-22 23:51:11"}
+{"initiatorAgent":"68dd37501d9bfcc29e34574b","level":"info","message":"🔍 COOPERATION TRACE STARTED","query":"Quais foram os gastos nas pavimentações?","service":"ai-backend","sessionId":"trace_1761177071273_x4eb0ihpr","timestamp":"2025-10-22 23:51:11"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Processing agent chat","messageCount":2,"responseFormat":"clean","service":"ai-backend","timestamp":"2025-10-22 23:51:11"}
+{"agentId":"68dd37501d9bfcc29e34574b","agentName":"Nina Petrolina","level":"info","message":"Agent responding with own knowledge","service":"ai-backend","timestamp":"2025-10-22 23:51:11"}
+{"level":"info","message":"OpenAI request processed successfully","messagesCount":2,"model":"gpt-3.5-turbo","service":"ai-backend","timestamp":"2025-10-22 23:51:13","tokensUsed":602}
+{"level":"info","message":"🔍 ═══════════════════════════════════════════════════════════","service":"ai-backend","timestamp":"2025-10-22 23:51:13"}
+{"level":"info","message":"🔍 COOPERATION TRACE COMPLETE","service":"ai-backend","sessionId":"trace_1761177071273_x4eb0ihpr","timestamp":"2025-10-22 23:51:13","totalDuration":"2190ms","totalSteps":3}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:51:13"}
+{"level":"info","message":"🔍 Query: \"Quais foram os gastos nas pavimentações?\"","service":"ai-backend","timestamp":"2025-10-22 23:51:13"}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:51:13"}
+{"level":"info","message":"🔍 COOPERATION CHAIN:","service":"ai-backend","timestamp":"2025-10-22 23:51:13"}
+{"level":"info","message":"🔍 👤 User → Nina Petrolina → 👤 User","service":"ai-backend","timestamp":"2025-10-22 23:51:13"}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:51:13"}
+{"action":"received","agentId":"68dd37501d9bfcc29e34574b","details":"Agent received query","level":"info","message":"🔍 [1] 23:51:11.311 📥 Nina Petrolina - received","service":"ai-backend","timestamp":"2025-10-22 23:51:13"}
+{"action":"processing","agentId":"68dd37501d9bfcc29e34574b","details":"Responding with own knowledge","level":"info","message":"🔍 [2] 23:51:11.314 ⚙️ Nina Petrolina - processing","service":"ai-backend","timestamp":"2025-10-22 23:51:13"}
+{"action":"responded","agentId":"68dd37501d9bfcc29e34574b","details":"Direct response provided","level":"info","message":"🔍 [3] 23:51:13.463 📤 Nina Petrolina - responded","service":"ai-backend","timestamp":"2025-10-22 23:51:13"}
+{"level":"info","message":"🔍 ═══════════════════════════════════════════════════════════","service":"ai-backend","timestamp":"2025-10-22 23:51:13"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Agent chat processed successfully","responseLength":85,"service":"ai-backend","timestamp":"2025-10-22 23:51:13"}
+{"level":"info","message":"::ffff:172.23.0.5 - - [22/Oct/2025:23:51:13 +0000] \"POST /api/agents/68dd37501d9bfcc29e34574b/chat HTTP/1.1\" 200 195 \"-\" \"axios/1.12.2\"","service":"ai-backend","timestamp":"2025-10-22 23:51:13"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Chat request received","service":"ai-backend","timestamp":"2025-10-22 23:51:52"}
+{"initiatorAgent":"68dd37501d9bfcc29e34574b","level":"info","message":"🔍 COOPERATION TRACE STARTED","query":"Quais foram os gastos nas pavimentações da petrolina?","service":"ai-backend","sessionId":"trace_1761177112021_s0fuabb54","timestamp":"2025-10-22 23:51:52"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Processing agent chat","messageCount":2,"responseFormat":"clean","service":"ai-backend","timestamp":"2025-10-22 23:51:52"}
+{"agentId":"68dd37501d9bfcc29e34574b","agentName":"Nina Petrolina","level":"info","message":"Agent responding with own knowledge","service":"ai-backend","timestamp":"2025-10-22 23:51:52"}
+{"level":"info","message":"OpenAI request processed successfully","messagesCount":2,"model":"gpt-3.5-turbo","service":"ai-backend","timestamp":"2025-10-22 23:51:53","tokensUsed":647}
+{"level":"info","message":"🔍 ═══════════════════════════════════════════════════════════","service":"ai-backend","timestamp":"2025-10-22 23:51:53"}
+{"level":"info","message":"🔍 COOPERATION TRACE COMPLETE","service":"ai-backend","sessionId":"trace_1761177112021_s0fuabb54","timestamp":"2025-10-22 23:51:53","totalDuration":"1616ms","totalSteps":3}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:51:53"}
+{"level":"info","message":"🔍 Query: \"Quais foram os gastos nas pavimentações da petrolina?\"","service":"ai-backend","timestamp":"2025-10-22 23:51:53"}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:51:53"}
+{"level":"info","message":"🔍 COOPERATION CHAIN:","service":"ai-backend","timestamp":"2025-10-22 23:51:53"}
+{"level":"info","message":"🔍 👤 User → Nina Petrolina → 👤 User","service":"ai-backend","timestamp":"2025-10-22 23:51:53"}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:51:53"}
+{"action":"received","agentId":"68dd37501d9bfcc29e34574b","details":"Agent received query","level":"info","message":"🔍 [1] 23:51:52.027 📥 Nina Petrolina - received","service":"ai-backend","timestamp":"2025-10-22 23:51:53"}
+{"action":"processing","agentId":"68dd37501d9bfcc29e34574b","details":"Responding with own knowledge","level":"info","message":"🔍 [2] 23:51:52.027 ⚙️ Nina Petrolina - processing","service":"ai-backend","timestamp":"2025-10-22 23:51:53"}
+{"action":"responded","agentId":"68dd37501d9bfcc29e34574b","details":"Direct response provided","level":"info","message":"🔍 [3] 23:51:53.637 📤 Nina Petrolina - responded","service":"ai-backend","timestamp":"2025-10-22 23:51:53"}
+{"level":"info","message":"🔍 ═══════════════════════════════════════════════════════════","service":"ai-backend","timestamp":"2025-10-22 23:51:53"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Agent chat processed successfully","responseLength":262,"service":"ai-backend","timestamp":"2025-10-22 23:51:53"}
+{"level":"info","message":"::ffff:172.23.0.5 - - [22/Oct/2025:23:51:53 +0000] \"POST /api/agents/68dd37501d9bfcc29e34574b/chat HTTP/1.1\" 200 373 \"-\" \"axios/1.12.2\"","service":"ai-backend","timestamp":"2025-10-22 23:51:53"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Chat request received","service":"ai-backend","timestamp":"2025-10-22 23:52:20"}
+{"initiatorAgent":"68dd37501d9bfcc29e34574b","level":"info","message":"🔍 COOPERATION TRACE STARTED","query":"Em quais bairros foi trabalho?","service":"ai-backend","sessionId":"trace_1761177140303_nlqfzdqbg","timestamp":"2025-10-22 23:52:20"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Processing agent chat","messageCount":3,"responseFormat":"clean","service":"ai-backend","timestamp":"2025-10-22 23:52:20"}
+{"agentId":"68dd37501d9bfcc29e34574b","agentName":"Nina Petrolina","level":"info","message":"Agent responding with own knowledge","service":"ai-backend","timestamp":"2025-10-22 23:52:20"}
+{"level":"info","message":"OpenAI request processed successfully","messagesCount":3,"model":"gpt-3.5-turbo","service":"ai-backend","timestamp":"2025-10-22 23:52:21","tokensUsed":690}
+{"level":"info","message":"🔍 ═══════════════════════════════════════════════════════════","service":"ai-backend","timestamp":"2025-10-22 23:52:21"}
+{"level":"info","message":"🔍 COOPERATION TRACE COMPLETE","service":"ai-backend","sessionId":"trace_1761177140303_nlqfzdqbg","timestamp":"2025-10-22 23:52:21","totalDuration":"1620ms","totalSteps":3}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:52:21"}
+{"level":"info","message":"🔍 Query: \"Em quais bairros foi trabalho?\"","service":"ai-backend","timestamp":"2025-10-22 23:52:21"}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:52:21"}
+{"level":"info","message":"🔍 COOPERATION CHAIN:","service":"ai-backend","timestamp":"2025-10-22 23:52:21"}
+{"level":"info","message":"🔍 👤 User → Nina Petrolina → 👤 User","service":"ai-backend","timestamp":"2025-10-22 23:52:21"}
+{"level":"info","message":"🔍 ───────────────────────────────────────────────────────────","service":"ai-backend","timestamp":"2025-10-22 23:52:21"}
+{"action":"received","agentId":"68dd37501d9bfcc29e34574b","details":"Agent received query","level":"info","message":"🔍 [1] 23:52:20.308 📥 Nina Petrolina - received","service":"ai-backend","timestamp":"2025-10-22 23:52:21"}
+{"action":"processing","agentId":"68dd37501d9bfcc29e34574b","details":"Responding with own knowledge","level":"info","message":"🔍 [2] 23:52:20.309 ⚙️ Nina Petrolina - processing","service":"ai-backend","timestamp":"2025-10-22 23:52:21"}
+{"action":"responded","agentId":"68dd37501d9bfcc29e34574b","details":"Direct response provided","level":"info","message":"🔍 [3] 23:52:21.923 📤 Nina Petrolina - responded","service":"ai-backend","timestamp":"2025-10-22 23:52:21"}
+{"level":"info","message":"🔍 ═══════════════════════════════════════════════════════════","service":"ai-backend","timestamp":"2025-10-22 23:52:21"}
+{"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Agent chat processed successfully","responseLength":321,"service":"ai-backend","timestamp":"2025-10-22 23:52:21"}
+{"level":"info","message":"::ffff:172.23.0.5 - - [22/Oct/2025:23:52:21 +0000] \"POST /api/agents/68dd37501d9bfcc29e34574b/chat HTTP/1.1\" 200 444 \"-\" \"axios/1.12.2\"","service":"ai-backend","timestamp":"2025-10-22 23:52:21"}

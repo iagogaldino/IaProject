@@ -136,24 +136,15 @@ export class ChatService {
           this.addToTrace(agent.id, agent.name, 'responded', 'Response from database query');
         }
       } else {
-        // Prioridade 2: 🤖 Cooperação Inteligente - Tentar encontrar especialista
-        this.addToTrace(agent.id, agent.name, 'processing', 'Evaluating need for specialist cooperation');
-        const cooperationResult = await this.tryAgentCooperation(agent, lastMessage.content);
-
-        if (cooperationResult) {
-          response = cooperationResult;
-          this.addToTrace(agent.id, agent.name, 'responded', 'Response from cooperation');
-        } else {
-          // Prioridade 3: Responder com conhecimento próprio
-          logger.info('Agent responding with own knowledge', { agentId: agent.id, agentName: agent.name });
-          this.addToTrace(agent.id, agent.name, 'processing', 'Responding with own knowledge');
-          const systemPrompt = this.createSystemPrompt(agent);
-          response = await openaiService.processMessage(
-            chatRequest.messages,
-            systemPrompt
-          );
-          this.addToTrace(agent.id, agent.name, 'responded', 'Direct response provided');
-        }
+        // Prioridade 2: Responder diretamente com conhecimento próprio
+        logger.info('Agent responding with own knowledge', { agentId: agent.id, agentName: agent.name });
+        this.addToTrace(agent.id, agent.name, 'processing', 'Responding with own knowledge');
+        const systemPrompt = this.createSystemPrompt(agent);
+        response = await openaiService.processMessage(
+          chatRequest.messages,
+          systemPrompt
+        );
+        this.addToTrace(agent.id, agent.name, 'responded', 'Direct response provided');
       }
 
       // 🔍 Finalizar trace se for a chamada raiz
@@ -293,7 +284,7 @@ export class ChatService {
       prompt += `You can perform semantic searches and retrieve relevant data to answer user queries.\n\n`;
     }
 
-    prompt += `Always provide clear, accurate, and relevant responses based on your capabilities and expertise.`;
+    prompt += `Always provide clear, accurate, and relevant responses based on your capabilities and expertise.\n\n🚨 CRITICAL: NEVER say "vou acessar", "aguarde", "vou verificar", "vou buscar" or similar phrases. ALWAYS provide the complete answer immediately in the same response. If you need to search for data, do it NOW and return the results immediately.`;
 
     return prompt;
   }
