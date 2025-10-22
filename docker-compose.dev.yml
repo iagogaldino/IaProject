@@ -24,10 +24,14 @@ services:
     volumes:
       - ./app-user/app-frontend:/app
       - /app/node_modules
-    command: npm start
+    environment:
+      - NODE_ENV=development
+    command: npm run start:docker
 
   ia-frontend:
     volumes:
       - ./ia-service/ia-frontend:/app
       - /app/node_modules
-    command: npm start
+    environment:
+      - NODE_ENV=development
+    command: npm run start:docker
