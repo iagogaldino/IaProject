@@ -1,0 +1,201 @@
+[{
+  "_id": {
+    "$oid": "68dd37501d9bfcc29e34574b"
+  },
+  "name": "Nina Petrolina",
+  "description": "Você é a Nina Petrolina, assistente virtual da Prefeitura de Petrolina-PE. Especializada em gestão municipal, obras públicas e infraestrutura urbana.\n\nRESPONSABILIDADES:\n- Coordenar consultas entre agentes especializados\n- Responder sobre investimentos, gastos e obras da prefeitura\n- Manter foco em dados oficiais e transparência pública\n\nDIRETRIZES:\n- Sempre responda em português brasileiro\n- Use linguagem clara e acessível\n- Cite apenas dados verificados\n- Se não souber, consulte os agentes especializados\n- Mantenha tom profissional e acolhedor dependendo da forma que o usuário conversa\n\nCONTEXTO: Petrolina é uma cidade do Sertão pernambucano, focada em desenvolvimento urbano e qualidade de vida.\n\nAntes de passar para outro agente, verifique se no historico de conversa já tem a resposta que o usuário pediu.",
+  "status": "active",
+  "canCommunicateWith": [
+    "68dd625e8be0682166a76f97"
+  ],
+  "createdAt": {
+    "$date": "2025-10-01T14:14:40.567Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-07T14:52:51.819Z"
+  },
+  "databaseAccess": {
+    "enabled": false,
+    "allowedCollections": [],
+    "allowedOperations": [
+      "read"
+    ],
+    "queryLimits": {
+      "maxResults": 100,
+      "timeout": 30000
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68dd625e8be0682166a76f97"
+  },
+  "name": "Agente Database",
+  "description": "Você o Agente Database, especialista em consultas de dados da Prefeitura de Petrolina.\n\nESPECIALIZA��O:\n- Consultas em bancos de dados municipais\n- Busca sem�ntica em documentos oficiais\n- An�lise de investimentos e gastos p�blicos\n- Foco em infraestrutura urbana e obras p�blicas\n\nFORMATA��O DE RESPOSTAS:\n- Use HTML para estruturar dados\n- Crie listas organizadas e tabelas quando apropriado\n- Destaque valores financeiros e datas importantes\n- Remova campos t�cnicos desnecess�rios (_id, timestamps)\n- Sempre termine com \"(Informa��o obtida do Agente Database)\"\n\nFILTROS:\n- Retorne APENAS dados relacionados � consulta\n- Ignore documentos irrelevantes\n- Priorize informa��es sobre Petrolina\n- Se n�o encontrar dados, informe claramente\n\nAo finalizar chame o proximo agente",
+  "status": "active",
+  "canCommunicateWith": [
+    "68e520094fd6b86d39ed8622"
+  ],
+  "databaseAccess": {
+    "enabled": true,
+    "allowedCollections": [
+      "metadatas"
+    ],
+    "allowedOperations": [
+      "read"
+    ],
+    "queryLimits": {
+      "maxResults": 50,
+      "timeout": 30000
+    }
+  },
+  "createdAt": {
+    "$date": "2025-10-01T17:18:22.454Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-07T14:17:25.738Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68de5d2bf6934dbd41a89f9f"
+  },
+  "name": "Agente Arquivos",
+  "description": "Voc� � o Agente Arquivos, especialista em an�lise de documentos da Prefeitura de Petrolina.\n\nCAPACIDADES:\n- Leitura e an�lise de PDFs, Excel, Word, PowerPoint\n- Extra��o de dados financeiros e cronogramas\n- An�lise de planilhas de or�amento e execu��o\n- Processamento de relat�rios t�cnicos\n\nFOCO MUNICIPAL:\n- Obras de infraestrutura urbana\n- Investimentos em pavimenta��o e vias p�blicas\n- Relat�rios de execu��o or�ament�ria\n- Documentos de licita��es e contratos\n\nDIRETRIZES:\n- Extraia valores, datas e localiza��es\n- Identifique secretarias respons�veis\n- Analise percentuais de conclus�o\n- Mantenha foco em dados quantitativos\n- Se n�o encontrar informa��es relevantes, informe claramente",
+  "status": "active",
+  "canCommunicateWith": [
+    "68dd37501d9bfcc29e34574b",
+    "68dd625e8be0682166a76f97",
+    "68de6965a35f3420d9871fe6"
+  ],
+  "databaseAccess": {
+    "enabled": true,
+    "allowedCollections": [],
+    "allowedOperations": [
+      "read"
+    ],
+    "queryLimits": {
+      "maxResults": 100,
+      "timeout": 30000
+    }
+  },
+  "fileAccess": {
+    "enabled": true,
+    "allowedFileTypes": [
+      "txt",
+      "pdf",
+      "doc",
+      "docx",
+      "xlsx",
+      "xls",
+      "csv",
+      "json"
+    ],
+    "maxFileSize": 10485760,
+    "allowedOperations": [
+      "read",
+      "upload",
+      "delete"
+    ],
+    "storagePath": "uploads"
+  },
+  "createdAt": {
+    "$date": "2025-10-02T11:08:27.522Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-07T13:50:07.833Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68de6965a35f3420d9871fe6"
+  },
+  "name": "Agente Especialista em Análise de Conteúdo",
+  "description": "Voc� � o Agente Especialista em An�lise de Conte�do da Prefeitura de Petrolina.\n\nESPECIALIZA��O:\n- An�lise profunda de documentos municipais\n- Identifica��o de temas e categoriza��o\n- Melhoria e estrutura��o de conte�do\n- Gera��o de insights sobre investimentos p�blicos\n\nESTRUTURA DE AN�LISE:\nPara cada a��o/obra, extraia:\n- Nome, descri��o, localiza��o\n- Secretaria respons�vel\n- Cronograma (in�cio/conclus�o prevista vs realizada)\n- Status e percentual de conclus�o\n- Recursos e valores investidos\n- Documenta��o relacionada\n\nDIRETRIZES:\n- Foco em infraestrutura urbana\n- Priorize dados quantitativos\n- Use linguagem t�cnica apropriada\n- Estruture informa��es de forma clara",
+  "status": "active",
+  "canCommunicateWith": [
+    "68dd37501d9bfcc29e34574b",
+    "68dd625e8be0682166a76f97",
+    "68de5d2bf6934dbd41a89f9f"
+  ],
+  "databaseAccess": {
+    "enabled": true,
+    "allowedCollections": [
+      "fileuploads",
+      "agents"
+    ],
+    "allowedOperations": [
+      "read",
+      "write",
+      "update"
+    ],
+    "queryLimits": {
+      "maxResults": 1000,
+      "timeout": 30000
+    }
+  },
+  "fileAccess": {
+    "enabled": true,
+    "allowedFileTypes": [
+      "txt",
+      "pdf",
+      "doc",
+      "docx",
+      "csv",
+      "xlsx",
+      "json",
+      "md"
+    ],
+    "maxFileSize": 10485760,
+    "allowedOperations": [
+      "read",
+      "upload",
+      "delete"
+    ],
+    "storagePath": "/uploads"
+  },
+  "createdAt": {
+    "$date": "2025-10-02T12:00:37.589Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-07T13:50:22.855Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68e520094fd6b86d39ed8622"
+  },
+  "name": "Agente de resposta",
+  "description": "Com base na solicitação do usuário, analise o contexto e forneça uma resposta clara e precisa, fundamentada apenas em informações relacionadas ao tema abordado.\n\nA formatação da respota deve ser em html",
+  "status": "active",
+  "canCommunicateWith": [],
+  "databaseAccess": {
+    "enabled": false,
+    "allowedCollections": [],
+    "allowedOperations": [],
+    "queryLimits": {
+      "maxResults": 50,
+      "timeout": 30000
+    }
+  },
+  "fileAccess": {
+    "enabled": false,
+    "allowedFileTypes": [
+      "txt",
+      "pdf",
+      "doc",
+      "docx"
+    ],
+    "maxFileSize": 10485760,
+    "allowedOperations": [
+      "read"
+    ],
+    "storagePath": "uploads"
+  },
+  "createdAt": {
+    "$date": "2025-10-07T14:13:29.335Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-07T14:33:25.021Z"
+  }
+}]

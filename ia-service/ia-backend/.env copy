@@ -1,0 +1,38 @@
+# MongoDB Docker Configuration
+DB_HOST=mongodb
+DB_PORT=27017
+DB_NAME=db-ia
+DB_USER=admin
+DB_PASSWORD=adminpass
+DB_SSL=false
+MONGODB_URI=mongodb://admin:adminpass@mongodb:27017/db-ia?authSource=admin
+DATABASE_URL=mongodb://admin:adminpass@mongodb:27017/db-ia?authSource=admin
+
+# OpenAI Configuration
+OPENAI_API_KEY=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
+
+# Server Configuration
+PORT=3001
+NODE_ENV=development
+API_VERSION=v1
+
+# Security
+JWT_SECRET=your-jwt-secret-key-here
+API_KEY=ai-backend-2024-abc123xyz789
+
+# CORS
+CORS_ENABLED=true
+CORS_ORIGINS=http://localhost:4200,http://localhost:3000,http://localhost:4201
+
+# Logging
+LOG_LEVEL=info
+LOG_FILE=logs/combined.log
+
+# External Services
+MAIN_BACKEND_URL=http://localhost:3000
+EXTERNAL_SERVICES_TIMEOUT=30000
+EXTERNAL_SERVICES_RETRIES=3
+
+# Monitoring
+ENABLE_METRICS=false
+METRICS_PORT=9090

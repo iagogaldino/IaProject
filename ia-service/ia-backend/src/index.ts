@@ -107,9 +107,6 @@ async function startServer() {
     // Start server
     app.listen(PORT, () => {
       logger.info(`🚀 Server running on port ${PORT}`);
-      logger.info(`📊 Health check available at http://localhost:${PORT}/health`);
-      logger.info(`🤖 AI endpoint available at http://localhost:${PORT}/api/ai/process`);
-      logger.info(`👥 Agents API available at http://localhost:${PORT}/api/agents`);
     });
   } catch (error) {
     logger.error('Failed to start server:', error);

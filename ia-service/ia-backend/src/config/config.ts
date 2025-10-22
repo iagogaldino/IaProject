@@ -10,13 +10,13 @@ export const config = {
   },
   
   database: {
-    host: process.env.DB_HOST || 'localhost',
+    host: process.env.DB_HOST,
     port: parseInt(process.env.DB_PORT || '27017', 10),
-    name: process.env.DB_NAME || 'ai_backend',
-    user: process.env.DB_USER || '',
-    password: process.env.DB_PASSWORD || '',
+    name: process.env.DB_NAME,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
     ssl: process.env.DB_SSL === 'true',
-    url: process.env.MONGODB_URI || process.env.DATABASE_URL || `mongodb://${process.env.DB_HOST || 'localhost'}:${process.env.DB_PORT || '27017'}/${process.env.DB_NAME || 'ai_backend'}`
+    url: process.env.MONGODB_URI || process.env.DATABASE_URL
   },
   
   openai: {

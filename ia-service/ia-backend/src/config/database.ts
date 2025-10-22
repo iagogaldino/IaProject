@@ -10,7 +10,11 @@ export const connectDatabase = async (): Promise<void> => {
       return;
     }
 
-    const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/db-ia';
+    const mongoUri = config.database.url;
+    
+    if (!mongoUri) {
+      throw new Error('MongoDB URI is not defined. Please check your environment variables.');
+    }
     
     // Connection options to prevent timeout
     const options = {
@@ -19,7 +23,6 @@ export const connectDatabase = async (): Promise<void> => {
       maxPoolSize: 10, // Maintain up to 10 socket connections
       minPoolSize: 5, // Maintain a minimum of 5 socket connections
     };
-    
     await mongoose.connect(mongoUri, options);
     
     console.log('✅ Connected to MongoDB');

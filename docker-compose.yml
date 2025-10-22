@@ -22,6 +22,21 @@ services:
       timeout: 5s
       retries: 5
 
+  # PostgreSQL Web Interface
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: iaproject-pgadmin
+    ports:
+      - "8080:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@iaproject.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    depends_on:
+      - postgres
+    networks:
+      - iaproject-network
+    restart: unless-stopped
+
   # App Backend
   app-backend:
     build:
@@ -55,6 +70,41 @@ services:
       - iaproject-network
     restart: unless-stopped
 
+  # MongoDB
+  mongodb:
+    image: mongo:7
+    container_name: iaproject-mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: adminpass
+      MONGO_INITDB_DATABASE: db-ia
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - ./ia-service/ia-backend/mongodb-init:/docker-entrypoint-initdb.d
+    networks:
+      - iaproject-network
+    restart: unless-stopped
+
+  # MongoDB Web Interface
+  mongo-express:
+    image: mongo-express:latest
+    container_name: iaproject-mongo-express
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: adminpass
+      ME_CONFIG_MONGODB_URL: mongodb://admin:adminpass@mongodb:27017/
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: admin
+    depends_on:
+      - mongodb
+    networks:
+      - iaproject-network
+    restart: unless-stopped
+
   # IA Backend
   ia-backend:
     build:
@@ -66,11 +116,20 @@ services:
     environment:
       - NODE_ENV=production
       - DATABASE_URL=postgresql://dev:devpass@postgres:5432/app_db
+      - MONGODB_URI=mongodb://admin:adminpass@mongodb:27017/db-ia?authSource=admin
+      - DB_HOST=mongodb
+      - DB_PORT=27017
+      - DB_NAME=db-ia
+      - DB_USER=admin
+      - DB_PASSWORD=adminpass
+      - DB_SSL=false
       - API_KEY=ai-backend-2024-abc123xyz789
       - OPENAI_API_KEY=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
     depends_on:
       postgres:
         condition: service_healthy
+      mongodb:
+        condition: service_started
     networks:
       - iaproject-network
     restart: unless-stopped
@@ -89,6 +148,8 @@ services:
 
 volumes:
   postgres_data:
+    driver: local
+  mongodb_data:
     driver: local
 
 networks:
