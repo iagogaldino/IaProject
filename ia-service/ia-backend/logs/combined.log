@@ -381,3 +381,4 @@
 {"level":"info","message":"🔍 ═══════════════════════════════════════════════════════════","service":"ai-backend","timestamp":"2025-10-22 23:33:24"}
 {"agentId":"68dd37501d9bfcc29e34574b","level":"info","message":"Agent chat processed successfully","responseLength":70,"service":"ai-backend","timestamp":"2025-10-22 23:33:24"}
 {"level":"info","message":"::ffff:172.23.0.5 - - [22/Oct/2025:23:33:24 +0000] \"POST /api/agents/68dd37501d9bfcc29e34574b/chat HTTP/1.1\" 200 182 \"-\" \"axios/1.12.2\"","service":"ai-backend","timestamp":"2025-10-22 23:33:24"}
+{"level":"info","message":"::ffff:172.23.0.1 - - [22/Oct/2025:23:40:37 +0000] \"GET /health HTTP/1.1\" 200 295 \"http://localhost:4201/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36\"","service":"ai-backend","timestamp":"2025-10-22 23:40:37"}
