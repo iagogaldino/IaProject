@@ -38,7 +38,7 @@ export const config = {
   
   cors: {
     enabled: process.env.CORS_ENABLED === 'true',
-    origins: process.env.CORS_ORIGINS?.split(',') || ['http://localhost:4200', 'http://localhost:3000']
+    origins: process.env.CORS_ORIGINS?.split(',') || ['http://localhost:4200', 'http://localhost:3000', 'http://localhost:4201']
   },
   
   logging: {
