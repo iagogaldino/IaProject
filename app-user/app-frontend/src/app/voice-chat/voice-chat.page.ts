@@ -22,6 +22,7 @@ import {
 } from 'ionicons/icons';
 import { ApiService } from '../services/api.service';
 import { SavedMessagesService } from '../services/saved-messages.service';
+import { TypingEffectService } from '../services/typing-effect.service';
 import { delay, tap } from 'rxjs';
 
 interface Window {
@@ -52,7 +53,7 @@ export class VoiceChatPage implements OnInit {
     return this.messages.length === 0;
   }
 
-  messages: { text: string; sender: 'user' | 'assistant' | 'error', hour: string, image?: string }[] = [
+  messages: { text: string; sender: 'user' | 'assistant' | 'error', hour: string, image?: string, isTyping?: boolean }[] = [
     // { text: 'Hello! How can I assist you today?', sender: 'assistant', hour: '10:00 AM' },
     // { text: 'Can you tell me a joke?', sender: 'user', hour: '10:01 AM' },
     // { text: 'Sure! Why did the scarecrow win an award? Because he was outstanding in his field!', sender: 'assistant', hour: '10:02 AM' }
@@ -66,6 +67,7 @@ export class VoiceChatPage implements OnInit {
     private fb: FormBuilder, 
     private apiService: ApiService,
     private savedMessagesService: SavedMessagesService,
+    private typingEffectService: TypingEffectService,
     private router: Router
   ) {
     addIcons({
@@ -201,12 +203,32 @@ export class VoiceChatPage implements OnInit {
             sender: 'assistant',
             timestamp: new Date()
           };
+          
+          // Adicionar mensagem com efeito de digitação
+          const mensagemIndex = this.messages.length;
           this.messages.push({
-            text: response.data,
+            text: '',
             sender: 'assistant',
-            hour: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            hour: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            isTyping: true
           });
           this.scrollToBottom();
+          
+          // Aplicar efeito de digitação
+          this.typingEffectService.typeTextWithCallback(
+            response.data,
+            (texto) => {
+              this.messages[mensagemIndex].text = texto;
+              this.scrollToBottom();
+            },
+            20, // Velocidade de 20ms por caractere para mensagens do chat
+            () => {
+              // Callback quando a digitação terminar
+              if (this.messages[mensagemIndex]) {
+                this.messages[mensagemIndex].isTyping = false;
+              }
+            }
+          );
         },
         error: (error) => {
           console.error('Error from API:', error);

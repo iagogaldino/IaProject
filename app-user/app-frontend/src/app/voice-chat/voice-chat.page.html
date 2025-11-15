@@ -17,7 +17,7 @@
   <div class="conversation-header">
     <div class="lina-avatar">
       <div class="avatar-ring"></div>
-      <img src="assets/nina.jpg" alt="Lina" class="avatar-image" />
+      <img src="assets/lina.jpeg" alt="Lina" class="avatar-image" />
     </div>
     <h2 class="lina-name">Lina</h2>
   </div>
@@ -47,12 +47,13 @@
             <div class="message-header">
               <div class="sender-info">
                 <div class="message-avatar lina-avatar-small">
-                  <img src="assets/nina.jpg" alt="Lina" class="avatar-image-small" />
+                  <img src="assets/lina.jpeg" alt="Lina" class="avatar-image-small" />
                 </div>
                 <span class="sender-name">Lina</span>
               </div>
             </div>
             <p [innerHTML]="item.text"></p>
+            <span class="typing-cursor" *ngIf="item.isTyping">|</span>
             <div class="message-actions">
               <span class="message-time">{{ item.hour }}</span>
               <ion-button 

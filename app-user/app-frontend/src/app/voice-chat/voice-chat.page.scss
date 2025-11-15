@@ -282,6 +282,14 @@
       color: var(--ion-color-dark);
     }
     
+    .typing-cursor {
+      display: inline-block;
+      color: var(--ion-color-primary);
+      font-weight: bold;
+      animation: blink 1s infinite;
+      margin-left: 2px;
+    }
+    
     strong {
       color: var(--ion-color-primary);
       font-weight: 600;
@@ -569,6 +577,15 @@ ion-toolbar ion-button[slot="end"] {
   30% {
     transform: translateY(-10px);
     opacity: 1;
+  }
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
   }
 }
 
