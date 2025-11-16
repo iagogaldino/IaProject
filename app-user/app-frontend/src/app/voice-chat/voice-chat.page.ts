@@ -1,33 +1,43 @@
-﻿import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons, IonIcon, IonInput, IonLabel } from '@ionic/angular/standalone';
+import {
+  IonButton,
+  IonButtons,
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonTitle,
+  IonToolbar
+} from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
 import {
-  chatbubblesOutline,
-  sparkles,
-  person,
-  attachOutline,
-  micOutline,
-  send,
-  helpCircleOutline,
-  bulbOutline,
-  documentTextOutline,
-  constructOutline,
   bookmarkOutline,
-  libraryOutline,
+  close,
   imageOutline,
-  close
+  libraryOutline,
+  micOutline,
+  send
 } from 'ionicons/icons';
 import { ApiService } from '../services/api.service';
 import { SavedMessagesService } from '../services/saved-messages.service';
 import { TypingEffectService } from '../services/typing-effect.service';
-import { delay, tap } from 'rxjs';
 
 interface Window {
   webkitSpeechRecognition: any;
   SpeechRecognition: any;
+}
+
+type Sender = 'user' | 'assistant' | 'error';
+
+interface ChatMessage {
+  id: number;
+  text: string;
+  sender: Sender;
+  hour: string;
+  image?: string;
+  isTyping?: boolean;
 }
 
 @Component({
@@ -35,217 +45,239 @@ interface Window {
   templateUrl: './voice-chat.page.html',
   styleUrls: ['./voice-chat.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar,
-    IonButton, IonButtons, IonIcon, IonInput, CommonModule, FormsModule,
+  imports: [
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    IonButton,
+    IonButtons,
+    IonIcon,
+    CommonModule,
+    FormsModule,
     ReactiveFormsModule
   ]
 })
 export class VoiceChatPage implements OnInit {
+  @ViewChild(IonContent, { static: false }) content?: IonContent;
+  @ViewChild('messageInput', { static: false }) messageInput?: ElementRef<HTMLInputElement>;
+  @ViewChild('imageInput', { static: false }) imageInput?: ElementRef<HTMLInputElement>;
 
-  @ViewChild(IonContent, { static: false }) content!: IonContent;
-  
   form!: FormGroup;
-  isTyping = false;
+  messages: ChatMessage[] = [];
   selectedImage: string | null = null;
-  @ViewChild('imageUpload', { static: false }) imageUpload!: any;
-
-  get isChatEmpty(): boolean {
-    return this.messages.length === 0;
-  }
-
-  messages: { text: string; sender: 'user' | 'assistant' | 'error', hour: string, image?: string, isTyping?: boolean }[] = [
-    // { text: 'Hello! How can I assist you today?', sender: 'assistant', hour: '10:00 AM' },
-    // { text: 'Can you tell me a joke?', sender: 'user', hour: '10:01 AM' },
-    // { text: 'Sure! Why did the scarecrow win an award? Because he was outstanding in his field!', sender: 'assistant', hour: '10:02 AM' }
-  ];
-
+  recognition: any = null;
   transcript = '';
-  response = '';
-  recognition: any;
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private apiService: ApiService,
     private savedMessagesService: SavedMessagesService,
     private typingEffectService: TypingEffectService,
     private router: Router
   ) {
     addIcons({
-      chatbubblesOutline,
-      sparkles,
-      person,
-      attachOutline,
-      micOutline,
-      send,
-      helpCircleOutline,
-      bulbOutline,
-      documentTextOutline,
-      constructOutline,
       bookmarkOutline,
-      libraryOutline,
+      close,
       imageOutline,
-      close
+      libraryOutline,
+      micOutline,
+      send
     });
 
-    const { webkitSpeechRecognition }: any = window as any;
-    this.recognition = new ((window as any).SpeechRecognition || webkitSpeechRecognition)();
+    this.setupSpeechRecognition();
+  }
+
+  ngOnInit(): void {
+    this.form = this.fb.nonNullable.group({
+      message: ['']
+    });
+  }
+
+  get isChatEmpty(): boolean {
+    return this.messages.length === 0;
+  }
+
+  get canSendMessage(): boolean {
+    const control = this.form?.get('message');
+    const text = (control?.value || '').toString().trim();
+    return !!text || !!this.selectedImage;
+  }
+
+  goToSavedMessages(): void {
+    this.router.navigate(['/saved-messages']);
+  }
+
+  openImageSelector(): void {
+    this.imageInput?.nativeElement.click();
+  }
+
+  selectImage(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files && input.files[0];
+    if (!file) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.selectedImage = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  removeImage(): void {
+    this.selectedImage = null;
+    this.resetFileInput();
+  }
+
+  startListening(): void {
+    if (!this.recognition) {
+      return;
+    }
+
+    this.transcript = 'Ouvindo...';
+    this.recognition.start();
+  }
+
+  saveMessage(message: ChatMessage): void {
+    if (message.sender !== 'assistant') {
+      return;
+    }
+
+    const currentIndex = this.messages.indexOf(message);
+    const userMessage = this.messages[currentIndex - 1];
+
+    if (userMessage && userMessage.sender === 'user') {
+      this.savedMessagesService.saveMessage(userMessage.text, message.text);
+    }
+  }
+
+  private setupSpeechRecognition(): void {
+    const win = window as unknown as Window;
+    const SpeechRecognitionConstructor = win.SpeechRecognition || win.webkitSpeechRecognition;
+
+    if (!SpeechRecognitionConstructor) {
+      this.recognition = null;
+      return;
+    }
+
+    this.recognition = new SpeechRecognitionConstructor();
     this.recognition.lang = 'pt-BR';
     this.recognition.interimResults = false;
     this.recognition.maxAlternatives = 1;
 
     this.recognition.addEventListener('result', (event: any) => {
-      this.transcript = event.results[0][0].transcript;
-      this.enviarParaIA(this.transcript);
+      const transcript = event.results[0][0].transcript;
+      this.transcript = transcript;
+      this.form.patchValue({ message: transcript });
+      this.sendMessage();
     });
 
     this.recognition.addEventListener('speechend', () => {
-      this.recognition.stop();
+      this.recognition?.stop();
     });
 
     this.recognition.addEventListener('error', (event: any) => {
-      this.transcript = 'Erro no reconhecimento de voz: ' + event.error;
+      this.transcript = `Erro no reconhecimento de voz: ${event.error}`;
     });
   }
 
-  ngOnInit() {
-    this.initForm();
-  }
+  sendMessage(event?: Event): void {
+    event?.preventDefault();
 
+    const control = this.form.get('message');
+    const text = (control?.value || '').toString().trim();
 
-  private scrollToBottom() {
-    if (this.content) {
-      this.content.scrollToBottom(300);
+    if (!text && !this.selectedImage) {
+      return;
     }
-  }
 
-  saveMessage(message: { text: string; sender: 'user' | 'assistant' | 'error', hour: string, image?: string }) {
-    if (message.sender === 'assistant') {
-      // Encontrar a pergunta do usu├írio correspondente
-      const userMessage = this.messages[this.messages.indexOf(message) - 1];
-      if (userMessage && userMessage.sender === 'user') {
-        const messageId = this.savedMessagesService.saveMessage(userMessage.text, message.text);
-        console.log('Mensagem salva com ID:', messageId);
-      }
-    }
-  }
+    const hour = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-  selectImage(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.selectedImage = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-  }
+    const newMessage: ChatMessage = {
+      id: Date.now(),
+      text,
+      sender: 'user',
+      hour,
+      image: this.selectedImage || undefined
+    };
 
-  removeImage() {
+    this.messages = [...this.messages, newMessage];
+    this.form.reset({ message: '' });
     this.selectedImage = null;
-  }
+    this.resetFileInput();
+    this.focusMessageInput();
+    this.scrollToBottom();
 
-  openImageSelector() {
-    const input = document.getElementById('image-upload') as HTMLInputElement;
-    if (input) {
-      input.click();
-    }
-  }
+    const prompt = text || '[Imagem enviada]';
+    const history = this.messages.slice(-10);
 
-  goToSavedMessages() {
-    this.router.navigate(['/saved-messages']);
-  }
-
-  startListening() {
-    this.transcript = '≡ƒÄÖ∩╕Å Ouvindo...';
-    this.response = '';
-    this.recognition.start();
-  }
-
-  enviarParaIA(text: string) {
-    console.log('Texto reconhecido:', text);
-    this.form.get('message')?.setValue( text );
-    this.sendMessage();
-  }
-
-  initForm() {
-    this.form = this.fb.group({
-      message: ['']
+    this.apiService.askQuestion(prompt, history).subscribe({
+      next: (response) => this.handleAiResponse(response.data),
+      error: (error) => this.handleError(error)
     });
   }
 
-  sendMessage() {
-    const message = this.form.get('message')?.value;
-    if (message || this.selectedImage) {
-      const currentHour = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      this.messages.push({ 
-        text: message || '', 
-        sender: 'user', 
-        hour: currentHour,
-        image: this.selectedImage || undefined
-      });
-      this.form.reset();
-      this.selectedImage = null;
-      this.scrollToBottom();
+  private handleAiResponse(content: string): void {
+    const messageIndex = this.messages.length;
 
-      // Enviar hist├│rico da conversa para manter contexto
-      const conversationHistory = this.messages.slice(-10); // ├Ültimas 10 mensagens para contexto
-      
-      this.apiService.askQuestion(message, conversationHistory)
-      .pipe(
-        tap(() => this.isTyping = true),
-        delay(2000)
-      )
-      .subscribe({
-        next: (response) => {
-          const aiResponse = {
-            id: Date.now() + 1,
-            content: response.data,
-            sender: 'assistant',
-            timestamp: new Date()
-          };
-          
-          // Adicionar mensagem com efeito de digitação
-          const mensagemIndex = this.messages.length;
-          this.messages.push({
-            text: '',
-            sender: 'assistant',
-            hour: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-            isTyping: true
-          });
-          this.scrollToBottom();
-          
-          // Aplicar efeito de digitação
-          this.typingEffectService.typeTextWithCallback(
-            response.data,
-            (texto) => {
-              this.messages[mensagemIndex].text = texto;
-              this.scrollToBottom();
-            },
-            20, // Velocidade de 20ms por caractere para mensagens do chat
-            () => {
-              // Callback quando a digitação terminar
-              if (this.messages[mensagemIndex]) {
-                this.messages[mensagemIndex].isTyping = false;
-              }
-            }
-          );
-        },
-        error: (error) => {
-          console.error('Error from API:', error);
-          this.isTyping = false;
+    this.messages.push({
+      id: Date.now() + 1,
+      text: '',
+      sender: 'assistant',
+      hour: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      isTyping: true
+    });
+    this.scrollToBottom();
 
-          this.messages.push({
-            text: error.message || 'An error occurred while fetching the response.',
-            sender: 'error',
-            hour: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-          });
+    this.typingEffectService.typeTextWithCallback(
+      content,
+      (partialText: string) => {
+        const message = this.messages[messageIndex];
+        if (message) {
+          message.text = partialText;
           this.scrollToBottom();
-        },
-        complete: () => {
-          this.isTyping = false;
         }
-      });
+      },
+      15,
+      () => {
+        const message = this.messages[messageIndex];
+        if (message) {
+          message.isTyping = false;
+        }
+        this.scrollToBottom();
+      }
+    );
+  }
+
+  private handleError(error: any): void {
+    this.messages.push({
+      id: Date.now() + 2,
+      text: error?.message || 'Ocorreu um erro ao obter a resposta.',
+      sender: 'error',
+      hour: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    });
+    this.scrollToBottom();
+  }
+
+  private resetFileInput(): void {
+    if (this.imageInput?.nativeElement) {
+      this.imageInput.nativeElement.value = '';
     }
   }
 
+  private focusMessageInput(): void {
+    requestAnimationFrame(() => this.messageInput?.nativeElement.focus());
+  }
+
+  private scrollToBottom(): void {
+    if (!this.content) {
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      this.content?.scrollToBottom(200);
+    });
+  }
 }
