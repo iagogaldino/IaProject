@@ -1,66 +1,52 @@
 ﻿<ion-content [fullscreen]="true" class="splash-content">
-  <!-- Background com cores vibrantes -->
+  <!-- Background criativo com cores da bandeira -->
   <div class="background">
-    <div class="color-section yellow"></div>
-    <div class="color-section green"></div>
-    <div class="red-line line-1"></div>
-    <div class="red-line line-2"></div>
+    <div class="color-gradient green-section"></div>
+    <div class="color-gradient yellow-section"></div>
+    <div class="color-gradient red-section"></div>
+    <div class="overlay-pattern"></div>
   </div>
 
   <!-- Personagem Lina -->
   <div class="lina-container">
+    <!-- Círculo de energia flutuante -->
+    <div class="energy-circle">
+      <div class="energy-core"></div>
+      <div class="energy-aura"></div>
+      <div class="energy-rays">
+        <div class="ray ray-1"></div>
+        <div class="ray ray-2"></div>
+        <div class="ray ray-3"></div>
+        <div class="ray ray-4"></div>
+        <div class="ray ray-5"></div>
+        <div class="ray ray-6"></div>
+      </div>
+    </div>
     <div class="lina-character">
-      <div class="lina-head">
-        <div class="lina-hair"></div>
-        <div class="lina-glasses">
-          <div class="glasses-frame"></div>
-          <div class="glasses-lens left"></div>
-          <div class="glasses-lens right"></div>
-        </div>
-        <div class="lina-eyes">
-          <div class="eye left"></div>
-          <div class="eye right"></div>
-        </div>
-        <div class="lina-smile"></div>
+      <!-- Imagem da Lina -->
+      <div class="lina-image-wrapper">
+        <img src="assets/lina.jpeg" alt="Lina" class="lina-image" />
       </div>
-      <div class="lina-body">
-        <div class="lina-shirt">
-          <div class="shirt-collar"></div>
-          <div class="shirt-buttons">
-            <div class="button"></div>
-            <div class="button"></div>
-            <div class="button"></div>
-          </div>
-        </div>
-        <div class="lina-arms">
-          <div class="arm left">
-            <div class="hand"></div>
-          </div>
-          <div class="arm right"></div>
-        </div>
-        <div class="lina-necklace"></div>
-      </div>
-      <div class="lina-pants"></div>
     </div>
   </div>
 
-  <!-- Bal├úo de mensagem -->
+  <!-- Balão de mensagem -->
   <div class="message-bubble">
     <div class="bubble-content">
       <div class="sender-name">Lina</div>
       <div class="message-text">
-        Fala meu prefeito! Seja bem vindo ao CONECTLINA, Eu sou Lina e nasci para facilitar a sua vida, tirando todas as suas d├║vidas a respeito da sua gest├úo.
+        {{ mensagemExibida }}<span class="typing-cursor" *ngIf="mensagemExibida !== mensagemCompleta">|</span>
       </div>
     </div>
   </div>
 
-  <!-- Bot├úo de in├¡cio -->
+  <!-- Botão de início -->
   <div class="start-button-container">
     <ion-button 
       (click)="goToHome()" 
       class="start-button"
       fill="outline">
-      Vamos come├ºar
+      VAMOS COMEÇAR
     </ion-button>
   </div>
 
