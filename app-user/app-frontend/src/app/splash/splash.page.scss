@@ -2,7 +2,7 @@
   position: relative;
   height: 100vh;
   overflow: hidden;
-  background: linear-gradient(135deg, #00853f 0%, #fcd116 50%, #ce1126 100%);
+  background: linear-gradient(135deg, #0056A6 0%, #4F8FDB 40%, #F7C843 100%);
   transform: rotate(0deg) !important;
   
   // Vinheta suave
@@ -31,7 +31,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #00853f 0%, #fcd116 50%, #ce1126 100%);
+    background: linear-gradient(135deg, #0056A6 0%, #4F8FDB 40%, #F7C843 100%);
     z-index: 0;
   }
 }
@@ -46,12 +46,12 @@
   z-index: 1;
   overflow: hidden;
   background: linear-gradient(135deg, 
-    #00853f 0%, 
-    #00853f 33%, 
-    #fcd116 33%, 
-    #fcd116 66%, 
-    #ce1126 66%, 
-    #ce1126 100%);
+    #0056A6 0%, 
+    #0056A6 33.33%, 
+    #FFFFFF 33.33%, 
+    #FFFFFF 66.66%, 
+    #F7C843 66.66%, 
+    #F7C843 100%);
   
   // Seções de cor suaves com gradientes
   .color-gradient {
@@ -61,39 +61,39 @@
     opacity: 0.85;
     animation: colorFlow 8s ease-in-out infinite;
     
-    &.green-section {
+    &.blue-section {
       left: 0;
       background: linear-gradient(
         135deg,
-        rgba(0, 133, 63, 0.9) 0%,
-        rgba(0, 150, 70, 0.85) 50%,
-        rgba(0, 133, 63, 0.9) 100%
+        rgba(0, 86, 166, 0.9) 0%,
+        rgba(79, 143, 219, 0.85) 50%,
+        rgba(0, 86, 166, 0.9) 100%
       );
       border-radius: 0 50px 50px 0;
       animation-delay: 0s;
     }
     
-    &.yellow-section {
+    &.white-section {
       left: 33.33%;
       background: linear-gradient(
         135deg,
-        rgba(252, 209, 22, 0.9) 0%,
-        rgba(255, 230, 50, 0.85) 50%,
-        rgba(252, 209, 22, 0.9) 100%
+        rgba(255, 255, 255, 0.95) 0%,
+        rgba(255, 255, 255, 0.9) 50%,
+        rgba(255, 255, 255, 0.95) 100%
       );
-      animation-delay: 2.5s;
+      animation-delay: 1.25s;
     }
     
-    &.red-section {
+    &.yellow-section {
       right: 0;
       background: linear-gradient(
         135deg,
-        rgba(206, 17, 38, 0.9) 0%,
-        rgba(230, 30, 50, 0.85) 50%,
-        rgba(206, 17, 38, 0.9) 100%
+        rgba(247, 200, 67, 0.9) 0%,
+        rgba(255, 217, 120, 0.85) 50%,
+        rgba(247, 200, 67, 0.9) 100%
       );
       border-radius: 50px 0 0 50px;
-      animation-delay: 5s;
+      animation-delay: 2.5s;
     }
   }
   
@@ -174,10 +174,10 @@
     border-radius: 50%;
     background: radial-gradient(
       circle at center,
-      rgba(0, 133, 63, 0.4) 0%,
-      rgba(252, 209, 22, 0.3) 25%,
-      rgba(0, 123, 255, 0.25) 50%,
-      rgba(206, 17, 38, 0.2) 75%,
+      rgba(0, 86, 166, 0.4) 0%,
+      rgba(79, 143, 219, 0.3) 30%,
+      rgba(247, 200, 67, 0.25) 60%,
+      rgba(255, 217, 120, 0.2) 80%,
       transparent 100%
     );
     filter: blur(20px);
@@ -194,10 +194,10 @@
     border-radius: 50%;
     background: radial-gradient(
       circle at center,
-      rgba(0, 133, 63, 0.15) 0%,
-      rgba(252, 209, 22, 0.12) 30%,
-      rgba(0, 123, 255, 0.1) 60%,
-      rgba(206, 17, 38, 0.08) 80%,
+      rgba(0, 86, 166, 0.15) 0%,
+      rgba(79, 143, 219, 0.12) 30%,
+      rgba(247, 200, 67, 0.1) 60%,
+      rgba(255, 217, 120, 0.08) 80%,
       transparent 100%
     );
     filter: blur(30px);
@@ -221,10 +221,10 @@
       transform-origin: top center;
       background: linear-gradient(
         to bottom,
-        rgba(0, 133, 63, 0.6),
-        rgba(252, 209, 22, 0.4),
-        rgba(0, 123, 255, 0.3),
-        rgba(206, 17, 38, 0.2),
+        rgba(0, 86, 166, 0.6),
+        rgba(79, 143, 219, 0.4),
+        rgba(247, 200, 67, 0.3),
+        rgba(255, 217, 120, 0.2),
         transparent
       );
       filter: blur(1px);
@@ -296,18 +296,18 @@
   // Gradiente radial de fundo com cores da bandeira
   background: radial-gradient(
     circle at center,
-    rgba(0, 133, 63, 0.95) 0%,
-    rgba(252, 209, 22, 0.9) 40%,
-    rgba(0, 123, 255, 0.85) 70%,
-    rgba(0, 133, 63, 0.8) 100%
+    rgba(0, 86, 166, 0.95) 0%,
+    rgba(79, 143, 219, 0.9) 40%,
+    rgba(247, 200, 67, 0.85) 70%,
+    rgba(255, 217, 120, 0.8) 100%
   );
   
   // Brilho suave ao redor do círculo
   box-shadow: 
     0 0 0 2px rgba(255, 255, 255, 0.1),
-    0 0 40px rgba(0, 133, 63, 0.3),
-    0 0 80px rgba(252, 209, 22, 0.2),
-    0 0 120px rgba(0, 123, 255, 0.15),
+    0 0 40px rgba(0, 86, 166, 0.3),
+    0 0 80px rgba(79, 143, 219, 0.2),
+    0 0 120px rgba(247, 200, 67, 0.15),
     0 20px 60px rgba(0, 0, 0, 0.3),
     0 40px 100px rgba(0, 0, 0, 0.2),
     inset 0 0 40px rgba(255, 255, 255, 0.05);
@@ -396,14 +396,14 @@
   max-width: 340px;
   background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(10px);
-  border: 2px solid rgba(0, 133, 63, 0.3);
+  border: 2px solid rgba(0, 86, 166, 0.3);
   border-radius: 28px;
   padding: 20px 24px;
   z-index: 4;
   animation: bubbleEntrance 1s ease-out 0.5s both;
   box-shadow: 
-    0 8px 32px rgba(0, 133, 63, 0.12),
-    0 4px 16px rgba(0, 133, 63, 0.08),
+    0 8px 32px rgba(0, 86, 166, 0.12),
+    0 4px 16px rgba(0, 86, 166, 0.08),
     0 2px 8px rgba(0, 0, 0, 0.04);
   font-family: 'Roboto', 'Arial', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   transform-origin: center center;
@@ -415,7 +415,7 @@
     
     .sender-name {
       font-weight: 700;
-      color: #00853f;
+      color: #0056A6;
       font-size: 17px;
       margin-bottom: 10px;
       transform: rotate(0deg) !important;
@@ -431,7 +431,7 @@
       
       .typing-cursor {
         display: inline-block;
-        color: #00853f;
+        color: #0056A6;
         font-weight: bold;
         animation: blink 1s infinite;
         margin-left: 2px;
@@ -451,7 +451,7 @@
     border-left: 14px solid transparent;
     border-right: 14px solid transparent;
     border-top: 14px solid rgba(255, 255, 255, 0.98);
-    filter: drop-shadow(0 2px 4px rgba(0, 133, 63, 0.15));
+    filter: drop-shadow(0 2px 4px rgba(0, 86, 166, 0.15));
   }
   
   &::before {
@@ -464,7 +464,7 @@
     height: 0;
     border-left: 16px solid transparent;
     border-right: 16px solid transparent;
-    border-top: 16px solid rgba(0, 133, 63, 0.3);
+    border-top: 16px solid rgba(0, 86, 166, 0.3);
   }
 }
 
@@ -478,8 +478,8 @@
   animation: buttonEntrance 1s ease-out 1.5s both;
   
   .start-button {
-    --border-color: #00853f;
-    --color: #00853f;
+    --border-color: #0056A6;
+    --color: #0056A6;
     --border-radius: 9999px; // Pill button perfeito - valor alto garante bordas totalmente arredondadas
     --border-width: 1.5px; // Contorno mais fino e proporcional
     --padding-start: 56px;
@@ -496,9 +496,9 @@
     justify-content: center; // Centralização horizontal
     align-items: center; // Centralização vertical
     box-shadow: 
-      0 4px 16px rgba(0, 133, 63, 0.18),
-      0 2px 8px rgba(0, 133, 63, 0.12),
-      0 1px 3px rgba(0, 133, 63, 0.08);
+      0 4px 16px rgba(0, 86, 166, 0.18),
+      0 2px 8px rgba(0, 86, 166, 0.12),
+      0 1px 3px rgba(0, 86, 166, 0.08);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -547,11 +547,11 @@
     &:hover {
       transform: translateY(-2px);
       box-shadow: 
-        0 6px 20px rgba(0, 133, 63, 0.22),
-        0 3px 10px rgba(0, 133, 63, 0.15),
-        0 1px 4px rgba(0, 133, 63, 0.1);
-      --border-color: #00a050;
-      --color: #00a050;
+        0 6px 20px rgba(0, 86, 166, 0.22),
+        0 3px 10px rgba(0, 86, 166, 0.15),
+        0 1px 4px rgba(0, 86, 166, 0.1);
+      --border-color: #4F8FDB;
+      --color: #4F8FDB;
       
       &::after {
         background: linear-gradient(135deg, 
@@ -568,8 +568,8 @@
     &:active {
       transform: translateY(0);
       box-shadow: 
-        0 2px 8px rgba(0, 133, 63, 0.18),
-        0 1px 4px rgba(0, 133, 63, 0.12);
+        0 2px 8px rgba(0, 86, 166, 0.18),
+        0 1px 4px rgba(0, 86, 166, 0.12);
     }
     
     // Garantir que o texto fique perfeitamente centralizado
@@ -619,17 +619,12 @@
       animation: loadingDots 1.5s ease-in-out infinite;
       
       &:nth-child(1) {
-        background: #00853f;
+        background: #0056A6;
       }
       
       &:nth-child(2) {
-        background: #fcd116;
+        background: #F7C843;
         animation-delay: 0.2s;
-      }
-      
-      &:nth-child(3) {
-        background: #ce1126;
-        animation-delay: 0.4s;
       }
     }
   }
@@ -791,9 +786,9 @@
     
     box-shadow: 
       0 0 0 2px rgba(255, 255, 255, 0.1),
-      0 0 30px rgba(0, 133, 63, 0.25),
-      0 0 60px rgba(252, 209, 22, 0.15),
-      0 0 90px rgba(0, 123, 255, 0.1),
+      0 0 30px rgba(0, 86, 166, 0.25),
+      0 0 60px rgba(79, 143, 219, 0.15),
+      0 0 90px rgba(247, 200, 67, 0.1),
       0 15px 40px rgba(0, 0, 0, 0.25),
       0 30px 70px rgba(0, 0, 0, 0.15),
       inset 0 0 30px rgba(255, 255, 255, 0.05);
