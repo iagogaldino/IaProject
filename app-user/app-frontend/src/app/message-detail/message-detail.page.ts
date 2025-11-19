@@ -6,6 +6,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons, Ion
 import { addIcons } from 'ionicons';
 import { star, starOutline, share, download, create, trash, arrowBack, time, folder, bookmark, copy, checkmark } from 'ionicons/icons';
 import { SavedMessagesService, SavedMessage } from '../services/saved-messages.service';
+import { MarkdownPipe } from '../pipes/markdown.pipe';
 
 @Component({
   selector: 'app-message-detail',
@@ -16,7 +17,7 @@ import { SavedMessagesService, SavedMessage } from '../services/saved-messages.s
     IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons, IonIcon,
     IonChip, IonCard, IonCardContent, IonCardHeader, IonCardTitle,
     IonFab, IonFabButton, IonFabList, IonItem, IonLabel, IonList, IonTextarea, IonPopover,
-    CommonModule, FormsModule
+    CommonModule, FormsModule, MarkdownPipe
   ]
 })
 export class MessageDetailPage implements OnInit {

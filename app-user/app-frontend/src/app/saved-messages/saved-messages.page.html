@@ -162,7 +162,7 @@
         </ion-card-header>
 
         <ion-card-content class="card-content">
-          <div class="message-summary" [innerHTML]="message.summary"></div>
+          <div class="message-summary" [innerHTML]="message.summary | markdown"></div>
         </ion-card-content>
       </ion-card>
     </div>

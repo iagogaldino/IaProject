@@ -62,7 +62,7 @@
             } @else {
               <div class="message-text">
                 @if (message.sender === 'assistant') {
-                  <div [innerHTML]="message.text"></div>
+                  <div [innerHTML]="message.text | markdown"></div>
                 } @else {
                   <p>{{ message.text }}</p>
                 }

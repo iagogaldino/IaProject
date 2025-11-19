@@ -1,11 +1,15 @@
 ﻿import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { ConversationService, ConversationMessage } from '../../services/conversation.service';
+import { MarkdownPipe } from '../../pipes/markdown.pipe';
 
 @Component({
   selector: 'app-conversation-history',
   templateUrl: './conversation-history.component.html',
-  styleUrls: ['./conversation-history.component.scss']
+  styleUrls: ['./conversation-history.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MarkdownPipe]
 })
 export class ConversationHistoryComponent implements OnInit, OnDestroy {
   conversationHistory: ConversationMessage[] = [];

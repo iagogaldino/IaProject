@@ -6,6 +6,7 @@ import { addIcons } from 'ionicons';
 import { search, filter, download, star, starOutline, time, folder, bookmark, ellipsisHorizontal, add, chevronDown, chevronUp, closeCircle } from 'ionicons/icons';
 import { SavedMessagesService, SavedMessage } from '../services/saved-messages.service';
 import { Router } from '@angular/router';
+import { MarkdownPipe } from '../pipes/markdown.pipe';
 
 @Component({
   selector: 'app-saved-messages',
@@ -17,7 +18,7 @@ import { Router } from '@angular/router';
     IonSearchbar, IonChip, IonRefresher, IonRefresherContent, IonInfiniteScroll, IonInfiniteScrollContent,
     IonFab, IonFabButton, IonFabList, IonSelect, IonSelectOption, IonBackButton, 
     IonCard, IonCardHeader, IonCardContent, IonLabel,
-    CommonModule, FormsModule
+    CommonModule, FormsModule, MarkdownPipe
   ]
 })
 export class SavedMessagesPage implements OnInit {

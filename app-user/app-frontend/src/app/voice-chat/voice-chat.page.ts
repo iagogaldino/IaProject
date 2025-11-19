@@ -23,6 +23,7 @@ import {
 import { ApiService } from '../services/api.service';
 import { SavedMessagesService } from '../services/saved-messages.service';
 import { TypingEffectService } from '../services/typing-effect.service';
+import { MarkdownPipe } from '../pipes/markdown.pipe';
 
 interface Window {
   webkitSpeechRecognition: any;
@@ -55,7 +56,8 @@ interface ChatMessage {
     IonIcon,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MarkdownPipe
   ]
 })
 export class VoiceChatPage implements OnInit {

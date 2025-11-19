@@ -57,7 +57,7 @@
 
         <!-- Message Content -->
         <div class="message-content">
-          <div class="message-text" [innerHTML]="message.text"></div>
+          <div class="message-text" [innerHTML]="isAssistantMessage(message) ? (message.text | markdown) : message.text"></div>
           
           <!-- Message Metadata -->
           <div class="message-metadata" *ngIf="message.metadata && Object.keys(message.metadata).length > 0">

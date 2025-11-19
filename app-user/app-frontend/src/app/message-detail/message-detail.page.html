@@ -107,7 +107,7 @@
       <ion-card-title>Resposta da IA</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <div *ngIf="!isEditing" class="response-content" [innerHTML]="message.content"></div>
+      <div *ngIf="!isEditing" class="response-content" [innerHTML]="message.content | markdown"></div>
       <ion-textarea 
         *ngIf="isEditing"
         [(ngModel)]="editContent"
@@ -124,7 +124,7 @@
       <ion-card-title>Resumo</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <div class="summary-text" [innerHTML]="message.summary"></div>
+      <div class="summary-text" [innerHTML]="message.summary | markdown"></div>
     </ion-card-content>
   </ion-card>
 </ion-content>
