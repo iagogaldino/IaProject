@@ -29,7 +29,11 @@ export interface AskResponse {
 export class ApiService {
   private baseUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    console.log('🔵 ApiService - Inicializado');
+    console.log('🔵 ApiService - baseUrl:', this.baseUrl);
+    console.log('🔵 ApiService - environment:', environment);
+  }
 
   askQuestion(prompt: string, conversationHistory?: Message[]): Observable<AskResponse> {
     const headers = new HttpHeaders({
@@ -49,6 +53,11 @@ export class ApiService {
       conversationHistory: formattedHistory
     };
 
+    // Log para debug
+    console.log('🔵 ApiService - Fazendo requisição para:', `${this.baseUrl}/ask`);
+    console.log('🔵 ApiService - Body:', body);
+
+    // Sempre faz requisição ao backend - o backend decide se usa mocks ou não
     return this.http.post<AskResponse>(`${this.baseUrl}/ask`, body, { headers });
   }
 }

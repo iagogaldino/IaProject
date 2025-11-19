@@ -94,9 +94,6 @@ export class VoiceChatPage implements OnInit, AfterViewInit {
     this.form = this.fb.nonNullable.group({
       message: ['']
     });
-    
-    // Mock de mensagens para simular uma conversa longa
-    this.loadMockMessages();
   }
 
   ngAfterViewInit(): void {
@@ -107,79 +104,6 @@ export class VoiceChatPage implements OnInit, AfterViewInit {
         this.scrollToBottom();
       }, 500);
     }
-  }
-
-  private loadMockMessages(): void {
-    const mockMessages: ChatMessage[] = [
-      {
-        id: 1,
-        text: 'Olá! Como posso ajudar você hoje?',
-        sender: 'assistant',
-        hour: '08:30'
-      },
-      {
-        id: 2,
-        text: 'Gostaria de saber sobre as obras em Petrolina',
-        sender: 'user',
-        hour: '08:31'
-      },
-      {
-        id: 3,
-        text: 'Claro! Posso te ajudar com informações sobre obras em Petrolina. Sobre qual tipo de obra você gostaria de saber?',
-        sender: 'assistant',
-        hour: '08:31'
-      },
-      {
-        id: 4,
-        text: 'Quero saber sobre pavimentação de ruas',
-        sender: 'user',
-        hour: '08:32'
-      },
-      {
-        id: 5,
-        text: 'A pavimentação de ruas em Petrolina é uma prioridade da administração municipal. Existem vários projetos em andamento para melhorar a infraestrutura viária da cidade.',
-        sender: 'assistant',
-        hour: '08:32'
-      },
-      {
-        id: 6,
-        text: 'Quais são os bairros que estão sendo pavimentados?',
-        sender: 'user',
-        hour: '08:33'
-      },
-      {
-        id: 7,
-        text: 'Atualmente, os trabalhos de pavimentação estão concentrados em vários bairros, incluindo áreas do centro e da periferia. Para informações específicas sobre seu bairro, recomendo consultar a Prefeitura de Petrolina.',
-        sender: 'assistant',
-        hour: '08:33'
-      },
-      {
-        id: 8,
-        text: 'E quanto ao investimento? Quanto está sendo gasto?',
-        sender: 'user',
-        hour: '08:34'
-      },
-      {
-        id: 9,
-        text: 'Os investimentos em obras de Petrolina variam de acordo com o tipo, porte e número de projetos executados. Para obter valores exatos e atualizados, recomendo consultar relatórios oficiais da Prefeitura ou portais da transparência.',
-        sender: 'assistant',
-        hour: '08:34'
-      },
-      {
-        id: 10,
-        text: 'Obrigado pelas informações!',
-        sender: 'user',
-        hour: '08:35'
-      },
-      {
-        id: 11,
-        text: 'De nada! Estou sempre à disposição para ajudar. Se tiver mais dúvidas sobre obras ou pavimentação, é só perguntar!',
-        sender: 'assistant',
-        hour: '08:35'
-      }
-    ];
-
-    this.messages = mockMessages;
   }
 
   get isChatEmpty(): boolean {
@@ -274,10 +198,16 @@ export class VoiceChatPage implements OnInit, AfterViewInit {
   sendMessage(event?: Event): void {
     event?.preventDefault();
 
+    console.log('🟡 VoiceChat - sendMessage chamado');
+
     const control = this.form.get('message');
     const text = (control?.value || '').toString().trim();
 
+    console.log('🟡 VoiceChat - Text:', text);
+    console.log('🟡 VoiceChat - selectedImage:', this.selectedImage);
+
     if (!text && !this.selectedImage) {
+      console.log('🟡 VoiceChat - Retornando: sem texto e sem imagem');
       return;
     }
 
@@ -312,9 +242,17 @@ export class VoiceChatPage implements OnInit, AfterViewInit {
     const prompt = text || '[Imagem enviada]';
     const history = this.messages.slice(-10);
 
+    console.log('🟢 VoiceChat - Chamando apiService.askQuestion');
+    console.log('🟢 VoiceChat - Prompt:', prompt);
+    console.log('🟢 VoiceChat - History:', history);
+
     this.apiService.askQuestion(prompt, history).subscribe({
-      next: (response) => this.handleAiResponse(response.data, assistantMessageIndex),
+      next: (response) => {
+        console.log('🟢 VoiceChat - Resposta recebida:', response);
+        this.handleAiResponse(response.data, assistantMessageIndex);
+      },
       error: (error) => {
+        console.error('🔴 VoiceChat - Erro na requisição:', error);
         // Remove o indicador de typing em caso de erro
         const message = this.messages[assistantMessageIndex];
         if (message) {
