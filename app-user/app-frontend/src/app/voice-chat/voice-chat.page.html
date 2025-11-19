@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="chat-content">
+<ion-content [fullscreen]="true" class="chat-content" [scrollEvents]="false">
   <section class="chat-window">
     @if (isChatEmpty) {
       <div class="conversation-hero">

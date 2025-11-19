@@ -1,6 +1,14 @@
 :host {
   ion-content {
     --background: linear-gradient(180deg, #f8faff 0%, #eef1f5 45%, #e3e7f0 100%);
+    
+    // Ajusta o inner-scroll para não empurrar o conteúdo para cima
+    .inner-scroll {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      min-height: 100%;
+    }
   }
 
   ion-toolbar {
@@ -17,15 +25,18 @@
 }
 
 .chat-content {
-  --padding-bottom: 170px;
+  --padding-bottom: 100px;
+  --keyboard-offset: 0px;
+  --offset-bottom: 0px;
 }
 
 .chat-window {
-  min-height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
+  min-height: 100%;
   gap: 20px;
-  padding: 28px 18px 190px;
+  padding: 28px 18px 0px;
 }
 
 .conversation-hero {
@@ -451,7 +462,7 @@
 
 @media (max-width: 600px) {
   .chat-window {
-    padding: 12px 12px 150px;
+    padding: 12px 12px 0px;
   }
 
   .bubble {

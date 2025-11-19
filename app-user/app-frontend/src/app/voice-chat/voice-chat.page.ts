@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -60,7 +60,7 @@ interface ChatMessage {
     MarkdownPipe
   ]
 })
-export class VoiceChatPage implements OnInit {
+export class VoiceChatPage implements OnInit, AfterViewInit {
   @ViewChild(IonContent, { static: false }) content?: IonContent;
   @ViewChild('messageInput', { static: false }) messageInput?: ElementRef<HTMLInputElement>;
   @ViewChild('imageInput', { static: false }) imageInput?: ElementRef<HTMLInputElement>;
@@ -94,6 +94,92 @@ export class VoiceChatPage implements OnInit {
     this.form = this.fb.nonNullable.group({
       message: ['']
     });
+    
+    // Mock de mensagens para simular uma conversa longa
+    this.loadMockMessages();
+  }
+
+  ngAfterViewInit(): void {
+    // Aguarda o view estar totalmente inicializado antes de fazer scroll
+    if (this.messages.length > 0) {
+      // Usa um delay maior para garantir que o ion-content esteja totalmente renderizado
+      setTimeout(() => {
+        this.scrollToBottom();
+      }, 500);
+    }
+  }
+
+  private loadMockMessages(): void {
+    const mockMessages: ChatMessage[] = [
+      {
+        id: 1,
+        text: 'Olá! Como posso ajudar você hoje?',
+        sender: 'assistant',
+        hour: '08:30'
+      },
+      {
+        id: 2,
+        text: 'Gostaria de saber sobre as obras em Petrolina',
+        sender: 'user',
+        hour: '08:31'
+      },
+      {
+        id: 3,
+        text: 'Claro! Posso te ajudar com informações sobre obras em Petrolina. Sobre qual tipo de obra você gostaria de saber?',
+        sender: 'assistant',
+        hour: '08:31'
+      },
+      {
+        id: 4,
+        text: 'Quero saber sobre pavimentação de ruas',
+        sender: 'user',
+        hour: '08:32'
+      },
+      {
+        id: 5,
+        text: 'A pavimentação de ruas em Petrolina é uma prioridade da administração municipal. Existem vários projetos em andamento para melhorar a infraestrutura viária da cidade.',
+        sender: 'assistant',
+        hour: '08:32'
+      },
+      {
+        id: 6,
+        text: 'Quais são os bairros que estão sendo pavimentados?',
+        sender: 'user',
+        hour: '08:33'
+      },
+      {
+        id: 7,
+        text: 'Atualmente, os trabalhos de pavimentação estão concentrados em vários bairros, incluindo áreas do centro e da periferia. Para informações específicas sobre seu bairro, recomendo consultar a Prefeitura de Petrolina.',
+        sender: 'assistant',
+        hour: '08:33'
+      },
+      {
+        id: 8,
+        text: 'E quanto ao investimento? Quanto está sendo gasto?',
+        sender: 'user',
+        hour: '08:34'
+      },
+      {
+        id: 9,
+        text: 'Os investimentos em obras de Petrolina variam de acordo com o tipo, porte e número de projetos executados. Para obter valores exatos e atualizados, recomendo consultar relatórios oficiais da Prefeitura ou portais da transparência.',
+        sender: 'assistant',
+        hour: '08:34'
+      },
+      {
+        id: 10,
+        text: 'Obrigado pelas informações!',
+        sender: 'user',
+        hour: '08:35'
+      },
+      {
+        id: 11,
+        text: 'De nada! Estou sempre à disposição para ajudar. Se tiver mais dúvidas sobre obras ou pavimentação, é só perguntar!',
+        sender: 'assistant',
+        hour: '08:35'
+      }
+    ];
+
+    this.messages = mockMessages;
   }
 
   get isChatEmpty(): boolean {
@@ -300,8 +386,24 @@ export class VoiceChatPage implements OnInit {
       return;
     }
 
-    requestAnimationFrame(() => {
-      this.content?.scrollToBottom(200);
-    });
+    // Verifica se o conteúdo está disponível antes de fazer scroll
+    try {
+      // Usa múltiplos requestAnimationFrame para garantir que o DOM esteja pronto
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (this.content) {
+            try {
+              this.content.scrollToBottom(200);
+            } catch (error) {
+              // Ignora erros se o conteúdo ainda não estiver totalmente inicializado
+              console.debug('Scroll não disponível ainda:', error);
+            }
+          }
+        });
+      });
+    } catch (error) {
+      // Ignora erros se o conteúdo ainda não estiver pronto
+      console.debug('Scroll não disponível ainda:', error);
+    }
   }
 }
