@@ -5,8 +5,12 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "dev:mock": "cross-env USE_MOCKS=true ts-node-dev --respawn --transpile-only src/index.ts",
+    "dev:real": "cross-env USE_MOCKS=false ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
+    "start:mock": "cross-env USE_MOCKS=true node dist/index.js",
+    "start:real": "cross-env USE_MOCKS=false node dist/index.js",
     "lint": "eslint src --ext .ts"
   },
   "keywords": [],
