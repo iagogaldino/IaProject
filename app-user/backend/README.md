@@ -7,7 +7,8 @@ Backend API for the app-user frontend application, built with Node.js and TypeSc
 - Express.js server
 - TypeScript support
 - CORS enabled
-- Mock endpoints for development
+- OpenAI Agents integration
+- SOLID principles architecture
 - RESTful API structure
 
 ## Installation
@@ -42,11 +43,32 @@ Run the production server:
 npm start
 ```
 
+## Architecture
+
+This backend follows **SOLID principles**:
+
+- **Single Responsibility**: Each service/class has one clear responsibility
+  - `AgentConfigService`: Manages agent configuration
+  - `WorkflowService`: Handles workflow execution
+  - `ResponseFormatterService`: Formats API responses
+  - `AskController`: Handles HTTP requests/responses
+
+- **Open/Closed**: Easy to extend with new agent types without modifying existing code
+
+- **Liskov Substitution**: Services implement interfaces that can be swapped
+
+- **Interface Segregation**: Focused interfaces (`IWorkflowService`, `IAgentConfigService`)
+
+- **Dependency Inversion**: High-level modules depend on abstractions (interfaces), not concrete implementations
+
 ## API Endpoints
 
 ### POST /ask
 
-Ask a question to the AI assistant (currently returns mock responses).
+Ask a question to the AI assistant. The system will:
+1. Classify the question into categories (sobre obras, sobre pavimentação, outros assuntos)
+2. Route to the appropriate agent based on classification
+3. Return the AI-generated response
 
 **Request Body:**
 ```json
@@ -62,9 +84,9 @@ Ask a question to the AI assistant (currently returns mock responses).
 **Response:**
 ```json
 {
-  "data": "Response text",
+  "data": "AI-generated response text",
   "userPrompt": "Your question",
-  "dbData": "Database data",
+  "dbData": "JSON string with metadata",
   "promtptToSend": "Processed prompt"
 }
 ```
@@ -87,23 +109,45 @@ Health check endpoint.
 ```
 backend/
 ├── src/
-│   ├── controllers/    # Request handlers
-│   ├── routes/         # Route definitions
-│   ├── middleware/     # Custom middleware
-│   ├── types/          # TypeScript type definitions
-│   └── index.ts        # Main server file
-├── dist/               # Compiled JavaScript (generated)
+│   ├── controllers/      # Request handlers (HTTP layer)
+│   ├── routes/           # Route definitions
+│   ├── services/         # Business logic services
+│   │   ├── AgentConfigService.ts      # Agent configuration
+│   │   ├── WorkflowService.ts         # Workflow execution
+│   │   └── ResponseFormatterService.ts # Response formatting
+│   ├── interfaces/       # TypeScript interfaces (abstractions)
+│   │   ├── IWorkflowService.ts
+│   │   └── IAgentConfigService.ts
+│   ├── middleware/       # Custom middleware
+│   ├── types/            # TypeScript type definitions
+│   └── index.ts          # Main server file
+├── dist/                 # Compiled JavaScript (generated)
 ├── package.json
 ├── tsconfig.json
 └── README.md
 ```
 
+## OpenAI Agents Integration
+
+The backend integrates with OpenAI Agents SDK:
+- **Classification Agent**: Categorizes user questions
+- **Obras Agent**: Handles questions about construction works
+- **Pavimentação Agent**: Handles questions about pavement (uses file search tool)
+- **Outros Assuntos Agent**: Handles other topics
+
+The workflow automatically routes questions to the appropriate agent based on classification.
+
 ## Environment Variables
 
-Create a `.env` file based on `.env.example`:
+Create a `.env` file in the `app-user/backend` directory with the following content:
 
 ```
+OPENAI_API_KEY=your-openai-api-key-here
 PORT=3000
 NODE_ENV=development
 ```
+
+**Important**: The `.env` file is gitignored for security. Make sure to create it manually with your OpenAI API key. You can use `.env.example` as a template.
+
+The `@openai/agents` library will automatically use the `OPENAI_API_KEY` environment variable.
 
