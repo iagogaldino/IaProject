@@ -212,18 +212,8 @@ export class VoiceChatPage implements OnInit {
     this.focusMessageInput();
     this.scrollToBottom();
 
-    const prompt = text || '[Imagem enviada]';
-    const history = this.messages.slice(-10);
-
-    this.apiService.askQuestion(prompt, history).subscribe({
-      next: (response) => this.handleAiResponse(response.data),
-      error: (error) => this.handleError(error)
-    });
-  }
-
-  private handleAiResponse(content: string): void {
-    const messageIndex = this.messages.length;
-
+    // Cria a mensagem do assistente com indicador de typing ANTES de receber a resposta
+    const assistantMessageIndex = this.messages.length;
     this.messages.push({
       id: Date.now() + 1,
       text: '',
@@ -233,17 +223,49 @@ export class VoiceChatPage implements OnInit {
     });
     this.scrollToBottom();
 
+    const prompt = text || '[Imagem enviada]';
+    const history = this.messages.slice(-10);
+
+    this.apiService.askQuestion(prompt, history).subscribe({
+      next: (response) => this.handleAiResponse(response.data, assistantMessageIndex),
+      error: (error) => {
+        // Remove o indicador de typing em caso de erro
+        const message = this.messages[assistantMessageIndex];
+        if (message) {
+          message.isTyping = false;
+        }
+        this.handleError(error);
+      }
+    });
+  }
+
+  private handleAiResponse(content: string, messageIndex: number): void {
+    const message = this.messages[messageIndex];
+    if (!message) {
+      return;
+    }
+
+    let isFirstCharacter = true;
+
+    // O indicador de typing já está ativo desde que a mensagem foi enviada
+    // Agora apenas processa o texto recebido
     this.typingEffectService.typeTextWithCallback(
       content,
       (partialText: string) => {
         const message = this.messages[messageIndex];
         if (message) {
+          // Desativa o indicador de typing assim que começar a receber o texto
+          if (isFirstCharacter && partialText.length > 0) {
+            message.isTyping = false;
+            isFirstCharacter = false;
+          }
           message.text = partialText;
           this.scrollToBottom();
         }
       },
       15,
       () => {
+        // Garante que o indicador está desativado ao finalizar
         const message = this.messages[messageIndex];
         if (message) {
           message.isTyping = false;
