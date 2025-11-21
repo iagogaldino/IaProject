@@ -39,12 +39,12 @@ export class ConversationService {
   public conversationHistory$ = this.conversationHistory.asObservable();
 
   constructor(private http: HttpClient) {
-    // Gerar sessionId ├║nico se n├úo existir
+    // Gerar sessionId único se não existir
     this.initializeSession();
   }
 
   /**
-   * Inicializa uma nova sess├úo de conversa
+   * Inicializa uma nova sessão de conversa
    */
   private initializeSession(): void {
     const existingSessionId = localStorage.getItem('conversation_session_id');
@@ -59,14 +59,14 @@ export class ConversationService {
   }
 
   /**
-   * Gera um ID ├║nico para a sess├úo
+   * Gera um ID único para a sessão
    */
   private generateSessionId(): string {
     return `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
   }
 
   /**
-   * Obt├⌐m o ID da sess├úo atual
+   * Obtém o ID da sessão atual
    */
   getCurrentSessionId(): string | null {
     return this.currentSessionId.value;
@@ -97,14 +97,14 @@ export class ConversationService {
 
     return this.http.post(`${this.API_URL}/ask`, body, { headers }).pipe(
       tap((response: any) => {
-        // Atualizar hist├│rico local
+        // Atualizar histórico local
         this.updateLocalHistory(prompt, response.data);
       })
     );
   }
 
   /**
-   * Carrega o hist├│rico de conversa do servidor
+   * Carrega o histórico de conversa do servidor
    */
   loadConversationHistory(sessionId: string): void {
     const headers = new HttpHeaders({
@@ -125,20 +125,20 @@ export class ConversationService {
           }
         },
         error: (error) => {
-          console.error('Erro ao carregar hist├│rico:', error);
+          console.error('Erro ao carregar histórico:', error);
         }
       });
   }
 
   /**
-   * Obt├⌐m o hist├│rico de conversa atual
+   * Obtém o histórico de conversa atual
    */
   getConversationHistory(): ConversationMessage[] {
     return this.conversationHistory.value;
   }
 
   /**
-   * Obt├⌐m resumo da conversa
+   * Obtém resumo da conversa
    */
   getConversationSummary(): Observable<ConversationSummary> {
     const sessionId = this.getCurrentSessionId();
@@ -156,7 +156,7 @@ export class ConversationService {
   }
 
   /**
-   * Obt├⌐m estat├¡sticas da conversa
+   * Obtém estatísticas da conversa
    */
   getConversationStats(): Observable<ConversationStats> {
     const sessionId = this.getCurrentSessionId();
@@ -202,7 +202,7 @@ export class ConversationService {
   }
 
   /**
-   * Limpa o hist├│rico da conversa
+   * Limpa o histórico da conversa
    */
   clearConversationHistory(): Observable<any> {
     const sessionId = this.getCurrentSessionId();
@@ -216,7 +216,7 @@ export class ConversationService {
 
     return this.http.delete(`${this.AI_API_URL}/api/conversations/${sessionId}/history`, { headers }).pipe(
       tap(() => {
-        // Limpar hist├│rico local
+        // Limpar histórico local
         this.conversationHistory.next([]);
       })
     );
@@ -233,7 +233,7 @@ export class ConversationService {
   }
 
   /**
-   * Atualiza o hist├│rico local com nova mensagem
+   * Atualiza o histórico local com nova mensagem
    */
   private updateLocalHistory(userPrompt: string, aiResponse: string): void {
     const currentHistory = this.conversationHistory.value;
@@ -257,7 +257,7 @@ export class ConversationService {
   }
 
   /**
-   * Adiciona uma mensagem ao hist├│rico local
+   * Adiciona uma mensagem ao histórico local
    */
   addMessageToHistory(message: ConversationMessage): void {
     const currentHistory = this.conversationHistory.value;
@@ -266,7 +266,7 @@ export class ConversationService {
   }
 
   /**
-   * Obt├⌐m mensagens recentes
+   * Obtém mensagens recentes
    */
   getRecentMessages(count: number = 10): ConversationMessage[] {
     const history = this.conversationHistory.value;
@@ -274,21 +274,21 @@ export class ConversationService {
   }
 
   /**
-   * Verifica se h├í mensagens na conversa
+   * Verifica se há mensagens na conversa
    */
   hasMessages(): boolean {
     return this.conversationHistory.value.length > 0;
   }
 
   /**
-   * Obt├⌐m o n├║mero total de mensagens
+   * Obtém o número total de mensagens
    */
   getMessageCount(): number {
     return this.conversationHistory.value.length;
   }
 
   /**
-   * Obt├⌐m a ├║ltima mensagem
+   * Obtém a última mensagem
    */
   getLastMessage(): ConversationMessage | null {
     const history = this.conversationHistory.value;

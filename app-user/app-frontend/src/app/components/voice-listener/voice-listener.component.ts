@@ -65,7 +65,7 @@ export class VoiceListenerComponent implements OnInit, OnDestroy {
       this.startAudioAnimation();
     } catch (error) {
       console.error('Error starting voice recording:', error);
-      alert('N├úo foi poss├¡vel acessar o microfone. Verifique as permiss├╡es.');
+      alert('Não foi possível acessar o microfone. Verifique as permissões.');
       this.isListening = false;
       this.listeningStateChange.emit(false);
     }
@@ -81,10 +81,10 @@ export class VoiceListenerComponent implements OnInit, OnDestroy {
   }
 
   private startAudioAnimation() {
-    this.stopAudioAnimation(); // Limpa qualquer anima├º├úo anterior
+    this.stopAudioAnimation(); // Limpa qualquer animação anterior
     
     this.animationInterval = setInterval(() => {
-      // Simula n├¡veis de ├íudio aleat├│rios mais realistas
+      // Simula níveis de áudio aleatórios mais realistas
       this.audioLevels = this.audioLevels.map(() => 
         Math.random() * 80 + 20 // Entre 20 e 100 para parecer mais natural
       );
@@ -96,7 +96,7 @@ export class VoiceListenerComponent implements OnInit, OnDestroy {
       clearInterval(this.animationInterval);
       this.animationInterval = null;
     }
-    // Reset n├¡veis de ├íudio
+    // Reset níveis de áudio
     this.audioLevels = [0, 0, 0, 0, 0];
   }
 }

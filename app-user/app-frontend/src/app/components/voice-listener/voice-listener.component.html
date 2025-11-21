@@ -1,9 +1,9 @@
 ﻿
 <div class="voice-listener-container">
-  <!-- C├¡rculo principal com ondas sonoras -->
+  <!-- Círculo principal com ondas sonoras -->
   <div class="voice-circle" [class.listening]="isListening">
     
-    <!-- Ondas de ├íudio animadas -->
+    <!-- Ondas de áudio animadas -->
     <div class="audio-waves" *ngIf="isListening">
       <div 
         *ngFor="let level of audioLevels; let i = index"
@@ -13,12 +13,12 @@
       </div>
     </div>
 
-    <!-- C├¡rculos conc├¬ntricos -->
+    <!-- Círculos concêntricos -->
     <div class="pulse-ring pulse-ring-1" [class.active]="isListening"></div>
     <div class="pulse-ring pulse-ring-2" [class.active]="isListening"></div>
     <div class="pulse-ring pulse-ring-3" [class.active]="isListening"></div>
 
-    <!-- Bot├úo central -->
+    <!-- Botão central -->
     <ion-button 
       (click)="toggleListening()"
       fill="clear"
@@ -30,7 +30,7 @@
       </ion-icon>
     </ion-button>
 
-    <!-- Part├¡culas flutuantes -->
+    <!-- Partículas flutuantes -->
     <div class="particles" *ngIf="isListening">
       <div class="particle" 
            *ngFor="let i of [1,2,3,4,5,6,7,8]"

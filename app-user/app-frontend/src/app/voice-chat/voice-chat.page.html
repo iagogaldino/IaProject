@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Conectlina</ion-title>
+    <ion-title>Conect Juju</ion-title>
     <ion-buttons slot="end">
       <ion-button fill="clear" (click)="goToSavedMessages()">
         <ion-icon name="library-outline"></ion-icon>
@@ -14,10 +14,10 @@
     @if (isChatEmpty) {
       <div class="conversation-hero">
         <div class="avatar">
-          <img src="assets/lina.jpeg" alt="Lina" />
+          <img src="assets/juju.jpeg" alt="Juju" />
         </div>
         <div>
-          <h2>Lina</h2>
+          <h2>Juju</h2>
           <p>Fale comigo sobre o que quiser.</p>
         </div>
       </div>
@@ -27,6 +27,7 @@
       @for (message of messages; track message.id) {
         <article
           class="message"
+          [attr.data-message-id]="message.id"
           [ngClass]="{
             'from-user': message.sender === 'user',
             'from-ai': message.sender === 'assistant',
@@ -35,7 +36,7 @@
         >
           @if (message.sender === 'assistant') {
             <div class="message-avatar">
-              <img src="assets/lina.jpeg" alt="Lina" />
+              <img src="assets/juju.jpeg" alt="Juju" />
             </div>
           }
 
@@ -77,10 +78,10 @@
                   size="small"
                   class="save-button"
                   type="button"
-                  (click)="saveMessage(message)"
+                  (click)="saveAndExportToPDF(message)"
                 >
-                  <ion-icon slot="start" name="bookmark-outline"></ion-icon>
-                  Salvar
+                  <ion-icon slot="start" name="document-text-outline"></ion-icon>
+                  Salvar em PDF
                 </ion-button>
               }
             </footer>

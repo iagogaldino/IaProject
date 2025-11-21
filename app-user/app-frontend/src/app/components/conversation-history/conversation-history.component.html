@@ -2,7 +2,7 @@
   <div class="conversation-history-container">
     <!-- Header -->
     <div class="header">
-      <h2>Hist├│rico da Conversa</h2>
+      <h2>Histórico da Conversa</h2>
       <div class="actions">
         <ion-button fill="outline" size="small" (click)="getConversationSummary()">
           <ion-icon name="document-text-outline"></ion-icon>
@@ -10,7 +10,7 @@
         </ion-button>
         <ion-button fill="outline" size="small" (click)="getConversationStats()">
           <ion-icon name="stats-chart-outline"></ion-icon>
-          Estat├¡sticas
+          Estatísticas
         </ion-button>
         <ion-button fill="outline" size="small" (click)="clearHistory()">
           <ion-icon name="trash-outline"></ion-icon>
@@ -49,7 +49,7 @@
               [class.assistant-icon]="isAssistantMessage(message)">
             </ion-icon>
             <span class="sender-name">
-              {{ isUserMessage(message) ? 'Voc├¬' : 'IA' }}
+              {{ isUserMessage(message) ? 'Você' : 'IA' }}
             </span>
           </div>
           <span class="timestamp">{{ formatTimestamp(message.timestamp) }}</span>
@@ -87,7 +87,7 @@
     <div class="empty-state" *ngIf="conversationHistory.length === 0">
       <ion-icon name="chatbubbles-outline" size="large"></ion-icon>
       <h3>Nenhuma conversa ainda</h3>
-      <p>Comece uma conversa com a IA para ver o hist├│rico aqui.</p>
+      <p>Comece uma conversa com a IA para ver o histórico aqui.</p>
       <ion-button fill="outline" (click)="startNewConversation()">
         <ion-icon name="add-outline"></ion-icon>
         Iniciar Conversa
@@ -97,7 +97,7 @@
     <!-- Loading State -->
     <div class="loading-state" *ngIf="conversationHistory.length === 0">
       <ion-spinner name="crescent"></ion-spinner>
-      <p>Carregando hist├│rico...</p>
+      <p>Carregando histórico...</p>
     </div>
   </div>
 </ion-content>

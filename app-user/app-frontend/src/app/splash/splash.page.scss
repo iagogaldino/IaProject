@@ -142,7 +142,7 @@
   }
 }
 
-// Container da Lina
+// Container da Juju
 .lina-container {
   position: absolute;
   top: 50%;
@@ -268,7 +268,7 @@
   }
 }
 
-// Personagem Lina
+// Personagem Juju
 .lina-character {
   position: relative;
   width: 320px;
@@ -439,7 +439,7 @@
     }
   }
   
-  // Triângulo do balão apontando para baixo (para a Lina)
+  // Triângulo do balão apontando para baixo (para a Juju)
   &::after {
     content: '';
     position: absolute;
@@ -630,7 +630,7 @@
   }
 }
 
-// Anima├º├╡es
+// Animações
 @keyframes linaFloat {
   0%, 100% {
     transform: translate(-50%, -50%) translateY(0);

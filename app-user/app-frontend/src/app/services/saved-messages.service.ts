@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 export interface SavedMessage {
   id: string;
@@ -158,7 +158,7 @@ export class SavedMessagesService {
         ).join('\n');
       
       case 'csv':
-        const headers = ['T├¡tulo', 'Data', 'Pergunta', 'Resposta', 'Categoria', 'Tags'];
+        const headers = ['Título', 'Data', 'Pergunta', 'Resposta', 'Categoria', 'Tags'];
         const rows = messages.map(msg => [
           msg.title,
           msg.timestamp.toLocaleString(),
@@ -206,16 +206,16 @@ export class SavedMessagesService {
   private categorizeMessage(question: string, response: string): string {
     const text = (question + ' ' + response).toLowerCase();
     
-    if (text.includes('relat├│rio') || text.includes('dados') || text.includes('estat├¡stica')) {
+    if (text.includes('relatório') || text.includes('dados') || text.includes('estatística')) {
       return 'Geral';
-    } else if (text.includes('or├ºamento') || text.includes('financeiro') || text.includes('custo')) {
+    } else if (text.includes('orçamento') || text.includes('financeiro') || text.includes('custo')) {
       return 'Financeiro';
-    } else if (text.includes('projeto') || text.includes('plano') || text.includes('estrat├⌐gia')) {
+    } else if (text.includes('projeto') || text.includes('plano') || text.includes('estratégia')) {
       return 'Projetos';
-    } else if (text.includes('reuni├úo') || text.includes('evento') || text.includes('agenda')) {
+    } else if (text.includes('reunião') || text.includes('evento') || text.includes('agenda')) {
       return 'Eventos';
     } else if (text.includes('legal') || text.includes('lei') || text.includes('regulamento')) {
-      return 'Jur├¡dico';
+      return 'Jurídico';
     } else {
       return 'Geral';
     }
@@ -226,13 +226,13 @@ export class SavedMessagesService {
     const tags: string[] = [];
     
     const tagKeywords = {
-      'urgente': ['urgente', 'emerg├¬ncia', 'prioridade'],
-      'importante': ['importante', 'cr├¡tico', 'essencial'],
-      'an├ílise': ['an├ílise', 'analisar', 'avalia├º├úo'],
-      'relat├│rio': ['relat├│rio', 'dados', 'estat├¡stica'],
-      'or├ºamento': ['or├ºamento', 'financeiro', 'custo'],
-      'projeto': ['projeto', 'plano', 'estrat├⌐gia'],
-      'reuni├úo': ['reuni├úo', 'evento', 'agenda'],
+      'urgente': ['urgente', 'emergência', 'prioridade'],
+      'importante': ['importante', 'crítico', 'essencial'],
+      'análise': ['análise', 'analisar', 'avaliação'],
+      'relatório': ['relatório', 'dados', 'estatística'],
+      'orçamento': ['orçamento', 'financeiro', 'custo'],
+      'projeto': ['projeto', 'plano', 'estratégia'],
+      'reunião': ['reunião', 'evento', 'agenda'],
       'legal': ['legal', 'lei', 'regulamento']
     };
 

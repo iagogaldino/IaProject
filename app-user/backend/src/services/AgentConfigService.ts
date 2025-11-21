@@ -37,7 +37,7 @@ export class AgentConfigService implements IAgentConfigService {
     // Initialize Analista sobre Obras
     this.analistaSobreObras = new Agent({
       name: 'Analista sobre obras',
-      instructions: `Fora realizadas as seguintes obras em Petrolina. 
+      instructions: `Fora realizadas as seguintes obras em Juazeiro. 
 
 Bairo 1: 25.000
 Bairro 2: 30.00
