@@ -61,7 +61,7 @@
           (ionChange)="onSortChange($event)"
           class="modern-select">
           <ion-select-option value="date">Data</ion-select-option>
-          <ion-select-option value="title">T├¡tulo</ion-select-option>
+          <ion-select-option value="title">Título</ion-select-option>
           <ion-select-option value="category">Categoria</ion-select-option>
         </ion-select>
       </div>
@@ -114,6 +114,13 @@
             </div>
             
             <div class="header-actions">
+              <ion-button 
+                fill="clear" 
+                size="small"
+                (click)="exportToPDF(message); $event.stopPropagation()"
+                class="action-button">
+                <ion-icon name="document-text-outline" color="primary"></ion-icon>
+              </ion-button>
               <ion-button 
                 fill="clear" 
                 size="small"
@@ -172,14 +179,14 @@
   <div *ngIf="filteredMessages.length === 0" class="empty-state">
     <div class="empty-state-content">
       <div class="empty-icon">
-        <ion-icon name="document-text" size="large" color="medium"></ion-icon>
+        <ion-icon name="documentText" size="large" color="medium"></ion-icon>
       </div>
       <h2>Nenhuma mensagem encontrada</h2>
       <p *ngIf="searchQuery || selectedCategory !== 'all' || showFavoritesOnly">
         Tente ajustar os filtros para encontrar suas mensagens.
       </p>
       <p *ngIf="!searchQuery && selectedCategory === 'all' && !showFavoritesOnly">
-        Comece salvando algumas mensagens da IA para v├¬-las aqui.
+        Comece salvando algumas mensagens da IA para vê-las aqui.
       </p>
       <ion-button 
         *ngIf="searchQuery || selectedCategory !== 'all' || showFavoritesOnly"
@@ -197,20 +204,29 @@
   </ion-infinite-scroll>
 </ion-content>
 
-<!-- Enhanced FAB -->
+<!-- Enhanced FAB - Comentado para uso futuro -->
+<!--
 <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-  <ion-fab-button color="primary">
+  <ion-fab-button color="primary" class="fab-main">
     <ion-icon name="ellipsis-horizontal"></ion-icon>
   </ion-fab-button>
-  <ion-fab-list side="top">
-    <ion-fab-button (click)="exportMessages('json')" color="success">
+  <ion-fab-list side="top" class="fab-list">
+    <ion-fab-button (click)="exportAllToPDF()" color="danger" class="fab-item">
+      <ion-icon name="print-outline"></ion-icon>
+      <ion-label class="fab-label">Exportar PDF</ion-label>
+    </ion-fab-button>
+    <ion-fab-button (click)="exportMessages('json')" color="success" class="fab-item">
       <ion-icon name="download"></ion-icon>
+      <ion-label class="fab-label">Exportar JSON</ion-label>
     </ion-fab-button>
-    <ion-fab-button (click)="exportMessages('txt')" color="medium">
-      <ion-icon name="document-text"></ion-icon>
+    <ion-fab-button (click)="exportMessages('txt')" color="medium" class="fab-item">
+      <ion-icon name="document-text-outline"></ion-icon>
+      <ion-label class="fab-label">Exportar TXT</ion-label>
     </ion-fab-button>
-    <ion-fab-button (click)="exportMessages('csv')" color="tertiary">
+    <ion-fab-button (click)="exportMessages('csv')" color="tertiary" class="fab-item">
       <ion-icon name="grid"></ion-icon>
+      <ion-label class="fab-label">Exportar CSV</ion-label>
     </ion-fab-button>
   </ion-fab-list>
 </ion-fab>
+-->

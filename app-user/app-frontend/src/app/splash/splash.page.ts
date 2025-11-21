@@ -13,7 +13,7 @@ import { TypingEffectService } from '../services/typing-effect.service';
 })
 export class SplashPage implements OnInit {
 
-  mensagemCompleta = 'Olá, meu prefeito! Seja muito bem-vindo ao CONECTLINA. Eu sou a Lina e estou aqui para facilitar sua vida, tirando todas as suas dúvidas sobre a sua gestão. Como posso ajudá-lo hoje?';
+  mensagemCompleta = 'Olá, meu prefeito! Seja muito bem-vindo ao CONECT Juju. Eu sou a Juju e estou aqui para facilitar sua vida, tirando todas as suas dúvidas sobre a sua gestão. Como posso ajudá-lo hoje?';
   mensagemExibida = '';
 
   constructor(

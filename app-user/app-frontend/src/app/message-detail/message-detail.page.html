@@ -30,7 +30,7 @@
           <ion-textarea 
             *ngIf="isEditing"
             [(ngModel)]="editTitle"
-            placeholder="T├¡tulo da mensagem"
+            placeholder="Título da mensagem"
             rows="1"
             auto-grow="true">
           </ion-textarea>
@@ -111,7 +111,7 @@
       <ion-textarea 
         *ngIf="isEditing"
         [(ngModel)]="editContent"
-        placeholder="Conte├║do da resposta"
+        placeholder="Conteúdo da resposta"
         rows="10"
         auto-grow="true">
       </ion-textarea>
@@ -168,5 +168,5 @@
 <!-- Copy Success Toast -->
 <div *ngIf="copySuccess" class="copy-success">
   <ion-icon name="checkmark-circle" color="success"></ion-icon>
-  <span>Copiado para a ├írea de transfer├¬ncia!</span>
+  <span>Copiado para a área de transferência!</span>
 </div>

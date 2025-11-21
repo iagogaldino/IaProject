@@ -143,7 +143,7 @@ export class MessageDetailPage implements OnInit {
       'Financeiro': 'success',
       'Projetos': 'warning',
       'Eventos': 'secondary',
-      'Jur├¡dico': 'danger',
+      'Jurídico': 'danger',
       'Geral': 'medium'
     };
     return colors[category] || 'medium';

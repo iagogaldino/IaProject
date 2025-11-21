@@ -15,15 +15,19 @@ import { addIcons } from 'ionicons';
 import {
   bookmarkOutline,
   close,
+  documentTextOutline,
   imageOutline,
   libraryOutline,
   micOutline,
   send
 } from 'ionicons/icons';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 import { ApiService } from '../services/api.service';
 import { SavedMessagesService } from '../services/saved-messages.service';
 import { TypingEffectService } from '../services/typing-effect.service';
 import { MarkdownPipe } from '../pipes/markdown.pipe';
+import { marked } from 'marked';
 
 interface Window {
   webkitSpeechRecognition: any;
@@ -81,6 +85,7 @@ export class VoiceChatPage implements OnInit, AfterViewInit {
     addIcons({
       bookmarkOutline,
       close,
+      documentTextOutline,
       imageOutline,
       libraryOutline,
       micOutline,
@@ -163,6 +168,166 @@ export class VoiceChatPage implements OnInit, AfterViewInit {
     if (userMessage && userMessage.sender === 'user') {
       this.savedMessagesService.saveMessage(userMessage.text, message.text);
     }
+  }
+
+  async saveAndExportToPDF(message: ChatMessage): Promise<void> {
+    if (message.sender !== 'assistant') {
+      return;
+    }
+
+    // Primeiro, salva a mensagem (mantém funcionalidade original)
+    this.saveMessage(message);
+
+    try {
+      // Encontra o elemento da mensagem no DOM
+      const messageElement = document.querySelector(`[data-message-id="${message.id}"]`);
+      
+      if (!messageElement) {
+        console.error('Elemento da mensagem não encontrado');
+        return;
+      }
+
+      // Cria um elemento temporário para renderizar o conteúdo do PDF
+      const pdfContainer = document.createElement('div');
+      pdfContainer.style.position = 'absolute';
+      pdfContainer.style.left = '-9999px';
+      pdfContainer.style.width = '210mm'; // A4 width
+      pdfContainer.style.padding = '20mm';
+      pdfContainer.style.backgroundColor = '#ffffff';
+      pdfContainer.style.fontFamily = 'Arial, sans-serif';
+      pdfContainer.style.color = '#000000';
+
+      // Adiciona o título
+      const title = document.createElement('h1');
+      title.textContent = 'Conect Juju - Informações';
+      title.style.fontSize = '24px';
+      title.style.marginBottom = '20px';
+      title.style.color = '#0056A6';
+      pdfContainer.appendChild(title);
+
+      // Adiciona a pergunta do usuário (se disponível)
+      const currentIndex = this.messages.indexOf(message);
+      const userMessage = this.messages[currentIndex - 1];
+      
+      if (userMessage && userMessage.sender === 'user') {
+        const questionDiv = document.createElement('div');
+        questionDiv.style.marginBottom = '15px';
+        questionDiv.style.padding = '10px';
+        questionDiv.style.backgroundColor = '#f5f5f5';
+        questionDiv.style.borderRadius = '5px';
+        
+        const questionLabel = document.createElement('strong');
+        questionLabel.textContent = 'Pergunta: ';
+        questionLabel.style.color = '#0056A6';
+        questionDiv.appendChild(questionLabel);
+        
+        const questionText = document.createElement('span');
+        questionText.textContent = userMessage.text;
+        questionDiv.appendChild(questionText);
+        
+        pdfContainer.appendChild(questionDiv);
+      }
+
+      // Adiciona a resposta (conteúdo markdown convertido para HTML simples)
+      const responseDiv = document.createElement('div');
+      responseDiv.style.marginTop = '20px';
+      responseDiv.style.lineHeight = '1.6';
+      
+      // Converte markdown para HTML simples
+      const markdownText = message.text;
+      const htmlContent = this.convertMarkdownToHTML(markdownText);
+      responseDiv.innerHTML = htmlContent;
+      
+      pdfContainer.appendChild(responseDiv);
+
+      // Adiciona data/hora
+      const dateDiv = document.createElement('div');
+      dateDiv.style.marginTop = '30px';
+      dateDiv.style.paddingTop = '15px';
+      dateDiv.style.borderTop = '1px solid #e0e0e0';
+      dateDiv.style.fontSize = '12px';
+      dateDiv.style.color = '#666666';
+      dateDiv.textContent = `Gerado em: ${new Date().toLocaleString('pt-BR')}`;
+      pdfContainer.appendChild(dateDiv);
+
+      // Adiciona ao DOM temporariamente
+      document.body.appendChild(pdfContainer);
+
+      // Gera o canvas a partir do HTML
+      const canvas = await html2canvas(pdfContainer, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#ffffff',
+        logging: false
+      });
+
+      // Remove o elemento temporário
+      document.body.removeChild(pdfContainer);
+
+      // Cria o PDF
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      
+      const imgWidth = 210; // A4 width in mm
+      const pageHeight = 297; // A4 height in mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      // Adiciona a primeira página
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      // Adiciona páginas adicionais se necessário
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      // Gera o nome do arquivo
+      const fileName = `conect-juju-${new Date().getTime()}.pdf`;
+      
+      // Salva o PDF
+      pdf.save(fileName);
+
+      console.log('PDF gerado com sucesso:', fileName);
+    } catch (error) {
+      console.error('Erro ao gerar PDF:', error);
+      // Em caso de erro, apenas salva a mensagem
+    }
+  }
+
+  private convertMarkdownToHTML(markdown: string): string {
+    // Configura o marked
+    marked.setOptions({
+      breaks: true,
+      gfm: true
+    });
+
+    // Usa a biblioteca marked para converter markdown para HTML
+    const result = marked.parse(markdown);
+    let html = typeof result === 'string' ? result : String(result);
+    
+    // Adiciona estilos aos elementos HTML gerados
+    html = html
+      // Estiliza títulos
+      .replace(/<h1>/gim, '<h1 style="font-size: 20px; color: #0056A6; margin-top: 15px; margin-bottom: 10px; font-weight: bold;">')
+      .replace(/<h2>/gim, '<h2 style="font-size: 18px; color: #0056A6; margin-top: 12px; margin-bottom: 8px; font-weight: bold;">')
+      .replace(/<h3>/gim, '<h3 style="font-size: 16px; color: #0056A6; margin-top: 10px; margin-bottom: 6px; font-weight: bold;">')
+      // Estiliza parágrafos
+      .replace(/<p>/gim, '<p style="margin: 8px 0; line-height: 1.6;">')
+      // Estiliza listas
+      .replace(/<ul>/gim, '<ul style="margin: 10px 0; padding-left: 20px;">')
+      .replace(/<ol>/gim, '<ol style="margin: 10px 0; padding-left: 20px;">')
+      .replace(/<li>/gim, '<li style="margin-bottom: 5px;">')
+      // Estiliza negrito
+      .replace(/<strong>/gim, '<strong style="font-weight: bold; color: #0056A6;">')
+      // Estiliza código
+      .replace(/<code>/gim, '<code style="background-color: #f5f5f5; padding: 2px 4px; border-radius: 3px; font-family: monospace;">');
+
+    return html;
   }
 
   private setupSpeechRecognition(): void {
